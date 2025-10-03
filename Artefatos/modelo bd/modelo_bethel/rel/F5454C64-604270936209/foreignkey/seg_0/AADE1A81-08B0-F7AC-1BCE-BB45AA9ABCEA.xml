@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="AADE1A81-08B0-F7AC-1BCE-BB45AA9ABCEA" containerWithKeyObject="E8FAABC4-1D56-7A3B-61B5-37AF459F0778" localFKIndex="0F11A539-9EC2-17B8-C4B4-D0527EE1998B" name="PASSEIO_PASSEIO_DESCRICAO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>798106BB-C3C5-A1AF-2903-BADFFAA5099C</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>PASSEIO_DESCRICAO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F9B04E99-265F-B494-0F42-8BBEE2AA6A74</referredTableID>
+<keyObject>1677D89A-6970-93F3-F5E1-5921FD1E6FBD</keyObject>
+<referredKeyID>1677D89A-6970-93F3-F5E1-5921FD1E6FBD</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>PASSEIO_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

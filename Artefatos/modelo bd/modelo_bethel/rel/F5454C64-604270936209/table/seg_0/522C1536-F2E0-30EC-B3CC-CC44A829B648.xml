@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="522C1536-F2E0-30EC-B3CC-CC44A829B648" name="R_DIAS_OFICINA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ofc_id" id="23B88014-4BE4-0433-B7AF-CA4F848AFD3F">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F56F8D84-2AA6-AEE2-BD7B-380E16AE9F02" referredColumn="38057105-EEE3-4B05-0E22-AFEC6B62A9AC"/>
+</associations>
+</Column>
+<Column name="dia_id" id="5BBAFAD7-B434-4F08-96D8-16ECA7AE476D">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5D6378B7-8E68-B6B8-0CF9-824158BC7AD5" referredColumn="60EDAA64-08FD-C6E1-7381-2883D381C303"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8618F396-4021-10AC-6343-378DC5512223" name="R_DIAS_OFICINA_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="23B88014-4BE4-0433-B7AF-CA4F848AFD3F"/>
+<colUsage columnID="5BBAFAD7-B434-4F08-96D8-16ECA7AE476D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="19EA76F7-9C51-13C6-882C-7B9DB8E1E502" name="R_DIAS_OFICINA_OFICINA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<generatorID>C3F5D719-90E5-500B-E88E-EBC8F4ECE279</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="23B88014-4BE4-0433-B7AF-CA4F848AFD3F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A6E6DB81-735A-B16B-F67F-7C53C5749711" name="R_DIAS_OFICINA_DIAS_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<generatorID>C3F5D719-90E5-500B-E88E-EBC8F4ECE279</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5BBAFAD7-B434-4F08-96D8-16ECA7AE476D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

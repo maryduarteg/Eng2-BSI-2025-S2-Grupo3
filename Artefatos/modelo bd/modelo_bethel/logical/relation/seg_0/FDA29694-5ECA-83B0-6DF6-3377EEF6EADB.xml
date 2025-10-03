@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PESSOA ENDERECO FK" directorySegmentName="seg_0" id="FDA29694-5ECA-83B0-6DF6-3377EEF6EADB">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:10:56 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>5A1B7504-3536-1E0A-9EA5-25F0221B0B30</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>5295B988-5CB3-5F51-A7FC-169A21D3F54D</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EAD333F3-B26D-15F4-5CF4-44E3E91BFF90</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

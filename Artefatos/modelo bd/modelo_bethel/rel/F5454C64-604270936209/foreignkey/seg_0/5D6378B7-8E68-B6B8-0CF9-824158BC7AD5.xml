@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="5D6378B7-8E68-B6B8-0CF9-824158BC7AD5" containerWithKeyObject="522C1536-F2E0-30EC-B3CC-CC44A829B648" localFKIndex="A6E6DB81-735A-B16B-F67F-7C53C5749711" name="R_DIAS_OFICINA_DIAS_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:37:19 UTC</createdTime>
+<generatorID>C3F5D719-90E5-500B-E88E-EBC8F4ECE279</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>DIAS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>D893B2EF-EBD8-A19F-936B-B705D5E7A73E</referredTableID>
+<keyObject>DBC05A44-F4AD-5CE6-703A-8C835221D5D5</keyObject>
+<referredKeyID>DBC05A44-F4AD-5CE6-703A-8C835221D5D5</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>dia_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

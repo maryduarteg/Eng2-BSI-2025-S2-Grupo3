@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BC9D1CF0-606A-D331-BD73-AE4D0D93B128" name="PROFESSOR">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>D4393C8F-42BC-97C2-4790-8CF1C654FA2C</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="prof_id" id="A797C0CA-FF28-EEDA-FF6B-71BB3E4A6DC0">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>FC7DCF09-E111-9960-D53B-6B6C25DD33D9</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prof_matricula" id="B17BC436-408B-A6D2-1B89-5FC1CE4A1BFA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>E9857C68-4432-260A-3CE9-C146631ADF68</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_id" id="6CD057EB-5DF0-2E52-6B5E-1A9E787C140B">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>37DE5047-6286-AF05-B5C2-CF91DFAD6430</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A2985DB8-4405-E916-61B7-F5B10ECAF2B6" referredColumn="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="56E48E25-1842-C6E5-E254-F805D61B824D" name="PROFESSOR_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>08ECD425-50C1-7BF1-F684-9A691D170B37</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A797C0CA-FF28-EEDA-FF6B-71BB3E4A6DC0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F4F73340-0104-7DDD-DCE5-8DD6A74D9459" name="PROFESSOR_PESSOA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>D7D3BD40-1279-49BE-2117-2174A29D702E</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6CD057EB-5DF0-2E52-6B5E-1A9E787C140B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

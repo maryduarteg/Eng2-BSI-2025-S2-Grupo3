@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7FD2BEA2-CFA7-1F07-A7F5-D7D50E2D2EB8" name="R_ALUNO_OFICINA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="alu_id" id="A54258FC-EF15-4F78-0B66-AFFE4D41217E">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BAA11EC6-010D-6830-788F-3585DACBB255" referredColumn="6B8980F0-D0D0-BC4D-74A0-0D5467B0D414"/>
+</associations>
+</Column>
+<Column name="ofc_id" id="E599B8D8-3FA9-BA2D-824A-527A2A973DDE">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EFE6E599-00CD-FF43-3291-AA55E94E6D8C" referredColumn="38057105-EEE3-4B05-0E22-AFEC6B62A9AC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EB1A8AEF-25AD-9733-FB61-44B813C0292B" name="R_ALUNO_OFICINA_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A54258FC-EF15-4F78-0B66-AFFE4D41217E"/>
+<colUsage columnID="E599B8D8-3FA9-BA2D-824A-527A2A973DDE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B0C2E520-B5D4-0E98-4093-CB0AB4809838" name="R_ALUNO_OFICINA_ALUNO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<generatorID>199EFBE7-ED1A-1700-A781-21A7D6E59493</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A54258FC-EF15-4F78-0B66-AFFE4D41217E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8CE2D28F-000F-4D32-C984-90C0069AA4AC" name="R_ALUNO_OFICINA_OFICINA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<generatorID>199EFBE7-ED1A-1700-A781-21A7D6E59493</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E599B8D8-3FA9-BA2D-824A-527A2A973DDE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

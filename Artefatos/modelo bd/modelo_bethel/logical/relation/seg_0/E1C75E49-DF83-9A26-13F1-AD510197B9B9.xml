@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PRESENCA_PASSEIO_PASSEIO_FK" directorySegmentName="seg_0" id="E1C75E49-DF83-9A26-13F1-AD510197B9B9">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:43 UTC</createdTime>
+<generatorID>039722D6-DD28-FF59-3DBE-7C2088C48466</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useSurrogateKey>true</useSurrogateKey>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A14ADC12-413F-B615-3372-D73D2E8FC9C6</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EEE29037-3ED1-B0A8-DCEE-16E69E1DCCA5</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="415D4A1D-4214-5BDB-7819-749FC21FFDEC" name="ESTADO">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:06:11 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="est uf 1" id="42FBD0E8-6112-A95B-9631-0283CD91EBF8">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:06:32 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="est nome" id="838EF9DB-9A85-F6AD-CF87-1AB878D24FD5">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:06:54 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="est id" id="E33B48EB-FF28-D2C4-5F05-6AB71656A5DA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:42 UTC</createdTime>
+<generatorID>F1834E6A-692A-0A62-12DC-3D8ABEDA2345</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C1AE9767-70E7-E46B-C2EF-83AD87521C64" name="ESTADO_PK">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:06:38 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E33B48EB-FF28-D2C4-5F05-6AB71656A5DA</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="modelo_bethel" id="0DEC44DF-B38F-3C5B-BCED-282E2F8A1540" version="3.5">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:16:40 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>0DEC44DF-B38F-3C5B-BCED-282E2F8A1540</designId>
+</OSDM_Design>
