@@ -1,12 +1,12 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="522C1536-F2E0-30EC-B3CC-CC44A829B648" name="R_DIAS_OFICINA">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="522C1536-F2E0-30EC-B3CC-CC44A829B648" name="R_DIAS_OFICINA">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:37:19 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="ofc_id" id="23B88014-4BE4-0433-B7AF-CA4F848AFD3F">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:37:19 UTC</createdTime>
@@ -36,7 +36,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="8618F396-4021-10AC-6343-378DC5512223" name="R_DIAS_OFICINA_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:37:19 UTC</createdTime>

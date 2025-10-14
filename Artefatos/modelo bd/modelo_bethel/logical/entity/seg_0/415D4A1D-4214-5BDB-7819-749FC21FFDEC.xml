@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="415D4A1D-4214-5BDB-7819-749FC21FFDEC" name="ESTADO">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="415D4A1D-4214-5BDB-7819-749FC21FFDEC" name="ESTADO">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:06:11 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="est uf 1" id="42FBD0E8-6112-A95B-9631-0283CD91EBF8">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:06:32 UTC</createdTime>
@@ -56,7 +56,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="C1AE9767-70E7-E46B-C2EF-83AD87521C64" name="ESTADO_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:06:38 UTC</createdTime>

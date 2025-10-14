@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="R_PROFESSOR_PESSOA" directorySegmentName="seg_0" id="D7D3BD40-1279-49BE-2117-2174A29D702E">
+<Relation class="oracle.dbtools.crest.proj_mvc.model.design.logical.Relation" name="R_PROFESSOR_PESSOA" directorySegmentName="seg_0" id="D7D3BD40-1279-49BE-2117-2174A29D702E">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 12:57:21 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>

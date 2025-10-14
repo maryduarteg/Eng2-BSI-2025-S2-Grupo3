@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B4C40089-12B1-F006-6254-CB1AA89FE0A4" name="ALUNO">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="B4C40089-12B1-F006-6254-CB1AA89FE0A4" name="ALUNO">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:25:28 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="alu id" id="28768ED0-D71B-4D63-F78D-03E437DEB794">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:25:36 UTC</createdTime>
@@ -153,7 +153,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="2AE52A0F-9211-9FEF-82DC-A302C8585D2D" name="ALUNO_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:25:58 UTC</createdTime>

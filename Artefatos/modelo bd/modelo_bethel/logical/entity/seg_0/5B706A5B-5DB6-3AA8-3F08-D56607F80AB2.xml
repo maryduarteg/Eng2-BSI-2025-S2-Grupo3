@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5B706A5B-5DB6-3AA8-3F08-D56607F80AB2" name="TELEFONE">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="5B706A5B-5DB6-3AA8-3F08-D56607F80AB2" name="TELEFONE">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:35:12 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="tel id" id="B4B14F52-16E7-9316-9269-A51F8169DD80">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:35:21 UTC</createdTime>
@@ -56,7 +56,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="17D50B49-33C8-7C6C-03C1-AAD7BDD47455" name="TELEFONE_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:40:51 UTC</createdTime>

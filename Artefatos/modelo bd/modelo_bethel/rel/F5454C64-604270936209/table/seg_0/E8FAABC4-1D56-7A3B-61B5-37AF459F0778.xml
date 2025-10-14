@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E8FAABC4-1D56-7A3B-61B5-37AF459F0778" name="PASSEIO">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="E8FAABC4-1D56-7A3B-61B5-37AF459F0778" name="PASSEIO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>
 <generatorID>A14ADC12-413F-B615-3372-D73D2E8FC9C6</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="pas_id" id="13D27D43-12D3-F6ED-4655-1ADEB29094AC">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>
@@ -82,7 +82,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="5D9B5AB4-5C14-92EB-4605-70BF10603385" name="PASSEIO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>

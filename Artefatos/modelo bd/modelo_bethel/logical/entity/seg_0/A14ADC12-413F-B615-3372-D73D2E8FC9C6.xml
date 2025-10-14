@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A14ADC12-413F-B615-3372-D73D2E8FC9C6" name="PASSEIO">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="A14ADC12-413F-B615-3372-D73D2E8FC9C6" name="PASSEIO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:16:54 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="pas id" id="3558B958-A14F-7A25-3212-03090E54ADBE">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:17:02 UTC</createdTime>

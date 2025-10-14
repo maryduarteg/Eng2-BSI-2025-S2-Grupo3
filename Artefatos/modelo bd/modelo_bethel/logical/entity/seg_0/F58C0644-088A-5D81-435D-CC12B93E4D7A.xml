@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F58C0644-088A-5D81-435D-CC12B93E4D7A" name="USUARIO">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="F58C0644-088A-5D81-435D-CC12B93E4D7A" name="USUARIO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:24:19 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="usr id" id="712F402A-DBD7-5344-34E9-62A24AF4E758">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:24:26 UTC</createdTime>
@@ -80,7 +80,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="CB2A5EC6-9F39-6490-AE30-1293C30C8C4A" name="USUARIO PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:36:43 UTC</createdTime>

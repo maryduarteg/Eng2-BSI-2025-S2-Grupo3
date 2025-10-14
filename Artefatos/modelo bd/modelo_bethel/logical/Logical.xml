@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="2AC23A70-292D-5721-589E-8D25B86224F5" mainViewID="BF94B082-7EB5-832A-CAD6-4155A2E37FCB">
+<LogicalDesign class="oracle.dbtools.crest.proj_mvc.model.design.logical.LogicalDesign" name="Logical" id="2AC23A70-292D-5721-589E-8D25B86224F5" mainViewID="BF94B082-7EB5-832A-CAD6-4155A2E37FCB">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:16:40 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>

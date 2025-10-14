@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="D4393C8F-42BC-97C2-4790-8CF1C654FA2C" name="PROFESSOR">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="D4393C8F-42BC-97C2-4790-8CF1C654FA2C" name="PROFESSOR">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 12:49:24 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="prof_id" id="FC7DCF09-E111-9960-D53B-6B6C25DD33D9">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 12:49:36 UTC</createdTime>
@@ -56,7 +56,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="08ECD425-50C1-7BF1-F684-9A691D170B37" name="PROFESSOR PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 12:49:49 UTC</createdTime>

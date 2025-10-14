@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E20D5D18-FC17-9788-8944-63A9241E55B6" name="TELEFONE">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="E20D5D18-FC17-9788-8944-63A9241E55B6" name="TELEFONE">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
 <generatorID>5B706A5B-5DB6-3AA8-3F08-D56607F80AB2</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="tel_id" id="52AD1EB2-DCEF-2344-CC73-F8208DE592BD">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
@@ -48,7 +48,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="3D8A5020-CEEB-311F-C2E0-444E22DD906D" name="TELEFONE_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
