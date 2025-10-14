@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2895D40E-EE7D-E586-CCE2-11F6F608003D" name="CATEGORIA_USUARIO">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="2895D40E-EE7D-E586-CCE2-11F6F608003D" name="CATEGORIA_USUARIO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>
 <generatorID>4536F005-2183-8771-4AB7-E4BDF4B980FF</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="ctsr_id" id="3CDA5A6D-2316-E93F-A347-425710AE2532">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>
@@ -33,7 +33,7 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="F206DDE9-F195-B6CC-47A9-FE97A63AAF89" name="CATEGORIA_USUARIO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 03:49:53 UTC</createdTime>

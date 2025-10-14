@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="EAD333F3-B26D-15F4-5CF4-44E3E91BFF90" name="PESSOA">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="EAD333F3-B26D-15F4-5CF4-44E3E91BFF90" name="PESSOA">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:17:02 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="pes id" id="1560ADE1-02FD-6021-A46B-854ABA612191">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:17:46 UTC</createdTime>
@@ -97,7 +97,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="C3F7769E-FDAD-90FE-3772-6F7A018D60DF" name="PESSOA_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:18:53 UTC</createdTime>

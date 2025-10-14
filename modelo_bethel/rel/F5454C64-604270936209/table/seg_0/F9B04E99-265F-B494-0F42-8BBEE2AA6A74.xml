@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F9B04E99-265F-B494-0F42-8BBEE2AA6A74" name="PASSEIO_DESCRICAO">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="F9B04E99-265F-B494-0F42-8BBEE2AA6A74" name="PASSEIO_DESCRICAO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:37:48 UTC</createdTime>
 <generatorID>F32946CA-EDB0-661F-6C6C-15E5FCA8D500</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="pde_id" id="20B44A7D-27B7-62F1-4F11-B89BFE84C6DF">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:37:48 UTC</createdTime>
@@ -33,7 +33,7 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="1677D89A-6970-93F3-F5E1-5921FD1E6FBD" name="PASSEIO_DESCRICAO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:37:48 UTC</createdTime>

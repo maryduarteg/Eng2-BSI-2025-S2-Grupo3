@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="17680C69-246B-A49D-B4B7-7C12A1CFDAD8" name="ALUNO">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="17680C69-246B-A49D-B4B7-7C12A1CFDAD8" name="ALUNO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
 <generatorID>B4C40089-12B1-F006-6254-CB1AA89FE0A4</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="alu_id" id="6B8980F0-D0D0-BC4D-74A0-0D5467B0D414">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
@@ -138,7 +138,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="B6487234-1985-149C-B9E2-1D79B19C956B" name="ALUNO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>

@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="FF8F007A-ABA5-5432-C2B5-F5E6D236DBCA" name="CIDADE">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="FF8F007A-ABA5-5432-C2B5-F5E6D236DBCA" name="CIDADE">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:05:01 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="cid id" id="E83DC3C8-BB84-A51C-1663-A30FB616103B">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:05:10 UTC</createdTime>
@@ -56,7 +56,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="3E7E2364-A536-9B1D-6889-22A0C2F4B15A" name="CIDADE_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 17:05:39 UTC</createdTime>

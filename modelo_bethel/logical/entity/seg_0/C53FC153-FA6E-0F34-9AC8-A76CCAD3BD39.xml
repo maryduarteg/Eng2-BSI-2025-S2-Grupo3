@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C53FC153-FA6E-0F34-9AC8-A76CCAD3BD39" name="PRESENCA OFICINA">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="C53FC153-FA6E-0F34-9AC8-A76CCAD3BD39" name="PRESENCA OFICINA">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:36:42 UTC</createdTime>
 <generatorID>528487E4-0189-FC74-866C-721E69A83955</generatorID>
@@ -15,7 +15,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="po id" id="042D91D7-D5D6-EC62-3BE9-CDBBD02D3AFF">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-23 12:36:42 UTC</createdTime>
@@ -70,7 +70,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="255461FF-530F-F5C7-C1E5-04C8B2BE8961" name="PRESENCA OFICINA PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 12:49:16 UTC</createdTime>

@@ -1,12 +1,12 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7160F10D-922D-29A0-3507-9A954CF4E1C8" name="R_PROFESSOR_PASSEIO">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="7160F10D-922D-29A0-3507-9A954CF4E1C8" name="R_PROFESSOR_PASSEIO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="prof_id" id="A616AA2D-8417-1908-44FC-2CE77C291870">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>
@@ -36,7 +36,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="F6DB431A-88A0-10BF-9F35-6443064DC2CD" name="R_PROFESSOR_PASSEIO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>

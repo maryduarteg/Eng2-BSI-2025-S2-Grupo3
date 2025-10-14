@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BD52A7BD-B7BA-A70A-959E-BEC491CBF5C3" name="DIAS">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="BD52A7BD-B7BA-A70A-959E-BEC491CBF5C3" name="DIAS">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-21 23:21:06 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="dia id" id="430035A4-F1CA-DBC6-87C1-41FC827B42DC">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-21 23:21:22 UTC</createdTime>

@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="F5454C64-B0AE-3F2E-0FBB-604270936209" mainViewID="D5E3A791-CBFE-EDEA-709C-E2E3CF11D755">
+<relationalModel class="oracle.dbtools.crest.proj_mvc.model.design.relational.RelationalDesign" name="Relational_1" id="F5454C64-B0AE-3F2E-0FBB-604270936209" mainViewID="D5E3A791-CBFE-EDEA-709C-E2E3CF11D755">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:16:45 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>

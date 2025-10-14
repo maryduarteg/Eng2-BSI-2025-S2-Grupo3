@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5295B988-5CB3-5F51-A7FC-169A21D3F54D" name="ENDERECO">
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="5295B988-5CB3-5F51-A7FC-169A21D3F54D" name="ENDERECO">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:47:46 UTC</createdTime>
 <ownerDesignName>modelo_bethel</ownerDesignName>
@@ -14,7 +14,7 @@
 <maxVolumes>9999999</maxVolumes>
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
 <Attribute name="end id" id="3772A506-BB1A-F584-931A-FD00E47FCA9D">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:49:15 UTC</createdTime>
@@ -112,7 +112,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
 <identifier id="5A1B7504-3536-1E0A-9EA5-25F0221B0B30" name="ENDERECO_PK">
 <createdBy>Aluno</createdBy>
 <createdTime>2025-08-15 16:49:21 UTC</createdTime>

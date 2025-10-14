@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="57080E7A-C345-7CC6-E7F9-549E19A4162B" name="ESPECIALIDADES">
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="57080E7A-C345-7CC6-E7F9-549E19A4162B" name="ESPECIALIDADES">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>
 <generatorID>53671040-1006-5089-5CAB-268167F0274B</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
 <Column name="esp_id" id="09A4B7C5-F342-C664-461E-9928B3DEBE49">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>
@@ -48,7 +48,7 @@
 </associations>
 </Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
 <ind_PK_UK id="9A655B1E-E325-648B-67EC-FDB71A1BB77D" name="ESPECIALIDADES_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:28:17 UTC</createdTime>
