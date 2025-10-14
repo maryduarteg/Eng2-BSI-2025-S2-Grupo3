@@ -56,6 +56,28 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ofc_dt_inicial" id="83A684F3-9BCA-9072-5F1E-6043798BBEB6">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:24:31 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ofc_dt_final" id="4E5AE234-EBA9-E2AA-D024-F122B493114E">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:24:51 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="prof_id" id="C4C7C4D6-D9D7-D094-98C5-02589BB81A0B">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-25 13:01:26 UTC</createdTime>
@@ -70,6 +92,18 @@
 <associations>
 <colAssociation fkAssociation="F999436B-90DF-6027-D36A-5FF2897ECAA8" referredColumn="A797C0CA-FF28-EEDA-FF6B-71BB3E4A6DC0"/>
 </associations>
+</Column>
+<Column name="ofc_ativo" id="087579A7-8F79-E6BD-0F47-BD179D1D8B0C">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:25:17 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">

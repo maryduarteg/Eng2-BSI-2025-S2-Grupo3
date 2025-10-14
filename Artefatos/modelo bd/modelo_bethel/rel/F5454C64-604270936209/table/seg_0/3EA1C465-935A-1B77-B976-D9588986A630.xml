@@ -59,6 +59,18 @@
 <colAssociation fkAssociation="A8C610BF-5DF8-20FA-24EC-8A406ADC0A53" referredColumn="3CDA5A6D-2316-E93F-A347-425710AE2532"/>
 </associations>
 </Column>
+<Column name="usr_ativo" id="82AEDEB9-4181-2D24-81D5-E537999AA137">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:26:27 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="145DCB22-3A86-4154-F213-9EDB73C27EE1" name="USUARIO_PK">
