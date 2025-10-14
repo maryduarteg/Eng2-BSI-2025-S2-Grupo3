@@ -1,7 +1,4 @@
--- Gerado originalmente por Oracle SQL Developer Data Modeler 24.3.1.351.0831
--- Adaptado para PostgreSQL
-
--- Remoção de comentários irrelevantes para PostgreSQL e tipos de dados não suportados
+-- lembre de nomear o database para: bga-db para não termos problemas na hora de estabelecer a conexão
 
 CREATE TABLE ALUNO
     (
@@ -656,3 +653,4 @@ SELECT reset_identity_sequence('telefone', 'tel_id');
 SELECT reset_identity_sequence('usuario', 'usr_id');
 
 -- DROP FUNCTION reset_identity_sequence(text, text); -- Opcional: remover a função após o uso
+
