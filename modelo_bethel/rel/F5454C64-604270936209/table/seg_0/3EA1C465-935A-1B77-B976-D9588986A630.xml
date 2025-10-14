@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3EA1C465-935A-1B77-B976-D9588986A630" name="USUARIO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>F58C0644-088A-5D81-435D-CC12B93E4D7A</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="usr_id" id="A477C382-A762-08D5-C606-0F76FBDD70C3">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>712F402A-DBD7-5344-34E9-62A24AF4E758</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="usr_login" id="707ED051-36B8-BF4D-DDF9-23B0497212F7">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>B93584A9-BDB3-65FA-E4FF-EA5B05FC862F</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="usr_senha" id="D631DFAA-6C3C-748F-3207-CF05F7410099">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>755DF055-AB12-70B6-BF02-59D6B79A3F77</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ctsr_id" id="D8C28B22-182F-7E5F-8346-E18CF14EDAEF">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A8C610BF-5DF8-20FA-24EC-8A406ADC0A53" referredColumn="3CDA5A6D-2316-E93F-A347-425710AE2532"/>
+</associations>
+</Column>
+<Column name="usr_ativo" id="82AEDEB9-4181-2D24-81D5-E537999AA137">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:26:27 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="145DCB22-3A86-4154-F213-9EDB73C27EE1" name="USUARIO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:26:05 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A477C382-A762-08D5-C606-0F76FBDD70C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5AE01B4A-96E3-5EBD-97A6-73AA1831BA72" name="USUARIO_CATEGORIA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>2ABCE3DE-C6EB-8B15-740A-59FA10CC585D</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D8C28B22-182F-7E5F-8346-E18CF14EDAEF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

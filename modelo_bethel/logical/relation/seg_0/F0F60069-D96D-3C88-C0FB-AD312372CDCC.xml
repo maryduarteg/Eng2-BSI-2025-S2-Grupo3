@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="TELEFONE PESSOA FK" directorySegmentName="seg_0" id="F0F60069-D96D-3C88-C0FB-AD312372CDCC">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:42:18 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>C3F7769E-FDAD-90FE-3772-6F7A018D60DF</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>EAD333F3-B26D-15F4-5CF4-44E3E91BFF90</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>5B706A5B-5DB6-3AA8-3F08-D56607F80AB2</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

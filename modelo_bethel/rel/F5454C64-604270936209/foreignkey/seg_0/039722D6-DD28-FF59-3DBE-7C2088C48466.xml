@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="039722D6-DD28-FF59-3DBE-7C2088C48466" containerWithKeyObject="AEFEFA57-9B98-E08A-6D7A-0080C9DB966E" localFKIndex="4337638C-9D52-50B0-0713-D7B5A5A5475C" name="PRESENCA_PAS_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 04:18:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>PASSEIO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E8FAABC4-1D56-7A3B-61B5-37AF459F0778</referredTableID>
+<keyObject>5D9B5AB4-5C14-92EB-4605-70BF10603385</keyObject>
+<referredKeyID>5D9B5AB4-5C14-92EB-4605-70BF10603385</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>pas_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

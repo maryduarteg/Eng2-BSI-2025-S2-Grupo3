@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="R_PROFESOR_OFICINA" directorySegmentName="seg_0" id="E6DAE0A5-2EED-BF10-5EE4-83939A0E0119">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:59:03 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>08ECD425-50C1-7BF1-F684-9A691D170B37</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>D4393C8F-42BC-97C2-4790-8CF1C654FA2C</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>166A4987-2722-97AD-70E9-CB7060A6FCD1</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

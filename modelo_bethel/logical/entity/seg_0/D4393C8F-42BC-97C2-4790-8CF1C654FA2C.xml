@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="D4393C8F-42BC-97C2-4790-8CF1C654FA2C" name="PROFESSOR">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:24 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="prof_id" id="FC7DCF09-E111-9960-D53B-6B6C25DD33D9">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:36 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prof_matricula" id="E9857C68-4432-260A-3CE9-C146631ADF68">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:54 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pes id" id="37DE5047-6286-AF05-B5C2-CF91DFAD6430">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:57:21 UTC</createdTime>
+<generatorID>D7D3BD40-1279-49BE-2117-2174A29D702E</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<referedAttribute>1560ADE1-02FD-6021-A46B-854ABA612191</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="08ECD425-50C1-7BF1-F684-9A691D170B37" name="PROFESSOR PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:49 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FC7DCF09-E111-9960-D53B-6B6C25DD33D9</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

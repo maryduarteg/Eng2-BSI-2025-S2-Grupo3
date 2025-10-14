@@ -1,0 +1,128 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0BF2716E-2D85-C032-EAAE-A290C42C9EE6" name="ENDERECO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>5295B988-5CB3-5F51-A7FC-169A21D3F54D</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="end_id" id="3F891406-D674-5624-4CF7-D9A2E51F199F">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>3772A506-BB1A-F584-931A-FD00E47FCA9D</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_logradouro" id="4041DEE4-13DD-9514-FACA-A554488A3328">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>07DF1128-DA0C-F999-3CEB-A07FCFB456FD</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>150</dataTypeSize>
+<ownDataTypeParameters>150,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_numero" id="B48A5956-7B0C-B874-F6C7-CA6DCF90A667">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>5BA6129B-7007-F226-D78C-B937C07F052E</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_cep" id="CD80CE5C-F7AC-DB2E-8CBF-86C823E1323A">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>0CE0E221-C530-AD7E-5B12-E34089A3E3C7</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_complemento" id="17CCCF87-AA70-DF3E-AB60-D2320E093C14">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>9D15F6F7-5148-548A-3F17-7E868F456CA9</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_bairro" id="EBC34F41-2788-2981-9525-0C29F2BC01D2">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>643A4D19-4246-D844-2CA9-F77F4BFD9F81</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>75</dataTypeSize>
+<ownDataTypeParameters>75,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cid_id" id="F81EF086-D372-C998-AA50-B0B3721E24C8">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>19D1B4BF-8710-D9EC-D73B-78398B8BBF36</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9901F3BC-3BCC-8D11-B321-492235112757" referredColumn="42A09714-9559-31AB-1CE4-B302E65BC1F0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="338EC8C1-7EAE-B532-66E9-CC6EF42CB10D" name="ENDERECO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>5A1B7504-3536-1E0A-9EA5-25F0221B0B30</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3F891406-D674-5624-4CF7-D9A2E51F199F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="92527368-D5FE-FD14-F8E1-A4D927A899CA" name="ENDERECO_CIDADE_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>842CC88F-5015-9333-159E-87B7B29DB8F0</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F81EF086-D372-C998-AA50-B0B3721E24C8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

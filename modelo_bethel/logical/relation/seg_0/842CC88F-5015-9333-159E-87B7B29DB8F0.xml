@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ENDERECO CIDADE FK" directorySegmentName="seg_0" id="842CC88F-5015-9333-159E-87B7B29DB8F0">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:09:28 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>3E7E2364-A536-9B1D-6889-22A0C2F4B15A</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FF8F007A-ABA5-5432-C2B5-F5E6D236DBCA</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>5295B988-5CB3-5F51-A7FC-169A21D3F54D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

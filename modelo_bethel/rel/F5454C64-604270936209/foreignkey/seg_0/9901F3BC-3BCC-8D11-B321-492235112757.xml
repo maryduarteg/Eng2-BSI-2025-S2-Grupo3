@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="9901F3BC-3BCC-8D11-B321-492235112757" containerWithKeyObject="0BF2716E-2D85-C032-EAAE-A290C42C9EE6" localFKIndex="92527368-D5FE-FD14-F8E1-A4D927A899CA" name="ENDERECO_CIDADE_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>842CC88F-5015-9333-159E-87B7B29DB8F0</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>CIDADE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>040D1F3F-94F8-75D5-0D60-B8BEB5113FF1</referredTableID>
+<keyObject>BB18F6DB-28E3-1E99-35E6-2279BD64A048</keyObject>
+<referredKeyID>BB18F6DB-28E3-1E99-35E6-2279BD64A048</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>cid_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

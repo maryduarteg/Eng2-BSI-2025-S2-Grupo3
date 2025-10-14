@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="USUARIO CATEGORIA USUARIO FK" directorySegmentName="seg_0" id="2ABCE3DE-C6EB-8B15-740A-59FA10CC585D">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:26:38 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useSurrogateKey>true</useSurrogateKey>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>4536F005-2183-8771-4AB7-E4BDF4B980FF</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F58C0644-088A-5D81-435D-CC12B93E4D7A</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

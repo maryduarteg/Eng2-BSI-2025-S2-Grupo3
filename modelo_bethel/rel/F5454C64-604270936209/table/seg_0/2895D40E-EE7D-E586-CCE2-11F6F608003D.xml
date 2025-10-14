@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2895D40E-EE7D-E586-CCE2-11F6F608003D" name="CATEGORIA_USUARIO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>4536F005-2183-8771-4AB7-E4BDF4B980FF</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ctsr_id" id="3CDA5A6D-2316-E93F-A347-425710AE2532">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>63193253-7C6E-EA4C-D237-EA3B1BC04157</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ctsr_desc" id="06CCB538-EECA-1F78-A5ED-F1EA03B5A02E">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>A99BBA33-69A1-9803-CC0D-B14EEBD909D7</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F206DDE9-F195-B6CC-47A9-FE97A63AAF89" name="CATEGORIA_USUARIO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="3CDA5A6D-2316-E93F-A347-425710AE2532"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="774564CB-223C-2805-5559-1CDFCC6837F0" name="ESTADO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>415D4A1D-4214-5BDB-7819-749FC21FFDEC</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="est_id" id="F1834E6A-692A-0A62-12DC-3D8ABEDA2345">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:29:09 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="est_uf_1" id="3528CF26-8AB8-0037-873F-A5AA52937075">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>42FBD0E8-6112-A95B-9631-0283CD91EBF8</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="est_nome" id="A56C6102-F74C-95EF-FA32-6BC313C21CEF">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>838EF9DB-9A85-F6AD-CF87-1AB878D24FD5</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3E4C2B5D-818B-B40D-953B-7E9740203A4B" name="ESTADO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>C1AE9767-70E7-E46B-C2EF-83AD87521C64</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F1834E6A-692A-0A62-12DC-3D8ABEDA2345"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

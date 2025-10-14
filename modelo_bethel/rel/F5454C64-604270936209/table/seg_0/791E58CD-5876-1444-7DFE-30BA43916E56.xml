@@ -1,0 +1,126 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="791E58CD-5876-1444-7DFE-30BA43916E56" name="PESSOA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>EAD333F3-B26D-15F4-5CF4-44E3E91BFF90</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="pes_id" id="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>1560ADE1-02FD-6021-A46B-854ABA612191</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_nome" id="5E5096CF-3045-A309-DA92-39C3EA0F21DE">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>FA032FF3-EB3F-4BC9-D98E-28B11395DC94</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>75</dataTypeSize>
+<ownDataTypeParameters>75,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_cpf" id="6A94EAAC-C2FB-B272-10E1-D8F9A5B7D69F">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>2D952DEE-90FE-50C4-4C7C-DB6E2FCB7683</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
+<ownDataTypeParameters>11,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_dt_nascimento" id="1D7E8CF1-A54D-4574-3572-919A26B09F3B">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>9459A55E-035B-22D6-2AD1-6BDAA489D7B1</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_rg" id="E21A997F-F024-2DB3-D840-2BCD22AB5E8B">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>D38F0C0B-AC1E-3919-C5D5-6A99709EB577</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>9</dataTypeSize>
+<ownDataTypeParameters>9,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_ativo" id="AA8FEF76-55FB-9321-4D3C-A1F45B2F34CB">
+<createdBy>Mary</createdBy>
+<createdTime>2025-10-14 12:25:58 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="end_id" id="B4A6E0F7-2603-4D5F-7F18-D354A358FF4E">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>D1F34193-EE7E-9E34-B69C-D97EA9A90A86</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CCF83CDA-CADF-898B-F7D1-47643A1FDD36" referredColumn="3F891406-D674-5624-4CF7-D9A2E51F199F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1F220AD3-3F62-AB85-504C-7ACA63567E60" name="PESSOA_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>C3F7769E-FDAD-90FE-3772-6F7A018D60DF</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="52415347-1E4F-3553-7F68-D9BF34D94A9E" name="PESSOA_ENDERECO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>FDA29694-5ECA-83B0-6DF6-3377EEF6EADB</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B4A6E0F7-2603-4D5F-7F18-D354A358FF4E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E20D5D18-FC17-9788-8944-63A9241E55B6" name="TELEFONE">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>5B706A5B-5DB6-3AA8-3F08-D56607F80AB2</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="tel_id" id="52AD1EB2-DCEF-2344-CC73-F8208DE592BD">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>B4B14F52-16E7-9316-9269-A51F8169DD80</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tel_numero" id="B55B06C8-AFE2-E341-01EA-D5C80EF1768C">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>B38C41F0-35D5-F496-307E-9D6F45CE3E34</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
+<ownDataTypeParameters>11,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_id" id="10FC7EBB-ACA3-933D-F254-8EAE089CEEDC">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>1B710709-EB49-E749-1EBD-558B2257DE55</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="07454A93-88EE-CD2B-3ECA-E8FE5FDA969B" referredColumn="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3D8A5020-CEEB-311F-C2E0-444E22DD906D" name="TELEFONE_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>17D50B49-33C8-7C6C-03C1-AAD7BDD47455</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="52AD1EB2-DCEF-2344-CC73-F8208DE592BD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0045941D-A9DC-8174-F39C-9B0E319ABBD0" name="TELEFONE_PESSOA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>F0F60069-D96D-3C88-C0FB-AD312372CDCC</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="10FC7EBB-ACA3-933D-F254-8EAE089CEEDC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
