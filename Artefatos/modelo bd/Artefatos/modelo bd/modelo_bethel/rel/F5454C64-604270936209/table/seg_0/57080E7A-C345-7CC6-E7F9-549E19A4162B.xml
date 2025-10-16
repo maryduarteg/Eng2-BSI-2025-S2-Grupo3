@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="57080E7A-C345-7CC6-E7F9-549E19A4162B" name="ESPECIALIDADES">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>53671040-1006-5089-5CAB-268167F0274B</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<Column name="esp_id" id="09A4B7C5-F342-C664-461E-9928B3DEBE49">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>DDEEA5A2-B023-D8FD-805D-7D2E16EBF3EE</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="esp_descricao" id="7555B701-5D74-CD3C-DA64-CD2F0C204EED">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>095998BD-B81C-2D17-9AF5-D3948AD09CD5</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROFESSOR_prof_id" id="65C734A6-5C1E-3F19-C9E7-5F900997D5B9">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>0A54B18E-666D-35DA-CA95-0C2FFFB8C0C9</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AB544550-9DF7-F2A6-6777-AF7C79F28FA9" referredColumn="A797C0CA-FF28-EEDA-FF6B-71BB3E4A6DC0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<ind_PK_UK id="9A655B1E-E325-648B-67EC-FDB71A1BB77D" name="ESPECIALIDADES_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:28:17 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="09A4B7C5-F342-C664-461E-9928B3DEBE49"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9AB96FA7-E076-5243-0711-936EEE50DBF3" name="ESPECIALI_PROF_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>4F776942-9965-C334-27BF-1A094CEA9796</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="65C734A6-5C1E-3F19-C9E7-5F900997D5B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

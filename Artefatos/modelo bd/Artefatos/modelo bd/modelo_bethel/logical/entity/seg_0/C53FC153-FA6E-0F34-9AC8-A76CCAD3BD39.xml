@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="C53FC153-FA6E-0F34-9AC8-A76CCAD3BD39" name="PRESENCA OFICINA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:42 UTC</createdTime>
+<generatorID>528487E4-0189-FC74-866C-721E69A83955</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
+<Attribute name="po id" id="042D91D7-D5D6-EC62-3BE9-CDBBD02D3AFF">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:42 UTC</createdTime>
+<generatorID>67C95165-2D93-BDDA-C6BE-762A23527EEA</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ALUNO alu id" id="EB7D1948-D8FA-EC14-0EA3-240149F8C063">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:42 UTC</createdTime>
+<generatorID>D2B3B7F3-A040-4C1A-76F3-3B6218255F39</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<referedAttribute>28768ED0-D71B-4D63-F78D-03E437DEB794</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="OFICINA ofc id" id="95F117F0-EC14-9FFA-A67A-7D2A4EE40495">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:42 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pso id" id="41D2C0C0-97B8-06F6-39CD-93EB44B30993">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:16 UTC</createdTime>
+<generatorID>3B00ADE9-0CB9-1D14-5F4B-728622D6107F</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
+<identifier id="255461FF-530F-F5C7-C1E5-04C8B2BE8961" name="PRESENCA OFICINA PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 12:49:16 UTC</createdTime>
+<generatorID>775BB650-489F-737B-716C-5DDD44452A98</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>EB7D1948-D8FA-EC14-0EA3-240149F8C063</attributeRef>
+<attributeRef>95F117F0-EC14-9FFA-A67A-7D2A4EE40495</attributeRef>
+<attributeRef>41D2C0C0-97B8-06F6-39CD-93EB44B30993</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

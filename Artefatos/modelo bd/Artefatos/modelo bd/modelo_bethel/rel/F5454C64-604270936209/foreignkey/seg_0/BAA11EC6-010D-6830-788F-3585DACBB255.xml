@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.proj_mvc.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="BAA11EC6-010D-6830-788F-3585DACBB255" containerWithKeyObject="7FD2BEA2-CFA7-1F07-A7F5-D7D50E2D2EB8" localFKIndex="B0C2E520-B5D4-0E98-4093-CB0AB4809838" name="R_ALUNO_OFICINA_ALUNO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:58 UTC</createdTime>
+<generatorID>199EFBE7-ED1A-1700-A781-21A7D6E59493</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>ALUNO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>17680C69-246B-A49D-B4B7-7C12A1CFDAD8</referredTableID>
+<keyObject>B6487234-1985-149C-B9E2-1D79B19C956B</keyObject>
+<referredKeyID>B6487234-1985-149C-B9E2-1D79B19C956B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>alu_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

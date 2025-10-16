@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="7160F10D-922D-29A0-3507-9A954CF4E1C8" name="R_PROFESSOR_PASSEIO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<Column name="prof_id" id="A616AA2D-8417-1908-44FC-2CE77C291870">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="876921B6-1A5A-1869-B1E5-32C26F9F5F11" referredColumn="A797C0CA-FF28-EEDA-FF6B-71BB3E4A6DC0"/>
+</associations>
+</Column>
+<Column name="pas_id" id="7144CA56-F130-43B2-9848-59B1B7A1F9EC">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7B61CC53-91DE-2D2E-A8EC-C958E74811F7" referredColumn="13D27D43-12D3-F6ED-4655-1ADEB29094AC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<ind_PK_UK id="F6DB431A-88A0-10BF-9F35-6443064DC2CD" name="R_PROFESSOR_PASSEIO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7144CA56-F130-43B2-9848-59B1B7A1F9EC"/>
+<colUsage columnID="A616AA2D-8417-1908-44FC-2CE77C291870"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5BB4F4D4-E885-1DAA-C95E-94A9E4F5D412" name="R_PROFESSOR_PASSEIO_FKv1">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>116789F3-64A3-C80E-CB1F-A455611BC0C7</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A616AA2D-8417-1908-44FC-2CE77C291870"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3A85F496-426C-1279-0288-D7EC7DBE57E5" name="R_PROFESSOR_PASSEIO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>116789F3-64A3-C80E-CB1F-A455611BC0C7</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7144CA56-F130-43B2-9848-59B1B7A1F9EC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

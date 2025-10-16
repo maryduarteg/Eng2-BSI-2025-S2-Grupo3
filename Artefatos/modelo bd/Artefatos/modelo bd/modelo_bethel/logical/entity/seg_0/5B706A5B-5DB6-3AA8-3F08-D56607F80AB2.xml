@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.proj_mvc.model.design.logical.Entity" directorySegmentName="seg_0" id="5B706A5B-5DB6-3AA8-3F08-D56607F80AB2" name="TELEFONE">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:35:12 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.Attribute">
+<Attribute name="tel id" id="B4B14F52-16E7-9316-9269-A51F8169DD80">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:35:21 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tel numero" id="B38C41F0-35D5-F496-307E-9D6F45CE3E34">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:40:55 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>11</dataTypeSize>
+<ownDataTypeParameters>11,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PESSOA pes id" id="1B710709-EB49-E749-1EBD-558B2257DE55">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:42:18 UTC</createdTime>
+<generatorID>F0F60069-D96D-3C88-C0FB-AD312372CDCC</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<referedAttribute>1560ADE1-02FD-6021-A46B-854ABA612191</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.proj_mvc.model.design.logical.CandidateKey">
+<identifier id="17D50B49-33C8-7C6C-03C1-AAD7BDD47455" name="TELEFONE_PK">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 16:40:51 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B4B14F52-16E7-9316-9269-A51F8169DD80</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

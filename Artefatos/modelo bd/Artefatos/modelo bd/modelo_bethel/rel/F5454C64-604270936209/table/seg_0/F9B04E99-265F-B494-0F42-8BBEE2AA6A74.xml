@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="F9B04E99-265F-B494-0F42-8BBEE2AA6A74" name="PASSEIO_DESCRICAO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:37:48 UTC</createdTime>
+<generatorID>F32946CA-EDB0-661F-6C6C-15E5FCA8D500</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<Column name="pde_id" id="20B44A7D-27B7-62F1-4F11-B89BFE84C6DF">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:37:48 UTC</createdTime>
+<generatorID>AB5208AB-0B29-C468-70D7-61640F008540</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pde_descricao" id="356F7C52-DDE0-EE63-8DEE-8B035585E0A7">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>26ECEE56-FAA1-D4C6-1802-D0E1E76E4CB3</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>75</dataTypeSize>
+<ownDataTypeParameters>75,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<ind_PK_UK id="1677D89A-6970-93F3-F5E1-5921FD1E6FBD" name="PASSEIO_DESCRICAO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:37:48 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="20B44A7D-27B7-62F1-4F11-B89BFE84C6DF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

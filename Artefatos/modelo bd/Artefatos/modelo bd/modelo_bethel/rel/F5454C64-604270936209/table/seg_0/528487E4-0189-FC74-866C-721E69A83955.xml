@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="528487E4-0189-FC74-866C-721E69A83955" name="PRESENCA_OFICINA">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 04:02:43 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<ordsAlias>table_18</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<Column name="pso_id" id="3B00ADE9-0CB9-1D14-5F4B-728622D6107F">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-24 21:01:22 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="alu_id" id="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 04:11:54 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="60EDCA88-2839-65C8-D496-3C782066DB70" referredColumn="6B8980F0-D0D0-BC4D-74A0-0D5467B0D414"/>
+</associations>
+</Column>
+<Column name="ofc_id" id="4A97C061-1D99-F7D5-2FE3-563B6E7BB723">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:33:11 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2F0AF0F6-D813-EE96-5C5A-4BD86F9BC5E7" referredColumn="38057105-EEE3-4B05-0E22-AFEC6B62A9AC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<ind_PK_UK id="775BB650-489F-737B-716C-5DDD44452A98" name="PRESENCA_OFICINA_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 13:00:49 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8"/>
+<colUsage columnID="4A97C061-1D99-F7D5-2FE3-563B6E7BB723"/>
+<colUsage columnID="3B00ADE9-0CB9-1D14-5F4B-728622D6107F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2A46A7DA-108F-2956-CBEE-A17CD93A5750" name="PRESENCA_OFICINA_OFICINA_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 04:03:21 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A97C061-1D99-F7D5-2FE3-563B6E7BB723"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B28A25A8-7BA2-EA7D-4BCE-B7EE38428178" name="PRESENCA_OFICINA_ALUNO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 04:11:54 UTC</createdTime>
+<generatorID>2AE52A0F-9211-9FEF-82DC-A302C8585D2D</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

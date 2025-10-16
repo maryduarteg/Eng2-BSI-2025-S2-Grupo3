@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="E8FAABC4-1D56-7A3B-61B5-37AF459F0778" name="PASSEIO">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>A14ADC12-413F-B615-3372-D73D2E8FC9C6</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<Column name="pas_id" id="13D27D43-12D3-F6ED-4655-1ADEB29094AC">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>3558B958-A14F-7A25-3212-03090E54ADBE</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pas_data" id="4E36918A-8628-DEBB-4122-4454A197807D">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>DC4C0C3B-578A-371E-33FD-72E021F032B7</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pas_hora_inicio" id="DF214CDF-8DCD-2ADA-2E22-1EB221A8B6C4">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>460D9307-E36E-6229-DA3D-90462C149C59</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pas_hora_final" id="0E1968D5-74A7-F0B3-7777-9EE6E66000D3">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>B5C42C34-687B-C649-1C77-FF1916F53E2E</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pas_chamada_feita" id="B707E385-CBCF-4B0F-AD79-DB71C3A59021">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-24 20:57:08 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pde_id" id="F29C5693-0E76-E31F-CB1F-64C9AF423AA3">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:52:53 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AADE1A81-08B0-F7AC-1BCE-BB45AA9ABCEA" referredColumn="20B44A7D-27B7-62F1-4F11-B89BFE84C6DF"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<ind_PK_UK id="5D9B5AB4-5C14-92EB-4605-70BF10603385" name="PASSEIO_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="13D27D43-12D3-F6ED-4655-1ADEB29094AC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0F11A539-9EC2-17B8-C4B4-D0527EE1998B" name="PASSEIO_PASSEIO_DESCRICAO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 03:49:53 UTC</createdTime>
+<generatorID>798106BB-C3C5-A1AF-2903-BADFFAA5099C</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F29C5693-0E76-E31F-CB1F-64C9AF423AA3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

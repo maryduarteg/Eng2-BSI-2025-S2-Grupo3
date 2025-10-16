@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.proj_mvc.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CCF83CDA-CADF-898B-F7D1-47643A1FDD36" containerWithKeyObject="791E58CD-5876-1444-7DFE-30BA43916E56" localFKIndex="52415347-1E4F-3553-7F68-D9BF34D94A9E" name="PESSOA_ENDERECO_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-22 22:21:45 UTC</createdTime>
+<generatorID>FDA29694-5ECA-83B0-6DF6-3377EEF6EADB</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>ENDERECO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>0BF2716E-2D85-C032-EAAE-A290C42C9EE6</referredTableID>
+<keyObject>338EC8C1-7EAE-B532-66E9-CC6EF42CB10D</keyObject>
+<referredKeyID>338EC8C1-7EAE-B532-66E9-CC6EF42CB10D</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>end_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

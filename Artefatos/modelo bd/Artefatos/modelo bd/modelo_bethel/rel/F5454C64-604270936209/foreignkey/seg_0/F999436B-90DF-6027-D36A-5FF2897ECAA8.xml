@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.proj_mvc.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F999436B-90DF-6027-D36A-5FF2897ECAA8" containerWithKeyObject="E4F67FF9-6DC1-0A57-8D5E-C97C47956F49" localFKIndex="AEABF960-6A09-8335-D0E1-24A9FAA3AF3D" name="OFICINA_PROFESSOR_FK">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-25 13:01:26 UTC</createdTime>
+<generatorID>E6DAE0A5-2EED-BF10-5EE4-83939A0E0119</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>PROFESSOR</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>BC9D1CF0-606A-D331-BD73-AE4D0D93B128</referredTableID>
+<keyObject>56E48E25-1842-C6E5-E254-F805D61B824D</keyObject>
+<referredKeyID>56E48E25-1842-C6E5-E254-F805D61B824D</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>prof_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

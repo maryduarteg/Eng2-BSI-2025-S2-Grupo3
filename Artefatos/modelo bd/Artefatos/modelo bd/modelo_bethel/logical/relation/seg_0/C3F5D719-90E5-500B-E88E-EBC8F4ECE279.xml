@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.proj_mvc.model.design.logical.Relation" name="R_DIAS_OFICINA" directorySegmentName="seg_0" id="C3F5D719-90E5-500B-E88E-EBC8F4ECE279">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-21 23:24:32 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>166A4987-2722-97AD-70E9-CB7060A6FCD1</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>BD52A7BD-B7BA-A70A-959E-BEC491CBF5C3</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

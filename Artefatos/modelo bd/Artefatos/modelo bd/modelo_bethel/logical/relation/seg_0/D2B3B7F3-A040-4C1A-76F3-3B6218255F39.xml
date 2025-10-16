@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.proj_mvc.model.design.logical.Relation" name="PRESENCA OFICINA ALUNO FK" directorySegmentName="seg_0" id="D2B3B7F3-A040-4C1A-76F3-3B6218255F39">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:36:43 UTC</createdTime>
+<generatorID>60EDCA88-2839-65C8-D496-3C782066DB70</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>2AE52A0F-9211-9FEF-82DC-A302C8585D2D</sourcePk>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>B4C40089-12B1-F006-6254-CB1AA89FE0A4</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C53FC153-FA6E-0F34-9AC8-A76CCAD3BD39</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

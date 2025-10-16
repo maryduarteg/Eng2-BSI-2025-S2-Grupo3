@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.proj_mvc.model.design.logical.Relation" name="CIDADE ESTADO FK" directorySegmentName="seg_0" id="D10B3937-0176-4365-9E0B-F92E59547EC3">
+<createdBy>Aluno</createdBy>
+<createdTime>2025-08-15 17:08:39 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<sourcePk>C1AE9767-70E7-E46B-C2EF-83AD87521C64</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>415D4A1D-4214-5BDB-7819-749FC21FFDEC</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>FF8F007A-ABA5-5432-C2B5-F5E6D236DBCA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

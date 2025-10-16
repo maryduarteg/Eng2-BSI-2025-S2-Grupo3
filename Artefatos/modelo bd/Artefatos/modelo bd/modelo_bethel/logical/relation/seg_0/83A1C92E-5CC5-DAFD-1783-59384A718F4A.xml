@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.proj_mvc.model.design.logical.Relation" name="R_ALUNO_PASSEIO" directorySegmentName="seg_0" id="83A1C92E-5CC5-DAFD-1783-59384A718F4A">
+<createdBy>Mary</createdBy>
+<createdTime>2025-08-23 12:51:46 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<engineerTo>
+<item key="F5454C64-B0AE-3F2E-0FBB-604270936209" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>A14ADC12-413F-B615-3372-D73D2E8FC9C6</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>B4C40089-12B1-F006-6254-CB1AA89FE0A4</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
