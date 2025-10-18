@@ -1,14 +1,15 @@
-package proj_mvc.dao;
+package com.example.proj_bga.dao;
 
+import com.example.proj_bga.model.Oficina;
+import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
-import proj_mvc.model.Oficina;
-import proj_mvc.util.SingletonDB;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
-public class OficinaDAO implements IDAO<Oficina> {
+public class OficinaDAO implements IDAO<Oficina>{
 
     @Override
     public Oficina gravar(Oficina oficina){
@@ -26,7 +27,7 @@ public class OficinaDAO implements IDAO<Oficina> {
         sql = sql.replace("#6", "" + oficina.getProfessor());
         sql = sql.replace("#7", "" + oficina.getAtivo());
 
-        ResultSet resultado = SingletonDB.getConexao().consulta(sql);
+        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
         try {
             if(resultado.next()){
                 oficina.setId(resultado.getInt("ofc_id"));
@@ -55,13 +56,49 @@ public class OficinaDAO implements IDAO<Oficina> {
         sql = sql.replace("#7", "" + oficina.getAtivo());
         sql = sql.replace("#8", "" + oficina.getId());
 
-        if(SingletonDB.getConexao().manipula(sql))
+        if(SingletonDB.getConexao().manipular(sql))
             return oficina;
         else{
-            System.out.println("Erro ao alterar Oficina: " + SingletonDB.getConexao().getErro());
+            System.out.println("Erro ao alterar Oficina: " + SingletonDB.getConexao().getMensagemErro());
             return null;
         }
     }
 
+    @Override
+    public boolean excluir(Oficina oficina)
+    {
+        if(oficina == null)
+            return false;
 
+        String sql = """
+                        DELETE FROM oficina
+                            WHERE ofc_id = #1;
+                    """;
+        sql = sql.replace("#1", "" + oficina.getId());
+        return SingletonDB.getConexao().manipular(sql);
+    }
+
+    @Override
+    public List<Oficina> get(String filtro){
+        List<Oficina> oficinas = new ArrayList<>();
+        String sql = """
+                        SELECT * FROM oficina
+                     """;
+        if(!filtro.isEmpty()){
+            sql = sql.replace("#1", filtro);
+        }
+
+        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
+        try{
+            while(resultado.next()){
+                Oficina oficina = new Oficina(
+                        resultado.getInt("ofc_cod"),
+                        resultado.getString("ofc_desc")
+                );
+            }
+        } catch(SQLException e){
+            System.out.println("Erro ao listar Oficinas: " + e.getMessage());
+        }
+        return oficinas;
+    }
 }

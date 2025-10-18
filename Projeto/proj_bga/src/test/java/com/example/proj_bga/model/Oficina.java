@@ -1,15 +1,23 @@
-package proj_mvc.model;
+package com.example.proj_bga.model;
+
+import com.example.proj_bga.dao.OficinaDAO;
+import com.example.proj_bga.util.Conexao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
 import java.util.Date;
-
+import java.util.List;
+@Repository
 public class Oficina {
+    @Autowired
+    private OficinaDAO dao;
 
     private int id;
     private String nome;
     private LocalTime horaInicio;
     private LocalTime horaFim;
-    private Date  dataInicio;
+    private Date dataInicio;
     private Date dataFim;
     private int professor;
     private char ativo;
@@ -35,6 +43,11 @@ public class Oficina {
         this.dataFim = dataFim;
         this.professor = professor;
         this.ativo = ativo;
+    }
+
+    public Oficina(int ofcCod, String ofcDesc) {
+        nome = ofcDesc;
+        id = ofcCod;
     }
 
     public int getId() {
@@ -99,5 +112,9 @@ public class Oficina {
 
     public void setAtivo(char ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Oficina> consultarOficinas(String filtro, Conexao conexao){
+        return dao.get(filtro);
     }
 }

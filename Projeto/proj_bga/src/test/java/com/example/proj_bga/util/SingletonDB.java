@@ -1,5 +1,4 @@
-package proj_mvc.util;
-
+package com.example.proj_bga.util;
 
 public class SingletonDB {
 
@@ -11,10 +10,9 @@ public class SingletonDB {
     public static boolean conectar()
     {
         conexao=new Conexao();
-        return conexao.conectar("jdbc:postgresql://localhost:5432/","salf_db","postgres","postgres123");
+        return conexao.conectar("jdbc:postgresql://localhost:5432/","bga-db","postgres","postgres123");
     }
     public static Conexao getConexao() {
         return conexao;
     }
-
 }
