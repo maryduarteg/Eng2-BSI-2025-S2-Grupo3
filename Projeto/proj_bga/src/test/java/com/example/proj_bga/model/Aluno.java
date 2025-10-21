@@ -1,9 +1,17 @@
 package com.example.proj_bga.model;
 
-import java.time.LocalDate;
-import java.util.Date;
+import com.example.proj_bga.dao.AlunoDAO;
+import com.example.proj_bga.util.Conexao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Repository
 public class Aluno {
+    @Autowired
+    private AlunoDAO dao;
     private int id;
     private LocalDate dt_entrada;
     private String foto;
@@ -11,14 +19,14 @@ public class Aluno {
     private String pai;
     private String responsavel_pais;
     private String conhecimento;
-    private char pais_convivem;
-    private char pensao;
+    private String pais_convivem;
+    private String pensao;
     private int pes_id;
 
     public Aluno(int id, LocalDate dt_entrada, String foto,
                  String mae, String pai, String responsavel_pais,
-                 String conhecimento, char pais_convivem,
-                 char pensao, int pes_id)
+                 String conhecimento, String pais_convivem,
+                 String pensao, int pes_id)
     {
         this.id = id;
         this.dt_entrada = dt_entrada;
@@ -90,19 +98,19 @@ public class Aluno {
         this.conhecimento = conhecimento;
     }
 
-    public char getPais_convivem() {
+    public String getPais_convivem() {
         return pais_convivem;
     }
 
-    public void setPais_convivem(char pais_convivem) {
+    public void setPais_convivem(String pais_convivem) {
         this.pais_convivem = pais_convivem;
     }
 
-    public char getPensao() {
+    public String getPensao() {
         return pensao;
     }
 
-    public void setPensao(char pensao) {
+    public void setPensao(String pensao) {
         this.pensao = pensao;
     }
 
@@ -112,5 +120,26 @@ public class Aluno {
 
     public void setPes_id(int pes_id) {
         this.pes_id = pes_id;
+    }
+
+    public List<Aluno> consultar(String filtro, Conexao conexao) {
+        return this.dao.get(filtro);
+    }
+
+    public Aluno consultar(String filtro){
+        return (Aluno) dao.get(filtro);
+    }
+
+    public Aluno gravar(Aluno aluno) {
+        return (Aluno) this.dao.gravar(aluno);
+    }
+
+    public boolean deletarAluno(Aluno aluno) {
+        return dao.excluir(aluno);
+    }
+
+    public Aluno update(Aluno aluno)
+    {
+        return (Aluno) dao.alterar(aluno);
     }
 }
