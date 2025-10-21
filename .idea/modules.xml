@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BGA.iml" filepath="$PROJECT_DIR$/.idea/BGA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Projeto/proj_bga/projetobga.iml" filepath="$PROJECT_DIR$/Projeto/proj_bga/projetobga.iml" />
     </modules>
   </component>
 </project>

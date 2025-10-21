@@ -31,4 +31,7 @@ public class AlunoDAO implements IDAO<Aluno>
     public List<Aluno> get(String filtro) {
         return List.of();
     }
+
+    @Override
+    public Aluno get(int id) {return null;}
 }

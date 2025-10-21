@@ -7,4 +7,5 @@ public interface IDAO<T>{
     public Object alterar(T entidade);
     public boolean excluir(T entidade);
     public List<T> get(String filtro);
+    public T get(int id);
 }

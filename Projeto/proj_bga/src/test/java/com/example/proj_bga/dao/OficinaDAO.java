@@ -101,4 +101,28 @@ public class OficinaDAO implements IDAO<Oficina>{
         }
         return oficinas;
     }
+
+    @Override
+    public Oficina get(int id){
+        Oficina oficina = null;
+        String sql = """
+                        SELECT * FROM oficina
+                     """;
+        if(id > 0){
+            sql = sql.replace("#1", "" + id);
+        }
+
+        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
+        try{
+            while(resultado.next()){
+                oficina = new Oficina(
+                        resultado.getInt("ofc_cod"),
+                        resultado.getString("ofc_desc")
+                );
+            }
+        } catch(SQLException e){
+            System.out.println("Erro ao listar Oficinas: " + e.getMessage());
+        }
+        return oficina;
+    }
 }
