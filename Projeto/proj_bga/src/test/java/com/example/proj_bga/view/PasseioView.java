@@ -49,7 +49,7 @@ public class PasseioView {
     public ResponseEntity<Object> deletePasseio(@PathVariable("id") int id) {
         Map<String, Object> json = passeioController.deletarPasseio(id);
         if(json.get("erro") == null){
-            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()))
+            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
         }
         else{
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
