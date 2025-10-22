@@ -65,11 +65,18 @@ public class PasseioView {
             @RequestParam("pas_chamada_feita") String chamada_feita,
             @RequestParam("pde_id") int pde){
 
+
         Map<String, Object> json = passeioController.updatePasseio(id, data, hora_inicio, hora_final, chamada_feita, pde, pde);
-        if(json.get("erro") == null) {
-            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
-        } else {
+
+        if(json.containsKey("erro")) {
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
         }
+        else
+            if (json.containsKey("mensagem")) {
+                return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
+            }
+            else {
+                return ResponseEntity.ok(new Mensagem("Atualização realizada com sucesso."));
+            }
     }
 }

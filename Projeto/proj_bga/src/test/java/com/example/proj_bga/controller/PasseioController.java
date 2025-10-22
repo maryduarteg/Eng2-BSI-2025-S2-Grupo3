@@ -100,7 +100,7 @@ public class PasseioController {
         encontrado.setPde_id(pde_id);
 
         Passeio atualizado = passeioModel.alterarPasseio(encontrado);
-        if(atualizado == null) {
+        if(atualizado != null) {
             return Map.of(
                     "id", atualizado.getPas_data(),
                     "data", atualizado.getPas_data(),
@@ -110,7 +110,9 @@ public class PasseioController {
                     "pde_id", atualizado.getPde_id()
             );
         } else {
-            return Map.of("erro", "Erro ao atualizar Passeio");
+            String erroReal = SingletonDB.getConexao().getMensagemErro();
+            System.err.println("Falha no UPDATE. Erro: " + erroReal);
+            return Map.of("erro", erroReal);
         }
     }
 }

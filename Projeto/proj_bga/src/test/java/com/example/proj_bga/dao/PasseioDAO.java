@@ -24,7 +24,7 @@ public class PasseioDAO implements IDAO<Passeio> {
 
         String sql = """
                     INSERT INTO passeio(pas_data, pas_hora_inicio, pas_hora_final, pas_chamada_feita, pde_id)
-                    VALUES ('#1', '#2', '#3', '#4', #5) RETURNING pas_id;
+                        VALUES ('#1', '#2', '#3', '#4', #5) RETURNING pas_id;
                 """;
 
         sql = sql.replace("#1", dataFormatada);
@@ -47,17 +47,20 @@ public class PasseioDAO implements IDAO<Passeio> {
     }
 
     @Override
-    public Passeio alterar(Passeio passeio)
-    {
+    public Passeio alterar(Passeio passeio) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String sql = """
-                    UPDATE passeio SET pas_data = #1, pas_hora_inicio = #2, pas_hora_final = #3, pde_id = #4
-                        WHERE pas_cod = #5;
+                    UPDATE passeio SET pas_data = '#1', pas_hora_inicio = '#2', pas_hora_final = '#3', pas_chamada_feita = '#4', pde_id = #5
+                        WHERE pas_id = #6;
                 """;
-        sql = sql.replace("#1", passeio.getPas_data().toString());
+        sql = sql.replace("#1", dateFormatter.format(passeio.getPas_data()));
         sql = sql.replace("#2", passeio.getPas_hora_inicio().toString());
         sql = sql.replace("#3", passeio.getPas_hora_final().toString());
-        sql = sql.replace("#4", "" + passeio.getPas_chamada_feita());
+        sql = sql.replace("#4", passeio.getPas_chamada_feita());
         sql = sql.replace("#5", "" + passeio.getPde_id());
+        sql = sql.replace("#6", "" + passeio.getPasId());
+
+        System.out.println("SQL FINAL DE UPDATE: " + sql);
 
         if(SingletonDB.getConexao().manipular(sql)){
             return passeio;
