@@ -22,7 +22,7 @@ public class Oficina {
     private int professor;
     private char ativo;
 
-    public Oficina() {}
+    public Oficina(){}
 
     public Oficina(int id, String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo) {
         this.id = id;
@@ -117,4 +117,15 @@ public class Oficina {
     public List<Oficina> consultarOficinas(String filtro, Conexao conexao){
         return dao.get(filtro);
     }
+    public Oficina consultarOficinasID(int id){
+        return dao.get(id);
+    }
+
+    public Oficina gravarOficina(Oficina oficina) {
+        return dao.gravar(oficina);
+    }
+
+    public boolean deletarOficina(Oficina oficina) { return dao.excluir(oficina); }
+
+    public Oficina alterarOficina(Oficina oficina) { return dao.alterar(oficina); }
 }
