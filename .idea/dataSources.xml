@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="bga-db@localhost" uuid="d77c4e91-a5bc-41b6-b5d3-4a2aa7c689b0">
+    <data-source source="LOCAL" name="bga-db@localhost" uuid="38d2c1a9-5b27-440a-ac44-53733c89fd93">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

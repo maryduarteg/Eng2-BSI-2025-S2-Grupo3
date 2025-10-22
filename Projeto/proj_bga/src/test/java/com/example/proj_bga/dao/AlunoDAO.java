@@ -111,4 +111,7 @@ public class AlunoDAO implements IDAO<Aluno>
         }
         return null;
     }
+
+    @Override
+    public Aluno get(int id) {return null;}
 }
