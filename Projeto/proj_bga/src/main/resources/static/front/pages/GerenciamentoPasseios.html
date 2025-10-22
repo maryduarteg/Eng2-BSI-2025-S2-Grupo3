@@ -334,7 +334,8 @@
                     <h2 class="text-center">Gerenciamento de Passeios</h2><br><br>
                     <div class="d-flex justify-content-center">
                         <button type="button" class="btn btn-success mx-4" id="btn-mostrar-form">Cadastrar Passeio</button>
-                        <button type="button" class="btn btn-warning mx-4">Gerenciar Passeios</button>
+                        <button type="button" class="btn btn-warning mx-4" id="">Gerenciar Passeios</button>
+                        <button type="button" class="btn btn-info mx-4" id="">Exibir Passeios</button>
                     </div>
                 </div>
 
@@ -348,17 +349,17 @@
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label for="data-passeio" class="form-label">Data do passeio (DD/MM/AAAA)</label>
-                                <input type="text" id="data-passeio" name="pas-data" maxlength="10" onkeyup="aplicarMascaraData(this)" placeholder="dd/mm/aaaa" class="form-control">
+                                <input type="text" id="data-passeio" name="pas-data" maxlength="10" onkeyup="aplicarMascaraData(this)" placeholder="00/00/0000" class="form-control" required>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="hora-inicio" class="form-label">Hora de Início (HH:MM)</label>
-                                <input type="text" id="hora-inicio" name="hora_inicio" maxlength="5" onkeyup="aplicarMascaraHora(this)" placeholder="00:00" class="form-control">
+                                <input type="text" id="hora-inicio" name="hora_inicio" maxlength="5" onkeyup="aplicarMascaraHora(this)" placeholder="00:00" class="form-control" required>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="hora-fim" class="form-label">Horário de Término (HH:MM)</label>
-                                <input type="text" id="hora-fim" name="hora-fim" maxlength="5" onkeyup="aplicarMascaraHora(this)" placeholder="00:00" class="form-control">
+                                <input type="text" id="hora-fim" name="hora-fim" maxlength="5" onkeyup="aplicarMascaraHora(this)" placeholder="00:00" class="form-control" required>
                             </div>
                         </div>
 
@@ -367,7 +368,7 @@
                         <div class="row mt-4">
                             <div class="col-md-6 mx-auto text-center">
                                 <label for="desc-passeio" class="form-label fw-semibold text-secondary">Selecione a Descrição do Passeio</label><br>
-                                <select id="desc-passeio" name="desc-passeio" class="form-select text-center">
+                                <select id="desc-passeio" name="desc-passeio" class="form-select text-center" required>
                                     <option value="">-- Escolha uma Opção --</option>
                                     <option value="2">Parque Aquático</option>
                                     <option value="3">Cinema</option>

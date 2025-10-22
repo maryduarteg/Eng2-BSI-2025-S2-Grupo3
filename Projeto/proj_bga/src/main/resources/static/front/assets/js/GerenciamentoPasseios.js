@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (btnMostrar) {
         btnMostrar.addEventListener('click', toggleFormulario);
     }
+
+    const inputDataPasseio = document.getElementById('data-passeio');
+    if (inputDataPasseio) {
+        inputDataPasseio.addEventListener('blur', validarData);
+    }
 });
 
 window.addEventListener("load", function() {
@@ -49,6 +54,44 @@ function aplicarMascaraHora(campo) {
     campo.value = valor;
 }
 
+function converterDataBrasilParaISO(dataBr) {
+    const [dia, mes, ano] = dataBr.split("/");
+    return `${ano}-${mes}-${dia}`;
+}
+
+function validarData() {
+    const campo = document.getElementById("data-passeio");
+    const dataBr = campo.value.trim();
+    let mensagemErro = "";
+
+    if (dataBr === "") {
+        campo.setCustomValidity("");
+        return true;
+    }
+
+    if (dataBr.length != 10 || dataBr.indexOf('/') == -1)
+        mensagemErro = "Formato de data incompleto. Use DD/MM/AAAA.";
+    else {
+        const partes = dataBr.split("/");
+        const dia = parseInt(partes[0], 10);
+        const mes = parseInt(partes[1], 10);
+        const ano = parseInt(partes[2], 10);
+        const dataInseridaObj = new Date(ano, mes - 1, dia);
+        const dataAtual = new Date();
+
+        if (dataInseridaObj.getFullYear() != ano || (dataInseridaObj.getMonth() + 1) != mes || dataInseridaObj.getDate() != dia)
+            mensagemErro = "A data inserida não é válida!";
+        else
+            if (dataInseridaObj.getTime() <= dataAtual.getTime())
+                mensagemErro = "Não é possível agendar uma data anterior ou igual à data atual.";
+    }
+
+    campo.setCustomValidity(mensagemErro);
+    if (mensagemErro !== "")
+        campo.reportValidity();
+    return mensagemErro === "";
+}
+
 function cadastrarPasseio(event) {
     event.preventDefault();
 
@@ -56,12 +99,6 @@ function cadastrarPasseio(event) {
     if (!form.checkValidity()) {
         form.classList.add("was-validated");
         return false;
-    }
-
-    // Converter a data para formato ISO (yyyy-MM-dd)
-    function converterDataBrasilParaISO(dataBr) {
-        const [dia, mes, ano] = dataBr.split("/");
-        return `${ano}-${mes}-${dia}`;
     }
 
     const dados = {
@@ -95,7 +132,6 @@ function cadastrarPasseio(event) {
             console.error("Erro ao cadastrar:", error);
             mostrarMensagem("Erro ao cadastrar passeio!", false);
         });
-
     return false;
 }
 
