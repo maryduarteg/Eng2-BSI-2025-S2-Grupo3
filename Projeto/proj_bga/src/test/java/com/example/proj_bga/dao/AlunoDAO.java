@@ -114,4 +114,22 @@ public class AlunoDAO implements IDAO<Aluno>
 
     @Override
     public Aluno get(int id) {return null;}
+
+    public boolean verificarAtivoExistente(int id)
+    {
+        String sql = """
+                SELECT P.PES_ID
+                FROM PESSOA P
+                INNER JOIN ALUNO A ON A.PES_ID = P.PES_ID
+                WHERE P.PES_ATIVO = 'A'
+                """;
+        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        try {
+            if(rs.next())
+                return true;
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar Aluno: " + e.getMessage());
+        }
+        return false;
+    }
 }

@@ -142,4 +142,6 @@ public class Aluno {
     {
         return (Aluno) dao.alterar(aluno);
     }
+
+    public boolean consultarAtivo(int id){return dao.verificarAtivoExistente(id);}
 }
