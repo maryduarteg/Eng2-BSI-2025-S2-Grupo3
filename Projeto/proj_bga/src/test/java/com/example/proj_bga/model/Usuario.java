@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class Usuario {
@@ -73,11 +75,12 @@ public class Usuario {
 
     public boolean logar(String login, String senha){
         Usuario usuario = dao.getUsuario(login);
-        if(usuario == null){
+        if(usuario == null)
             return false;
-        }
-        else{
-            return usuario.getSenha().equals(senha);
-        }
+
+        if (usuario.getSenha().equals(senha) && usuario.getIsAtivo())
+            return true;
+
+        return false;
     }
 }
