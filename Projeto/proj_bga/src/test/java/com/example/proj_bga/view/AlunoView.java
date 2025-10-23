@@ -1,7 +1,6 @@
 package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.AlunoController;
-import com.example.proj_bga.model.Aluno;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -89,9 +86,15 @@ public class AlunoView {
                     .body(new Mensagem("Nenhum aluno encontrado!!")); // HTTP 400
         }
     }
-    //.
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAlunoID(@PathVariable("id") int id) {
+        List<Map<String, Object>> aluno = alunoController.getAlunos("WHERE ALU_ID = "+id);
 
-
-
-
+        if (aluno != null)
+            return ResponseEntity.ok(aluno); // HTTP 200 com JSON da oficina
+        else {
+            return ResponseEntity.badRequest()
+                    .body(new Mensagem("Aluno não encontrado!")); // HTTP 400
+        }
+    }
 }
