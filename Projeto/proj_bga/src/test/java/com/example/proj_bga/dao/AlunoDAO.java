@@ -107,7 +107,7 @@ public class AlunoDAO implements IDAO<Aluno>
             }
             return lista;
         } catch (SQLException e) {
-            System.out.println("Erro ao buscar funcionário: " + e.getMessage());
+            System.out.println("Erro ao buscar aluno: " + e.getMessage());
         }
         return null;
     }
@@ -122,7 +122,9 @@ public class AlunoDAO implements IDAO<Aluno>
                 FROM PESSOA P
                 INNER JOIN ALUNO A ON A.PES_ID = P.PES_ID
                 WHERE P.PES_ATIVO = 'A'
+                AND A.ALU_ID = #
                 """;
+        sql = sql.replace("#",""+id);
         ResultSet rs = SingletonDB.getConexao().consultar(sql);
         try {
             if(rs.next())
