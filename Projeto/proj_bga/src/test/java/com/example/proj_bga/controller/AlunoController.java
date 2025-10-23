@@ -1,17 +1,15 @@
 package com.example.proj_bga.controller;
 
 import com.example.proj_bga.model.Aluno;
-import com.example.proj_bga.model.Passeio;
+import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
-import static com.example.proj_bga.model.Aluno.*;
 @Service
 public class AlunoController {
     @Autowired
@@ -121,8 +119,12 @@ public class AlunoController {
             return Map.of("erro", "Aluno não encontrado para exclusão.");
         else
         {
-            Aluno aux = alunoModel.consultar("where alu_id = "+id);
-            boolean deletado = alunoModel.deletarAluno(aux);
+            Pessoa pessoaModel = new Pessoa();
+            Aluno aux = alunoModel.consultar("WHERE ALU_ID = "+id);
+            Pessoa paux = pessoaModel.getId(aux.getPes_id());
+            paux.setAtivo('N');
+            boolean deletado = pessoaModel.alterarPessoa(paux);
+
             if (deletado)
                 return Map.of("mensagem", "Aluno " + id + " removido com sucesso!");
             else

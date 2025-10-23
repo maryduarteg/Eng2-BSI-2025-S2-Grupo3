@@ -1,10 +1,15 @@
 package com.example.proj_bga.model;
+import com.example.proj_bga.dao.PessoaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 
-
+@Component
 public class Pessoa {
+    @Autowired
+    private PessoaDAO dao;
     private int id;
     private String nome;
     private String cpf;
@@ -136,4 +141,14 @@ public class Pessoa {
             return(false);
         }
     }
+
+    public Pessoa getId(int id){ return (Pessoa) dao.get(id);}
+
+    public boolean alterarPessoa(Pessoa pessoa)
+    {
+        if (dao.alterar(pessoa) != null)
+            return true;
+        return false;
+    }
+
 }
