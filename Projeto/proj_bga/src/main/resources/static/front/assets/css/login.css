@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+.container-login {
+    background-color: white;
+    width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.logo {
+    padding: 70px;
+}
+
+.sidebar-brand-icon i {
+    font-size: 66px;
+    margin-right: 10px;
+    color: white;
+}
+
+.sidebar-brand-text {
+    font-size: 62px;
+    font-weight: bold;
+    color: white;
+}
+
+a:hover {
+    animation: none;
+    transition: none;
+}
