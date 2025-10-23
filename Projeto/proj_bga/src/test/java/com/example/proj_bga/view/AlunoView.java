@@ -89,7 +89,17 @@ public class AlunoView {
                     .body(new Mensagem("Nenhum aluno encontrado!!")); // HTTP 400
         }
     }
-    //.
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAlunoID(@PathVariable("id") int id) {
+        List<Map<String, Object>> aluno = alunoController.getAlunos("WHERE ALU_ID = "+id);
+
+        if (aluno != null)
+            return ResponseEntity.ok(aluno); // HTTP 200 com JSON da oficina
+        else {
+            return ResponseEntity.badRequest()
+                    .body(new Mensagem("Aluno não encontrado!")); // HTTP 400
+        }
+    }
 
 
 
