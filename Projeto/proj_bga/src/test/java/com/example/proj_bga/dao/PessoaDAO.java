@@ -2,11 +2,13 @@ package com.example.proj_bga.dao;
 
 import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.SingletonDB;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+@Repository
 public class PessoaDAO implements IDAO<Pessoa>{
     @Override
     public Object gravar(Pessoa entidade) {
