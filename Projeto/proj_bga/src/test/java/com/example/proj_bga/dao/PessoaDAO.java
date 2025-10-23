@@ -1,0 +1,79 @@
+package com.example.proj_bga.dao;
+
+import com.example.proj_bga.model.Pessoa;
+import com.example.proj_bga.util.SingletonDB;
+
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+public class PessoaDAO implements IDAO<Pessoa>{
+    @Override
+    public Object gravar(Pessoa entidade) {
+        return null;
+    }
+
+    @Override
+    public Object alterar(Pessoa pessoa) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String sql = """
+                    UPDATE public.pessoa
+                    SET pes_nome= #1, pes_cpf=#2, pes_dt_nascimento=#3, pes_rg=#4, pes_ativo= #4, end_id=#5
+                    WHERE pes_id = #6;
+                """;
+        sql = sql.replace("#1", pessoa.getNome());
+        sql = sql.replace("#2", pessoa.getcpf());
+        sql = sql.replace("#3", dateFormatter.format(pessoa.getDt_nascimento()));
+        sql = sql.replace("#4", pessoa.getRg());
+        sql = sql.replace("#5", ""+pessoa.getAtivo());
+        sql = sql.replace("#6", "" + pessoa.getEnd_id());
+
+        System.out.println("SQL FINAL DE UPDATE: " + sql);
+
+        if(SingletonDB.getConexao().manipular(sql)){
+            return pessoa;
+        }
+        else{
+            System.out.println("Erro ao alterar pessoa:" + SingletonDB.getConexao().getMensagemErro());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean excluir(Pessoa entidade) {
+        return false;
+    }
+
+    @Override
+    public List<Pessoa> get(String filtro) {
+        return List.of();
+    }
+
+    @Override
+    public Pessoa get(int id) {
+        Pessoa p = null;
+        String sql = """
+                SELECT * FROM aluno
+                WHERE alu_id = #1;
+            """;
+
+        sql = sql.replace("#1", "" + id);
+
+        try {
+            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            if(rs.next()){
+                p = new Pessoa();
+                p.setId(rs.getInt("pes_id"));
+                p.setNome(rs.getString("pes_nome"));
+                p.setcpf(rs.getString("pes_cpf"));
+                p.setDt_nascimento(rs.getDate("pes_dt_nascimento").toLocalDate());
+                p.setRg(rs.getString("pes_rg"));
+                p.setAtivo(rs.getString("pes_ativo").charAt(0));
+                p.setEnd_id(rs.getInt("end_id"));
+            }
+        } catch(Exception e) {
+            System.out.println("Erro ao obter Pessoa: " + e.getMessage());
+        }
+        return p;
+    }
+}

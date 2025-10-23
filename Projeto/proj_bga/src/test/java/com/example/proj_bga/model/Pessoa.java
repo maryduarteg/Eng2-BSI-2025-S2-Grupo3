@@ -95,7 +95,7 @@ public class Pessoa {
         char dig10, dig11;
         int sm, i, r, num, peso;
 
-        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
+
         try {
             // Calculo do 1o. Digito Verificador
             sm = 0;
