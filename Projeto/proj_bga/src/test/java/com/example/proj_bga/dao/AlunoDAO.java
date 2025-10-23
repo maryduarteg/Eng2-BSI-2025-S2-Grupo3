@@ -1,9 +1,11 @@
 package com.example.proj_bga.dao;
 import com.example.proj_bga.model.Aluno;
+import com.example.proj_bga.model.Passeio;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +96,7 @@ public class AlunoDAO implements IDAO<Aluno>
         try {
             if (rs.next()) {
                 Aluno aluno = new Aluno();
-                aluno.setId(rs.getInt("func_cod"));
+                aluno.setId(rs.getInt("alu_cod"));
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
                 aluno.setMae(rs.getString("alu_mae"));
                 aluno.setPai(rs.getString("alu_pai"));
@@ -113,7 +115,34 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public Aluno get(int id) {return null;}
+    public Aluno get(int id){
+        Aluno a = null;
+        String sql = """
+                SELECT * FROM aluno
+                WHERE alu_id = #1;
+            """;
+
+        sql = sql.replace("#1", "" + id);
+
+        try {
+            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            if(rs.next()){
+                a = new Aluno();
+                a.setId(rs.getInt("alu_id"));
+                a.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
+                a.setMae(rs.getString("alu_mae"));
+                a.setPai(rs.getString("alu_pai"));
+                a.setResponsavel_pais(rs.getString("alu_responsavel_pais"));
+                a.setConhecimento(rs.getString("alu_conhecimento"));
+                a.setPais_convivem(rs.getString("alu_pais_convivem"));
+                a.setPensao(rs.getString("alu_pensao"));
+                a.setPes_id(rs.getInt("pes_id"));
+            }
+        } catch(Exception e) {
+            System.out.println("Erro ao obter Aluno: " + e.getMessage());
+        }
+        return a;
+    }
 
     public boolean verificarAtivoExistente(int id)
     {
