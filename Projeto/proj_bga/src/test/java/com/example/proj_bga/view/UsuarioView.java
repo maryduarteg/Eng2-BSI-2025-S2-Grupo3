@@ -21,14 +21,12 @@ public class UsuarioView {
     {
         String usuario = dados.get("usuario");
         String senha = dados.get("senha");
-         /*
-        if(usuario.equals("Gabriel") && senha.equals("Teste@123"))
-            return ResponseEntity.ok(true);*/
 
-        return ResponseEntity.ok(usuarioController.logar(usuario, senha));
-        /*boolean json = usuarioController.logar(usuario, senha);
+        Map<String, Object> json = usuarioController.logar(usuario, senha);
         if(json.get("erro") == null)
-            return ResponseEntity.ok(new Mensagem("Passeio cadastrado com sucesso!"));
-        return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));*/
+            return ResponseEntity.ok(json);
+
+        //Verificar como mandar este erro:
+        return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
 }

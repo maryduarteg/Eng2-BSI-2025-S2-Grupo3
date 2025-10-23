@@ -13,19 +13,33 @@ function logar(){
         }),
     })
         .then(response => response.json())
-    .then(isLogado => {
-        console.log(isLogado);
-        if (isLogado == true)
-            alert("Login realizado com sucesso.");
+    .then(resp => {
+        if (resp.isLogado == true){
+            let usuarioResp = {
+                login: usuario,
+                isAtivo: resp.isAtivo,
+                isLogado: resp.isLogado,
+                categariaUsuarioId: resp.categariaUsuarioId,
+                token: resp.token
+            };
+            sessionStorage.setItem("usuario", JSON.stringify(usuario));
+            window.location.href = "index.html";
+        }
         else
-            alert("Usuário ou senha incorreto.");
+            mostrarMensagem("Usuário ou senha incorreto.", false);
     })
     .catch(error => {
-        console.error("Erro ao cadastrar:", error);
-        mostrarMensagem("Erro ao cadastrar passeio!", false);
+        mostrarMensagem("Erro ao logar!", false);
     });
 }
 
+function mostrarMensagem(texto, sucesso) {
+    const container = document.getElementById("mensagem-passeio");
+    if(container) {
+        container.innerHTML = texto;
+        container.className = 'mensagem ' + (sucesso ? 'sucesso' : 'erro');
+    }
+}
 
 function cadastrarPasseio(event) {
     event.preventDefault();
