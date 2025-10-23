@@ -17,16 +17,16 @@ public class Aluno {
     private String foto;
     private String mae;
     private String pai;
-    private String responsavel_pais;
-    private String conhecimento;
-    private String pais_convivem;
-    private String pensao;
+    private char responsavel_pais;
+    private char conhecimento;
+    private char pais_convivem;
+    private char pensao;
     private int pes_id;
 
     public Aluno(int id, LocalDate dt_entrada, String foto,
-                 String mae, String pai, String responsavel_pais,
-                 String conhecimento, String pais_convivem,
-                 String pensao, int pes_id)
+                 String mae, String pai, char responsavel_pais,
+                 char conhecimento, char pais_convivem,
+                 char pensao, int pes_id)
     {
         this.id = id;
         this.dt_entrada = dt_entrada;
@@ -82,35 +82,35 @@ public class Aluno {
         this.pai = pai;
     }
 
-    public String getResponsavel_pais() {
+    public char getResponsavel_pais() {
         return responsavel_pais;
     }
 
-    public void setResponsavel_pais(String responsavel_pais) {
+    public void setResponsavel_pais(char responsavel_pais) {
         this.responsavel_pais = responsavel_pais;
     }
 
-    public String getConhecimento() {
+    public char getConhecimento() {
         return conhecimento;
     }
 
-    public void setConhecimento(String conhecimento) {
+    public void setConhecimento(char conhecimento) {
         this.conhecimento = conhecimento;
     }
 
-    public String getPais_convivem() {
+    public char getPais_convivem() {
         return pais_convivem;
     }
 
-    public void setPais_convivem(String pais_convivem) {
+    public void setPais_convivem(char pais_convivem) {
         this.pais_convivem = pais_convivem;
     }
 
-    public String getPensao() {
+    public char getPensao() {
         return pensao;
     }
 
-    public void setPensao(String pensao) {
+    public void setPensao(char pensao) {
         this.pensao = pensao;
     }
 

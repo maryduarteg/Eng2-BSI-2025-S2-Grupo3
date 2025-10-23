@@ -15,9 +15,9 @@ public class AlunoController {
     @Autowired
     private Aluno alunoModel;
    public Map<String, Object> addAluno(LocalDate dt_entrada, String foto,
-           String mae, String pai, String responsavel_pais,
-           String conhecimento, String pais_convivem,
-           String pensao, int pes_id)
+           String mae, String pai, char responsavel_pais,
+           char conhecimento, char pais_convivem,
+           char pensao, int pes_id)
    {
         Aluno novo = new Aluno(0, dt_entrada, foto, mae, pai, responsavel_pais, conhecimento,
                 pais_convivem, pensao, pes_id);
@@ -67,13 +67,13 @@ public class AlunoController {
 
     public Map<String, Object> atualizarAluno(int id,
             LocalDate dt_entrada, String foto,
-            String mae, String pai, String responsavel_pais,
-            String conhecimento, String pais_convivem,
-            String pensao, int pes_id)
+            String mae, String pai, char responsavel_pais,
+            char conhecimento, char pais_convivem,
+            char pensao, int pes_id)
     {
         if(id <= 0 || dt_entrada == null || foto.isEmpty()|| mae.isEmpty() ||
-                pai.isEmpty() || pes_id <= 0 || responsavel_pais.isEmpty()
-                || conhecimento.isEmpty() || pais_convivem.isEmpty() || pensao.isEmpty()) {
+                pai.isEmpty() || pes_id <= 0 || responsavel_pais == '\u0000'
+                || (conhecimento == '\u0000') || pais_convivem == '\u0000' || pensao== '\u0000') {
             return Map.of("erro", "Dados inválidos!!");
         }
         Aluno encontrado = alunoModel.consultar("WHERE ALU_ID = "+id);
@@ -99,18 +99,16 @@ public class AlunoController {
                     "data", atualizado.getFoto(),
                     "hora_inicio", atualizado.getMae(),
                     "hora_final", atualizado.getPai(),
-                    "chamada_feita",  atualizado.getResponsavel_pais(),
-                    "pde_id", atualizado.getConhecimento(),
-                    "pde_id", atualizado.getPais_convivem(),
-                    "pde_id", atualizado.getPensao(),
-                    "pde_id", atualizado.getPes_id()
+                    "responsavel_pais",  atualizado.getResponsavel_pais(),
+                    "conhecimento", atualizado.getConhecimento(),
+                    "pais_convivem", atualizado.getPais_convivem(),
+                    "pensao", atualizado.getPensao(),
+                    "pes_id", atualizado.getPes_id()
             );
         } else {
             return Map.of("erro", "Erro ao atualizar aluno");
         }
     }
-
-
 
     public Map<String, Object> deletarAluno(int id) {
         boolean resp = alunoModel.consultarAtivo(id);

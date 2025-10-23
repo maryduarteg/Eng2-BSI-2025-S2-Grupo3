@@ -21,10 +21,10 @@ public class AlunoDAO implements IDAO<Aluno>
                 	VALUES (#1, #2, #3, #4, #5, #6, #7, #8, #9);
                 """;
         sql = sql.replace("#1",""+ aluno.getDt_entrada());
-        sql = sql.replace("#2",""+ aluno.getFoto());
-        sql = sql.replace("#3",""+ aluno.getMae());
-        sql = sql.replace("#4",""+ aluno.getPai());
-        sql = sql.replace("#5",""+ aluno.getResponsavel_pais());
+        sql = sql.replace("#2", aluno.getFoto());
+        sql = sql.replace("#3", aluno.getMae());
+        sql = sql.replace("#4", aluno.getPai());
+        sql = sql.replace("#5",""+aluno.getResponsavel_pais());
         sql = sql.replace("#6",""+ aluno.getPais_convivem());
         sql = sql.replace("#7",""+ aluno.getConhecimento());
         sql = sql.replace("#8",""+ aluno.getPensao());
@@ -50,10 +50,10 @@ public class AlunoDAO implements IDAO<Aluno>
              WHERE alu_id=#9;
              """;
 
-        sql = sql.replace("#1",""+ aluno.getDt_entrada());
-        sql = sql.replace("#2",""+ aluno.getFoto());
-        sql = sql.replace("#3",""+ aluno.getMae());
-        sql = sql.replace("#4",""+ aluno.getPai());
+        sql = sql.replace("#1",""+aluno.getDt_entrada());
+        sql = sql.replace("#2", aluno.getFoto());
+        sql = sql.replace("#3", aluno.getMae());
+        sql = sql.replace("#4", aluno.getPai());
         sql = sql.replace("#5",""+ aluno.getResponsavel_pais());
         sql = sql.replace("#6",""+ aluno.getPais_convivem());
         sql = sql.replace("#7",""+ aluno.getConhecimento());
@@ -100,10 +100,10 @@ public class AlunoDAO implements IDAO<Aluno>
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
                 aluno.setMae(rs.getString("alu_mae"));
                 aluno.setPai(rs.getString("alu_pai"));
-                aluno.setResponsavel_pais(rs.getString("alu_responsavel_pais"));
-                aluno.setConhecimento(rs.getString("alu_conhecimento"));
-                aluno.setPais_convivem(rs.getString("alu_pais_convivem"));
-                aluno.setPensao(rs.getString("alu_pensao"));
+                aluno.setResponsavel_pais(rs.getString("alu_responsavel_pais").charAt(0));
+                aluno.setConhecimento(rs.getString("alu_conhecimento").charAt(0));
+                aluno.setPais_convivem(rs.getString("alu_pais_convivem").charAt(0));
+                aluno.setPensao(rs.getString("alu_pensao").charAt(0));
                 aluno.setPes_id(rs.getInt("pes_id"));
                 lista.add(aluno);
             }
@@ -132,10 +132,10 @@ public class AlunoDAO implements IDAO<Aluno>
                 a.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
                 a.setMae(rs.getString("alu_mae"));
                 a.setPai(rs.getString("alu_pai"));
-                a.setResponsavel_pais(rs.getString("alu_responsavel_pais"));
-                a.setConhecimento(rs.getString("alu_conhecimento"));
-                a.setPais_convivem(rs.getString("alu_pais_convivem"));
-                a.setPensao(rs.getString("alu_pensao"));
+                a.setResponsavel_pais(rs.getString("alu_responsavel_pais").charAt(0));
+                a.setConhecimento(rs.getString("alu_conhecimento").charAt(0));
+                a.setPais_convivem(rs.getString("alu_pais_convivem").charAt(0));
+                a.setPensao(rs.getString("alu_pensao").charAt(0));
                 a.setPes_id(rs.getInt("pes_id"));
             }
         } catch(Exception e) {
