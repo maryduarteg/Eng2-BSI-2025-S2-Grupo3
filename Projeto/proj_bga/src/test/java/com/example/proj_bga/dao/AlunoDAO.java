@@ -92,7 +92,7 @@ public class AlunoDAO implements IDAO<Aluno>
 
         try {
             ResultSet rs = SingletonDB.getConexao().consultar(sql);
-            if (rs.next()) {
+            while (rs.next()) {
                 Aluno aluno = new Aluno();
                 aluno.setId(rs.getInt("alu_id"));
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());

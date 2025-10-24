@@ -40,7 +40,8 @@ public class AlunoView {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAluno(@PathVariable("id") int id) {
+    public ResponseEntity<Object> deleteAluno(@PathVariable("id") int id)
+    {
         Map<String, Object> json = alunoController.deletarAluno(id);
         if(json.get("erro") == null){
             return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));

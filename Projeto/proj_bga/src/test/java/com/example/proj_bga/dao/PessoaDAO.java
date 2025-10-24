@@ -17,7 +17,7 @@ public class PessoaDAO implements IDAO<Pessoa>{
 
     @Override
     public Object alterar(Pessoa pessoa) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String sql = """
                     UPDATE public.pessoa
                     SET pes_nome= '#1', pes_cpf='#2', pes_dt_nascimento='#3', pes_rg='#4', pes_ativo= '#5', end_id=#6
@@ -25,7 +25,7 @@ public class PessoaDAO implements IDAO<Pessoa>{
                 """;
         sql = sql.replace("#1", pessoa.getNome());
         sql = sql.replace("#2", pessoa.getcpf());
-        sql = sql.replace("#3", dateFormatter.format(pessoa.getDt_nascimento()));
+        sql = sql.replace("#3",""+ pessoa.getDt_nascimento());
         sql = sql.replace("#4", pessoa.getRg());
         sql = sql.replace("#5", ""+pessoa.getAtivo());
         sql = sql.replace("#6", "" + pessoa.getEnd_id());
