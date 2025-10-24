@@ -125,7 +125,11 @@ public class Oficina {
         return dao.gravar(oficina);
     }
 
-    public boolean deletarOficina(Oficina oficina) { return dao.excluir(oficina); }
+//    public boolean deletarOficina(Oficina oficina) { return dao.excluir(oficina); }
+
+    public boolean inativarOficina(int id) {
+        return dao.inativarOficina(id);
+    }
 
     public Oficina alterarOficina(Oficina oficina) { return dao.alterar(oficina); }
 }

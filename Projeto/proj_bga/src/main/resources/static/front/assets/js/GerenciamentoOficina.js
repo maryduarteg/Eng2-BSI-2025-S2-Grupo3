@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
+
+
 window.addEventListener("load", function() {
     document.querySelectorAll("form").forEach(form => form.reset());
 });
@@ -157,25 +159,113 @@ function validarHoraFim() {
     return mensagemErro === "";
 }
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById("formOficina");
+    const campos = Array.from(form.querySelectorAll(".form-control"));
+
+    // Remove borda vermelha e mensagem ao digitar
+    campos.forEach(campo => {
+        campo.addEventListener("input", () => {
+            campo.classList.remove("is-invalid");
+            const erroMsg = campo.nextElementSibling;
+            if (erroMsg && erroMsg.classList.contains("invalid-feedback")) {
+                erroMsg.remove();
+            }
+        });
+    });
+
+    // Submissão do formulário
+    form.addEventListener("submit", cadastrarOficina);
+});
+
+// Máscaras para datas e horas
+document.getElementById("data-inicio-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
+document.getElementById("data-fim-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
+document.getElementById("hora-inicio-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraHora(e.target.value));
+document.getElementById("hora-fim-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraHora(e.target.value));
+
+function aplicarMascaraData(valor) {
+    valor = valor.replace(/\D/g, "").slice(0,8);
+    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1/$2");
+    if (valor.length > 5) valor = valor.replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
+    return valor;
+}
+
+function aplicarMascaraHora(valor) {
+    valor = valor.replace(/\D/g, "").slice(0,4);
+    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1:$2");
+    return valor;
+}
+
 function cadastrarOficina(event) {
     event.preventDefault();
+    const form = event.target;
+    const campos = Array.from(form.querySelectorAll(".form-control"));
+    let valido = true;
 
-    const form = document.getElementById("formOficina");
+    // Limpa erros
+    campos.forEach(campo => {
+        campo.classList.remove("is-invalid");
+        const erroMsg = campo.nextElementSibling;
+        if (erroMsg && erroMsg.classList.contains("invalid-feedback")) erroMsg.remove();
+    });
 
-    // Valida o formulário HTML
-    if (!form.checkValidity()) {
-        form.classList.add("was-validated");
-        return false;
+    // Campos obrigatórios
+    campos.forEach(campo => {
+        if (!campo.value.trim()) {
+            adicionarErro(campo, "Campo obrigatório");
+            valido = false;
+        }
+    });
+
+    // Validação professor
+    const professorId = parseInt(form.professorId.value);
+    if (professorId < 1 || isNaN(professorId)) {
+        adicionarErro(form.professorId, "ID do professor inválido");
+        valido = false;
     }
 
-    // Cria objeto oficina com nomes que o backend espera
+    // Validação datas
+    const dataInicio = form.dataInicio.value.trim();
+    const dataFim = form.dataFim.value.trim();
+    if (dataInicio && dataFim) {
+        const [di, mi, ai] = dataInicio.split("/").map(Number);
+        const [df, mf, af] = dataFim.split("/").map(Number);
+        const inicio = new Date(ai, mi-1, di);
+        const fim = new Date(af, mf-1, df);
+        if (fim < inicio) {
+            adicionarErro(form.dataFim, "Data final deve ser igual ou posterior à data inicial");
+            valido = false;
+        }
+    }
+
+    // Validação horas
+    const horaInicio = form.horaInicio.value.trim();
+    const horaFim = form.horaFim.value.trim();
+    if (horaInicio && horaFim) {
+        const [hi, mi] = horaInicio.split(":").map(Number);
+        const [hf, mf] = horaFim.split(":").map(Number);
+        const inicio = new Date();
+        const fim = new Date();
+        inicio.setHours(hi, mi, 0, 0);
+        fim.setHours(hf, mf, 0, 0);
+        if (fim <= inicio) {
+            adicionarErro(form.horaFim, "Hora final deve ser posterior à hora inicial");
+            valido = false;
+        }
+    }
+
+    if (!valido) return;
+
+    // Monta objeto
     const oficina = {
         nome: form.nome.value.trim(),
-        horaInicio: form.horaInicio.value,
-        horaTermino: form.horaFim.value,
+        professor: professorId,
         dataInicio: converterDataBrasilParaISO(form.dataInicio.value),
         dataFim: converterDataBrasilParaISO(form.dataFim.value),
-        professor: parseInt(form.professorId.value),
+        horaInicio: form.horaInicio.value,
+        horaTermino: form.horaFim.value,
         ativo: "S"
     };
 
@@ -184,99 +274,227 @@ function cadastrarOficina(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(oficina)
     })
-        .then(response => response.json())
-        .then(res => {
+        .then(resp => {
+            if (!resp.ok) throw new Error("Erro ao cadastrar");
+            return resp.json();
+        })
+        .then(() => {
             mostrarMensagem("Sucesso! Oficina cadastrada.", true);
             form.reset();
         })
-        .catch(error => {
-            console.error("Erro ao cadastrar:", error);
+        .catch(() => {
             mostrarMensagem("Erro ao cadastrar oficina!", false);
+            adicionarErro(form.professorId, "ID do professor inválido");
         });
 
+    function adicionarErro(campo, msg) {
+        campo.classList.add("is-invalid");
+        if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains("invalid-feedback")) {
+            const div = document.createElement("div");
+            div.className = "invalid-feedback";
+            div.textContent = msg;
+            campo.after(div);
+        }
+    }
+}
 
-    return false;
+function converterDataBrasilParaISO(dataBr) {
+    const [dia, mes, ano] = dataBr.split("/");
+    return `${ano}-${mes}-${dia}`;
+}
+
+function mostrarMensagem(texto, sucesso) {
+    const container = document.getElementById("mensagem-oficina");
+    if (container) {
+        container.innerHTML = texto;
+        container.className = 'mensagem ' + (sucesso ? 'sucesso' : 'erro');
+    }
 }
 
 
+
+function formatarDataParaBR(dataISO) {
+    if (!dataISO) return "";
+    const data = new Date(dataISO);
+    if (isNaN(data)) return "";
+    const dia = String(data.getDate()).padStart(2, "0");
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarTodasOficinas();
+
+    // Botão de salvar edição
+    const btnSalvar = document.getElementById("btn-salvar-edicao");
+    if (btnSalvar) btnSalvar.addEventListener("click", salvarEdicao);
+});
+
+// Função para carregar todas as oficinas
 function carregarTodasOficinas() {
     const tbody = document.getElementById("tabela-oficina-container");
     const msgContainer = document.getElementById("mensagem-tabela");
     const tabelaContainer = document.getElementById("tabela-container");
 
-    if (!tbody || !msgContainer || !tabelaContainer) {
-        console.error("ERRO CRÍTICO: Elemento HTML da Tabela não encontrado.");
-        return;
-    }
+    if (!tbody || !msgContainer || !tabelaContainer) return;
 
-    // Mostra a tabela
     tabelaContainer.classList.remove("d-none");
-
-    // Limpa tabela e mostra mensagem de carregando
     tbody.innerHTML = '';
     msgContainer.textContent = "Carregando todas as oficinas...";
 
     fetch("http://localhost:8080/apis/oficina")
-        .then(response => {
-            if (response.status === 400) {
-                return response.json().then(data => {
-                    msgContainer.textContent = data.mensagem || "Nenhuma oficina cadastrada.";
-                    return [];
-                });
-            }
-            if (!response.ok) {
-                throw new Error('Falha na resposta da rede: ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(resp => resp.json())
         .then(listaOficina => {
+            tbody.innerHTML = '';
             if (!listaOficina || listaOficina.length === 0) {
                 msgContainer.textContent = "Nenhuma oficina cadastrada.";
                 return;
             }
-
             msgContainer.textContent = '';
-
             listaOficina.forEach(oficina => {
                 const row = tbody.insertRow();
-
                 row.innerHTML = `
-                    <td>${oficina.idOficina}</td>
-                    <td>${oficina.nome}</td>
-                    <td>${formatarDataParaBR(oficina.data_inicio)}</td>
-                    <td>${formatarDataParaBR(oficina.data_fim)}</td>
-                    <td>${oficina.hora_inicio}</td>
-                    <td>${oficina.hora_termino}</td>
-                    <td>${oficina.pde_id}</td>
-                    <td>${oficina.ativo}</td>
+                    <td>${oficina.idOficina ?? "-"}</td>
+                    <td>${oficina.nome ?? "-"}</td>
+                    <td>${formatarDataParaBR(oficina.data_inicio) ?? "-"}</td>
+                    <td>${formatarDataParaBR(oficina.data_fim) ?? "-"}</td>
+                    <td>${oficina.hora_inicio ? oficina.hora_inicio.slice(0,5) : "-"}</td>
+                    <td>${oficina.hora_termino ? oficina.hora_termino.slice(0,5) : "-"}</td>
+                    <td>${oficina.pde_id ?? "-"}</td>
+                    <td>${oficina.ativo === "S" ? "Ativa" : "Inativa"}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-info"> 
+                        <button class="btn btn-sm btn-outline-info btn-editar" data-id="${oficina.idOficina}" title="Editar Oficina">
                             <i class="fas fa-edit"></i>
                         </button>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-danger"> 
+                        <button class="btn btn-sm btn-danger btn-excluir" data-id="${oficina.idOficina}" title="Inativar Oficina">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
                 `;
             });
+            ativarBotoesExcluir();
+            ativarBotoesEditar();
         })
-        .catch(error => {
-            console.error("Erro ao carregar oficinas:", error);
-            msgContainer.textContent = "Erro ao carregar dados do servidor.";
+        .catch(err => console.error(err));
+}
+
+// Inativar oficina
+function ativarBotoesExcluir() {
+    document.querySelectorAll(".btn-excluir").forEach(botao => {
+        botao.addEventListener("click", () => {
+            const id = botao.dataset.id;
+            if (!id || !confirm("Deseja realmente inativar esta oficina?")) return;
+
+            fetch(`http://localhost:8080/apis/oficina/inativar/${id}`, { method: "PUT" })
+                .then(resp => {
+                    if (!resp.ok) throw new Error("Erro ao inativar oficina");
+                    botao.closest("tr").cells[7].textContent = "Inativa";
+                    mostrarMensagem("Oficina inativada com sucesso!", true);
+                })
+                .catch(err => {
+                    console.error(err);
+                    mostrarMensagem("Erro ao inativar oficina.", false);
+                });
+        });
+    });
+}
+
+// Abrir formulário de edição
+function ativarBotoesEditar() {
+    document.querySelectorAll(".btn-editar").forEach(botao => {
+        botao.addEventListener("click", () => {
+            const id = botao.dataset.id;
+            fetch(`http://localhost:8080/apis/oficina/${id}`)
+                .then(resp => resp.json())
+                .then(oficina => {
+                    document.getElementById("editar-id").value = oficina.idOficina;
+                    document.getElementById("editar-nome").value = oficina.nome;
+                    document.getElementById("editar-data-inicio").value = formatarDataParaBR(oficina.data_inicio);
+                    document.getElementById("editar-data-fim").value = formatarDataParaBR(oficina.data_fim);
+                    document.getElementById("editar-hora-inicio").value = oficina.hora_inicio?.slice(0,5) || "";
+                    document.getElementById("editar-hora-fim").value = oficina.hora_termino?.slice(0,5) || "";
+                    document.getElementById("editar-professor").value = oficina.pde_id;
+                    document.getElementById("editar-ativo").value = oficina.ativo;
+
+                    document.getElementById("formulario-editar-oficina").classList.remove("d-none");
+                });
+        });
+    });
+}
+
+// Salvar edição
+function salvarEdicao() {
+    const id = document.getElementById("editar-id").value;
+    const nome = document.getElementById("editar-nome").value.trim();
+    const dataInicio = document.getElementById("editar-data-inicio").value.trim();
+    const dataFim = document.getElementById("editar-data-fim").value.trim();
+    const horaInicio = document.getElementById("editar-hora-inicio").value.trim();
+    const horaFim = document.getElementById("editar-hora-fim").value.trim();
+    const professor = document.getElementById("editar-professor").value;
+    const ativo = document.getElementById("editar-ativo").value;
+
+    if (!id || !nome || !dataInicio || !dataFim || !horaInicio || !horaFim || !professor) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    // Monta query params para o backend
+    const params = new URLSearchParams({
+        id: id,
+        Nome: nome,
+        Hora_Inicio: horaInicio,
+        Hora_Fim: horaFim,
+        Data_Inicio: converterDataBrasilParaISO(dataInicio),
+        Data_Fim: converterDataBrasilParaISO(dataFim),
+        Professor: professor,
+        Ativo: ativo
+    });
+
+    fetch(`http://localhost:8080/apis/oficina?${params.toString()}`, { method: "PUT" })
+        .then(resp => {
+            if (!resp.ok) throw new Error("Erro ao atualizar oficina");
+            return resp.json();
+        })
+        .then(() => {
+            mostrarMensagem("Alteração concluída com sucesso!", true);
+
+            // Esconde formulário de edição e recarrega tabela
+            document.getElementById("formulario-editar-oficina").classList.add("d-none");
+            carregarTodasOficinas();
+        })
+        .catch(err => {
+            console.error(err);
+            mostrarMensagem("Erro ao atualizar oficina.", false);
         });
 }
 
-
-
+// Funções auxiliares
 function mostrarMensagem(texto, sucesso) {
     const container = document.getElementById("mensagem-oficina");
-    if(container) {
+    if (container) {
         container.innerHTML = texto;
         container.className = 'mensagem ' + (sucesso ? 'sucesso' : 'erro');
     }
 }
+
+function formatarDataParaBR(dataISO) {
+    if (!dataISO) return "";
+    const data = new Date(dataISO);
+    if (isNaN(data)) return "";
+    const dia = String(data.getDate()).padStart(2,"0");
+    const mes = String(data.getMonth()+1).padStart(2,"0");
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+function converterDataBrasilParaISO(dataBr) {
+    const [dia, mes, ano] = dataBr.split("/");
+    return `${ano}-${mes}-${dia}`;
+}
+
 
 function carregarProfessores() {
     // Faz uma requisição GET ao endpoint do back-end

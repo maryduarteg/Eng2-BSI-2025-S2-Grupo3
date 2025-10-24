@@ -67,16 +67,16 @@ public class OficinaView {
 
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
-        Map<String, Object> json = oficinaController.deletarOficina(id);
-        if(json.get("erro") == null){
-            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
-        }
-        else{
-            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
-        }
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
+//        Map<String, Object> json = oficinaController.deletarOficina(id);
+//        if(json.get("erro") == null){
+//            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
+//        }
+//        else{
+//            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
+//        }
+//    }
 
     @PutMapping
     public ResponseEntity<Object> updateOficinas(
@@ -97,6 +97,16 @@ public class OficinaView {
                             ? json.get("mensagem").toString()
                             : "Oficina atualizada com sucesso!"
             ));
+        } else {
+            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
+        }
+    }
+
+    @PutMapping("/inativar/{id}")
+    public ResponseEntity<Object> inativarOficina(@PathVariable("id") int id) {
+        Map<String, Object> json = oficinaController.inativarOficina(id); // chama o método que você já tem
+        if(json.get("erro") == null){
+            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
         } else {
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
         }

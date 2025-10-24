@@ -95,26 +95,47 @@ public class OficinaController {
 
 
     //deletar oficina
-    public Map<String, Object> deletarOficina(int id) {
+//    public Map<String, Object> deletarOficina(int id) {
+//        Oficina oficina = oficinaModel.consultarOficinasID(id);
+//
+//        if (oficina == null) {
+//            return Map.of("erro", "Oficina não encontrada para exclusão.");
+//        }
+//
+//        boolean deletada = oficinaModel.deletarOficina(oficina);
+//
+//        if (deletada) {
+//            return Map.of("mensagem", "Oficina " + id + " Inativa com sucesso!");
+//        } else {
+//            String erroReal = SingletonDB.getConexao().getMensagemErro();
+//            System.err.println("Falha no DELETE. Erro: " + erroReal);
+//
+//            return Map.of("erro", erroReal);
+//        }
+//    }
+
+    public Map<String, Object> inativarOficina(int id) {
         Oficina oficina = oficinaModel.consultarOficinasID(id);
 
         if (oficina == null) {
-            return Map.of("erro", "Oficina não encontrada para exclusão.");
+            return Map.of("erro", "Oficina não encontrada para inativação.");
         }
 
-        boolean deletada = oficinaModel.deletarOficina(oficina);
+        boolean inativada = oficinaModel.inativarOficina(id);
 
-        if (deletada) {
-            return Map.of("mensagem", "Oficina " + id + " removida com sucesso!");
+        if (inativada) {
+            return Map.of("mensagem", "Oficina " + id + " inativada com sucesso!");
         } else {
             String erroReal = SingletonDB.getConexao().getMensagemErro();
-            System.err.println("Falha no DELETE. Erro: " + erroReal);
+            System.err.println("Falha ao inativar. Erro: " + erroReal);
 
             return Map.of("erro", erroReal);
         }
     }
 
-        // Atualizar Oficina
+
+
+    // Atualizar Oficina
         public Map<String, Object> updateOficina(int id, String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo) {
             if(id <= 0 || nome == null || horaInicio == null || horaFim == null || dataInicio == null || dataFim == null || professor == 0) {
                 return Map.of("erro", "Dados inválidos!!");
