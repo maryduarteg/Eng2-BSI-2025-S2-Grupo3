@@ -15,7 +15,7 @@ public class UsuarioDAO implements IDAO<Usuario>{
     @Override
     public Usuario gravar(Usuario usuario) {
         String sql = String.format("""
-        INSERT INTO usuario (usr_login, usr_senha, ctsr_id, usr_ativo) 
+        INSERT INTO usuario (usr_login, usr_senha, ctsr_id, usr_ativo)
         VALUES ('%s', '%s', '%d', '%d')
         RETURNING usr_id
         """,

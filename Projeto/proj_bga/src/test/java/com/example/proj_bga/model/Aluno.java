@@ -130,6 +130,10 @@ public class Aluno {
         return (Aluno) dao.get(filtro);
     }
 
+    public Aluno consultar(int id){
+        return dao.get(id);
+    }
+
     public Aluno gravar(Aluno aluno) {
         return (Aluno) this.dao.gravar(aluno);
     }
@@ -140,7 +144,7 @@ public class Aluno {
 
     public Aluno update(Aluno aluno)
     {
-        return (Aluno) dao.alterar(aluno);
+        return dao.alterar(aluno);
     }
 
     public boolean consultarAtivo(int id){return dao.verificarAtivoExistente(id);}

@@ -13,6 +13,8 @@ import java.util.*;
 @Service
 public class AlunoController {
     @Autowired
+    Pessoa pessoaModel = new Pessoa();
+    @Autowired
     private Aluno alunoModel;
    public Map<String, Object> addAluno(LocalDate dt_entrada, String foto,
            String mae, String pai, char responsavel_pais,
@@ -76,7 +78,7 @@ public class AlunoController {
                 || (conhecimento == '\u0000') || pais_convivem == '\u0000' || pensao== '\u0000') {
             return Map.of("erro", "Dados inválidos!!");
         }
-        Aluno encontrado = alunoModel.consultar("WHERE ALU_ID = "+id);
+        Aluno encontrado = alunoModel.consultar(id);
         if(encontrado == null) {
             return Map.of("erro", "Aluno não encontrado");
         }
@@ -92,7 +94,7 @@ public class AlunoController {
         encontrado.setPes_id(pes_id);
 
         Aluno atualizado = alunoModel.update(encontrado);
-        if(atualizado == null) {
+        if(atualizado != null) {
             return Map.of(
                     "id", atualizado.getId(),
                     "dt_nasc", atualizado.getDt_entrada(),
@@ -117,9 +119,9 @@ public class AlunoController {
             return Map.of("erro", "Aluno não encontrado para exclusão.");
         else
         {
-            Pessoa pessoaModel = new Pessoa();
-            Aluno aux = alunoModel.consultar("WHERE ALU_ID = "+id);
+            Aluno aux = alunoModel.consultar(id);
             Pessoa paux = pessoaModel.getId(aux.getPes_id());
+            System.out.println(aux.getId() +" "+aux.getPes_id());
             paux.setAtivo('N');
             boolean deletado = pessoaModel.alterarPessoa(paux);
 
