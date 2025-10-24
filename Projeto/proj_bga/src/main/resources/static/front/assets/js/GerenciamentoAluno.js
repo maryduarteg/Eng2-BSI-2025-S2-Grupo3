@@ -87,45 +87,12 @@ function validarDataInicio() {
     }
 }
 
-function validarDataFim() {
-    const campoInicio = document.getElementById("data-inicio-oficina");
-    const campoFim = document.getElementById("data-fim-oficina");
-    const dataInicioBr = campoInicio.value.trim();
-    const dataFimBr = campoFim.value.trim();
-    let mensagemErro = "";
 
-    if (dataFimBr === "") {
-        campoFim.setCustomValidity("");
-        return true;
-    }
-
-    if (dataFimBr.length != 10 || dataFimBr.indexOf('/') == -1) {
-        mensagemErro = "Formato de data incompleto. Use DD/MM/AAAA.";
-    } else {
-        const partesInicio = dataInicioBr.split("/");
-        const partesFim = dataFimBr.split("/");
-
-        // Converter para objeto Date
-        const dataInicio = new Date(partesInicio[2], partesInicio[1] - 1, partesInicio[0]);
-        const dataFim = new Date(partesFim[2], partesFim[1] - 1, partesFim[0]);
-
-        // Verificações básicas de validade
-        if (isNaN(dataFim.getTime())) {
-            mensagemErro = "A data final não é válida!";
-        } else if (dataInicioBr !== "" && dataFim.getTime() <= dataInicio.getTime()) {
-            mensagemErro = "A data final deve ser posterior à data inicial.";
-        }
-    }
-
-    campoFim.setCustomValidity(mensagemErro);
-    campoFim.reportValidity(); // mostra a mensagem
-    return mensagemErro === "";
-}
 
 function validarHoraFim() {
-    const campoInicio = document.getElementById("hora-inicio-oficina");
+    const campoEntrada = document.getElementById("hora-inicio-oficina");
     const campoFim = document.getElementById("hora-fim-oficina");
-    const horaInicioStr = campoInicio.value.trim();
+    const horaInicioStr = campoEntrada.value.trim();
     const horaFimStr = campoFim.value.trim();
     let mensagemErro = "";
 
@@ -524,3 +491,69 @@ function carregarProfessores() {
             alert("Não foi possível carregar a lista de professores.");
         });
 }
+
+
+// BUSCA DE OFICINA POR ID
+document.addEventListener('DOMContentLoaded', () => {
+    const btnBuscar = document.getElementById('btn-buscar-oficina');
+    const btnLimpar = document.getElementById('btn-limpar-busca');
+    const inputBusca = document.getElementById('input-busca-id');
+    const tabela = document.getElementById('tabela-oficina-container');
+    const tabelaContainer = document.getElementById('tabela-container');
+    const mensagemTabela = document.getElementById('mensagem-tabela');
+
+    btnBuscar.addEventListener('click', () => {
+        const id = inputBusca.value.trim();
+        if (!id) {
+            alert('Digite um ID válido para buscar.');
+            return;
+        }
+
+        // Faz a requisição para buscar a oficina por ID
+        fetch(`http://localhost:8080/apis/oficina/${id}`) // ajuste a URL conforme sua API
+            .then(response => {
+                if (!response.ok) throw new Error('Oficina não encontrada');
+                return response.json();
+            })
+            .then(oficina => {
+                tabelaContainer.classList.remove('d-none');
+                tabela.innerHTML = `
+                    <tr>
+                        <td>${oficina.idOficina}</td>
+                        <td>${oficina.nome}</td>
+                        <td>${oficina.data_inicio}</td>
+                        <td>${oficina.data_fim}</td>
+                        <td>${oficina.hora_inicio}</td>
+                        <td>${oficina.hora_termino}</td>
+                        <td>${oficina.pde_id}</td>
+                        <td>${oficina.ativo}</td>
+                                            <td>
+                        <button class="btn btn-sm btn-outline-info btn-editar" data-id="${oficina.idOficina}" title="Editar Oficina">
+                               <i class="fas fa-edit"></i>
+                        </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger btn-excluir" data-id="${oficina.idOficina}" title="Inativar Oficina">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                mensagemTabela.textContent = '';
+                ativarBotoesExcluir();
+                ativarBotoesEditar();
+            })
+            .catch(err => {
+                tabela.innerHTML = '';
+                mensagemTabela.textContent = 'Oficina não encontrada.';
+            });
+    });
+
+    btnLimpar.addEventListener('click', () => {
+        inputBusca.value = '';
+        tabela.innerHTML = '';
+        mensagemTabela.textContent = 'Carregando oficinas...';
+        tabelaContainer.classList.add('d-none');
+        carregarTodasOficinas(); // chama sua função padrão para listar todas
+    });
+});
