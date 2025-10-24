@@ -9,8 +9,13 @@ public class SingletonDB {
 
     public static boolean conectar()
     {
-        conexao=new Conexao();
-        return conexao.conectar("jdbc:postgresql://localhost:5432/","bga-db","postgres","postgres123");
+
+        if(conexao == null)
+        {
+            conexao=new Conexao();
+            conexao.conectar("jdbc:postgresql://localhost:5432/","bga-db","postgres","postgres123");
+        }
+        return conexao.getEstadoConexao();
     }
     public static Conexao getConexao() {
         return conexao;
