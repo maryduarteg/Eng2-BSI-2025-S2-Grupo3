@@ -217,7 +217,7 @@ function cadastrarAluno(event) {
         pes_id:
     };
 
-    fetch("http://localhost:8080/apis/oficina", {
+    fetch("http://localhost:8080/apis/aluno", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(aluno)
@@ -329,7 +329,7 @@ function carregarTodasOficinas() {
         .catch(err => console.error(err));
 }
 
-// Inativar oficina
+// Inativar aluno
 function ativarBotoesExcluir() {
     document.querySelectorAll(".btn-excluir").forEach(botao => {
         botao.addEventListener("click", () => {
