@@ -23,19 +23,23 @@ public class OficinaView {
     private OficinaController oficinaController;
 
     @PostMapping
-    public ResponseEntity<Object> addOficinas(@RequestParam("id")int id,
-                                              @RequestParam("Nome")String nome,
-                                              @RequestParam("Hora_Inicio") LocalTime horaInicio,
-                                              @RequestParam("Hora_Fim")LocalTime horaFim,
-                                              @RequestParam("Data_Inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicio,
-                                              @RequestParam("Data_Fim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFim,
-                                              @RequestParam("Professor") int professor,
-                                              @RequestParam("Ativo") char ativo) {
-        Map<String, Object> json = oficinaController.addOficina(nome, horaInicio, horaFim, dataInicio, dataFim, professor, ativo);
+    public ResponseEntity<Object> addOficinas(@RequestBody Oficina dto) {
+        Map<String, Object> json = oficinaController.addOficina(
+                dto.getNome(),
+                dto.getHoraInicio(),
+                dto.getHoraTermino(),
+                dto.getDataInicio(),
+                dto.getDataFim(),
+                dto.getProfessor(),
+                dto.getAtivo()
+        );
+
         if(json.get("erro") == null)
-            return ResponseEntity.ok(new Mensagem("Passeio cadastrado com sucesso!"));
+            return ResponseEntity.ok(new Mensagem("Oficina cadastrada com sucesso!!"));
+
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
+
 
     @GetMapping
     public ResponseEntity<Object> get() {
@@ -63,16 +67,16 @@ public class OficinaView {
 
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
-        Map<String, Object> json = oficinaController.deletarOficina(id);
-        if(json.get("erro") == null){
-            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
-        }
-        else{
-            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
-        }
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
+//        Map<String, Object> json = oficinaController.deletarOficina(id);
+//        if(json.get("erro") == null){
+//            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
+//        }
+//        else{
+//            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
+//        }
+//    }
 
     @PutMapping
     public ResponseEntity<Object> updateOficinas(
@@ -93,6 +97,16 @@ public class OficinaView {
                             ? json.get("mensagem").toString()
                             : "Oficina atualizada com sucesso!"
             ));
+        } else {
+            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
+        }
+    }
+
+    @PutMapping("/inativar/{id}")
+    public ResponseEntity<Object> inativarOficina(@PathVariable("id") int id) {
+        Map<String, Object> json = oficinaController.inativarOficina(id); // chama o método que você já tem
+        if(json.get("erro") == null){
+            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
         } else {
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
         }
