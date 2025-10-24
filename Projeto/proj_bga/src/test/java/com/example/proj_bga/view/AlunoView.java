@@ -1,6 +1,7 @@
 package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.AlunoController;
+import com.example.proj_bga.model.Aluno;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,18 +20,19 @@ public class AlunoView {
     private AlunoController alunoController;
 
     @PostMapping
-    public ResponseEntity<Object> addAlunos(
-            @RequestParam("dt_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt_entrada,
-            @RequestParam("foto") String foto,
-            @RequestParam("mae") String mae,
-            @RequestParam("pai") String pai,
-            @RequestParam("responsavel_pais") char responsavel_pais,
-            @RequestParam("conhecimento") char conhecimento,
-            @RequestParam("pais_convivem") char pais_convivem,
-            @RequestParam("pensao") char pensao,
-            @RequestParam("pes_id") char pes_id
-            ){
-        Map<String, Object> json = alunoController.addAluno(dt_entrada,foto,mae,pai,responsavel_pais,conhecimento,pais_convivem,pensao,pes_id);
+    public ResponseEntity<Object> addAlunos(@RequestBody Aluno aluno) {
+        Map<String, Object> json = alunoController.addAluno(
+                aluno.getDt_entrada(),
+                aluno.getFoto(),
+                aluno.getMae(),
+                aluno.getPai(),
+                aluno.getResponsavel_pais(),
+                aluno.getConhecimento(),
+                aluno.getPais_convivem(),
+                aluno.getPensao(),
+                aluno.getPes_id()
+        );
+
         if (json.get("erro") == null)
             return ResponseEntity.ok(new Mensagem("Aluno cadastrado com sucesso!"));
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
@@ -38,7 +40,7 @@ public class AlunoView {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
+    public ResponseEntity<Object> deleteAluno(@PathVariable("id") int id) {
         Map<String, Object> json = alunoController.deletarAluno(id);
         if(json.get("erro") == null){
             return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
@@ -49,20 +51,20 @@ public class AlunoView {
     }
 
     @PutMapping
-    public ResponseEntity<Object> updateOficinas(
-            @RequestParam("id") int id,
-            @RequestParam("dt_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt_entrada,
-            @RequestParam("foto") String foto,
-            @RequestParam("mae") String mae,
-            @RequestParam("pai") String pai,
-            @RequestParam("responsavel_pais") char responsavel_pais,
-            @RequestParam("conhecimento") char conhecimento,
-            @RequestParam("pais_convivem") char pais_convivem,
-            @RequestParam("pensao") char pensao,
-            @RequestParam("pes_id") char pes_id
-    ) {
+    public ResponseEntity<Object> updateAluno(@RequestBody Aluno aluno) {
 
-        Map<String, Object> json = alunoController.atualizarAluno(id, dt_entrada, foto, mae, pai, responsavel_pais, conhecimento, pais_convivem, pensao, pes_id);
+        Map<String, Object> json = alunoController.atualizarAluno(
+                aluno.getId(),
+                aluno.getDt_entrada(),
+                aluno.getFoto(),
+                aluno.getMae(),
+                aluno.getPai(),
+                aluno.getResponsavel_pais(),
+                aluno.getConhecimento(),
+                aluno.getPais_convivem(),
+                aluno.getPensao(),
+                aluno.getPes_id()
+        );
 
         if (json.get("erro") == null) {
             return ResponseEntity.ok(new Mensagem(

@@ -143,7 +143,7 @@ public class Pessoa {
         }
     }
 
-    public Pessoa getId(int id){ return (Pessoa) dao.get(id);}
+    public Pessoa getId(int id){ return dao.get(id);}
 
     public boolean alterarPessoa(Pessoa pessoa)
     {

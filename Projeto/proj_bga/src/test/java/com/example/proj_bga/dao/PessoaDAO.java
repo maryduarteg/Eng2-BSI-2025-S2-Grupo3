@@ -20,8 +20,8 @@ public class PessoaDAO implements IDAO<Pessoa>{
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String sql = """
                     UPDATE public.pessoa
-                    SET pes_nome= #1, pes_cpf=#2, pes_dt_nascimento=#3, pes_rg=#4, pes_ativo= #4, end_id=#5
-                    WHERE pes_id = #6;
+                    SET pes_nome= '#1', pes_cpf='#2', pes_dt_nascimento='#3', pes_rg='#4', pes_ativo= '#5', end_id=#6
+                    WHERE pes_id = #7;
                 """;
         sql = sql.replace("#1", pessoa.getNome());
         sql = sql.replace("#2", pessoa.getcpf());
@@ -29,8 +29,9 @@ public class PessoaDAO implements IDAO<Pessoa>{
         sql = sql.replace("#4", pessoa.getRg());
         sql = sql.replace("#5", ""+pessoa.getAtivo());
         sql = sql.replace("#6", "" + pessoa.getEnd_id());
+        sql = sql.replace("#7", "" + pessoa.getId());
 
-        System.out.println("SQL FINAL DE UPDATE: " + sql);
+
 
         if(SingletonDB.getConexao().manipular(sql)){
             return pessoa;
@@ -53,16 +54,17 @@ public class PessoaDAO implements IDAO<Pessoa>{
 
     @Override
     public Pessoa get(int id) {
+
         Pessoa p = null;
         String sql = """
-                SELECT * FROM aluno
-                WHERE alu_id = #1;
+                SELECT * FROM pessoa
+                WHERE pes_id = #1;
             """;
 
-        sql = sql.replace("#1", "" + id);
+        sql = sql.replace("#1", ""+id);
+        ResultSet rs = SingletonDB.getConexao().consultar(sql);
 
         try {
-            ResultSet rs = SingletonDB.getConexao().consultar(sql);
             if(rs.next()){
                 p = new Pessoa();
                 p.setId(rs.getInt("pes_id"));

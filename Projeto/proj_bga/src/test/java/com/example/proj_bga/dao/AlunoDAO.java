@@ -1,11 +1,9 @@
 package com.example.proj_bga.dao;
 import com.example.proj_bga.model.Aluno;
-import com.example.proj_bga.model.Passeio;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +16,17 @@ public class AlunoDAO implements IDAO<Aluno>
         String sql = """
                 INSERT INTO aluno(
                 	alu_dt_entrada, alu_foto, alu_mae, alu_pai, alu_responsavel_pais, alu_conhecimento, alu_pais_convivem, alu_pensao, pes_id)
-                	VALUES (#1, #2, #3, #4, #5, #6, #7, #8, #9);
+                	VALUES ('#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', #9);
                 """;
         sql = sql.replace("#1",""+ aluno.getDt_entrada());
         sql = sql.replace("#2", aluno.getFoto());
         sql = sql.replace("#3", aluno.getMae());
         sql = sql.replace("#4", aluno.getPai());
         sql = sql.replace("#5",""+aluno.getResponsavel_pais());
-        sql = sql.replace("#6",""+ aluno.getPais_convivem());
-        sql = sql.replace("#7",""+ aluno.getConhecimento());
+        sql = sql.replace("#6",""+ aluno.getConhecimento());
+        sql = sql.replace("#7",""+ aluno.getPais_convivem());
         sql = sql.replace("#8",""+ aluno.getPensao());
         sql = sql.replace("#9",""+ aluno.getPes_id());
-
 
         try {
             if(SingletonDB.getConexao().manipular(sql))
@@ -41,12 +38,13 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public Object alterar(Aluno aluno) {
+    public Aluno alterar(Aluno aluno) {
+        Aluno retorno = null;
         String sql = """
              UPDATE aluno
-             SET alu_dt_entrada=#1, alu_foto=#2, alu_mae=#3, 
-             alu_pai=#3, alu_responsavel_pais=#4, alu_conhecimento=5, 
-             alu_pais_convivem=#6, alu_pensao=#7
+             SET alu_dt_entrada='#1', alu_foto='#2', alu_mae='#3',
+             alu_pai='#4', alu_responsavel_pais='#5', alu_conhecimento='#6',
+             alu_pais_convivem='#7', alu_pensao='#8'
              WHERE alu_id=#9;
              """;
 
@@ -63,11 +61,11 @@ public class AlunoDAO implements IDAO<Aluno>
 
         try {
             if(SingletonDB.getConexao().manipular(sql))
-                return aluno;
+                retorno = aluno;
         } catch (Exception e) {
             System.out.println("Erro ao alterar Aluno: " + e.getMessage());
         }
-        return null;
+        return retorno;
     }
 
     @Override
@@ -88,15 +86,15 @@ public class AlunoDAO implements IDAO<Aluno>
     @Override
     public List<Aluno> get(String filtro) {
         List<Aluno> lista = new ArrayList<>();
-        String sql = "Select * from aluno";
+        String sql = "Select * from aluno ";
         if(!filtro.isEmpty())
-            sql = sql + " where " + filtro;
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            sql = sql + filtro;
 
         try {
+            ResultSet rs = SingletonDB.getConexao().consultar(sql);
             if (rs.next()) {
                 Aluno aluno = new Aluno();
-                aluno.setId(rs.getInt("alu_cod"));
+                aluno.setId(rs.getInt("alu_id"));
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
                 aluno.setMae(rs.getString("alu_mae"));
                 aluno.setPai(rs.getString("alu_pai"));
@@ -150,7 +148,7 @@ public class AlunoDAO implements IDAO<Aluno>
                 SELECT P.PES_ID
                 FROM PESSOA P
                 INNER JOIN ALUNO A ON A.PES_ID = P.PES_ID
-                WHERE P.PES_ATIVO = 'A'
+                WHERE P.PES_ATIVO = 'S'
                 AND A.ALU_ID = #
                 """;
         sql = sql.replace("#",""+id);
@@ -159,7 +157,7 @@ public class AlunoDAO implements IDAO<Aluno>
             if(rs.next())
                 return true;
         } catch (Exception e) {
-            System.out.println("Erro ao alterar Aluno: " + e.getMessage());
+            System.out.println("Erro ao encontrar Aluno: " + e.getMessage());
         }
         return false;
     }
