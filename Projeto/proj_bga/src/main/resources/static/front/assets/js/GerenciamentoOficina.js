@@ -161,39 +161,40 @@ function cadastrarOficina(event) {
     event.preventDefault();
 
     const form = document.getElementById("formOficina");
+
+    // Valida o formulário HTML
     if (!form.checkValidity()) {
         form.classList.add("was-validated");
         return false;
     }
 
+    // Cria objeto oficina com nomes que o backend espera
     const oficina = {
-        id: 0,
         nome: form.nome.value.trim(),
-        professorId: parseInt(form.professorId.value),
+        horaInicio: form.horaInicio.value,
+        horaTermino: form.horaFim.value,
         dataInicio: converterDataBrasilParaISO(form.dataInicio.value),
         dataFim: converterDataBrasilParaISO(form.dataFim.value),
-        horaInicio: form.horaInicio.value,
-        horaFim: form.horaFim.value
+        professor: parseInt(form.professorId.value),
+        ativo: "S"
     };
-    fetch("http://localhost:8080/apis/oficina",
-        {
+
+    fetch("http://localhost:8080/apis/oficina", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(oficina),
-    })        .then(response => response.json())
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(oficina)
+    })
+        .then(response => response.json())
         .then(res => {
-            if(res.erro) {
-                mostrarMensagem("Erro: " + res.erro, false);
-                return;
-            }
-            mostrarMensagem("Sucesso! A oficina foi cadastrado.", true);
+            mostrarMensagem("Sucesso! Oficina cadastrada.", true);
             form.reset();
-            form.classList.remove("was-validated");
         })
         .catch(error => {
             console.error("Erro ao cadastrar:", error);
             mostrarMensagem("Erro ao cadastrar oficina!", false);
         });
+
+
     return false;
 }
 
@@ -201,12 +202,17 @@ function cadastrarOficina(event) {
 function carregarTodasOficinas() {
     const tbody = document.getElementById("tabela-oficina-container");
     const msgContainer = document.getElementById("mensagem-tabela");
+    const tabelaContainer = document.getElementById("tabela-container");
 
-    if (!tbody || !msgContainer) {
+    if (!tbody || !msgContainer || !tabelaContainer) {
         console.error("ERRO CRÍTICO: Elemento HTML da Tabela não encontrado.");
         return;
     }
 
+    // Mostra a tabela
+    tabelaContainer.classList.remove("d-none");
+
+    // Limpa tabela e mostra mensagem de carregando
     tbody.innerHTML = '';
     msgContainer.textContent = "Carregando todas as oficinas...";
 
@@ -224,7 +230,7 @@ function carregarTodasOficinas() {
             return response.json();
         })
         .then(listaOficina => {
-            if (listaOficina.length === 0) {
+            if (!listaOficina || listaOficina.length === 0) {
                 msgContainer.textContent = "Nenhuma oficina cadastrada.";
                 return;
             }
@@ -235,24 +241,25 @@ function carregarTodasOficinas() {
                 const row = tbody.insertRow();
 
                 row.innerHTML = `
-                        <td>${oficina.id}</td>
-                        <td>${formatarDataParaBR(oficina.dataInicio)}</td>
-                        <td>${formatarDataParaBR(oficina.dataFim)}</td>
-                        <td>${oficina.horaInicio}</td>
-                        <td>${oficina.horaFim}</td>
-                        <td>${oficina.professorId}</td>
-                        <td>${oficina.ativo}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info"> //botão de editar
-                                <i class="fas fa-edit"> </i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger"> // botão de excluir
-                                <i class="fas fa-trash"> </i>
-                            </button>
-                        </td>
-                    `;
+                    <td>${oficina.idOficina}</td>
+                    <td>${oficina.nome}</td>
+                    <td>${formatarDataParaBR(oficina.data_inicio)}</td>
+                    <td>${formatarDataParaBR(oficina.data_fim)}</td>
+                    <td>${oficina.hora_inicio}</td>
+                    <td>${oficina.hora_termino}</td>
+                    <td>${oficina.pde_id}</td>
+                    <td>${oficina.ativo}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info"> 
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger"> 
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
             });
         })
         .catch(error => {
@@ -260,6 +267,7 @@ function carregarTodasOficinas() {
             msgContainer.textContent = "Erro ao carregar dados do servidor.";
         });
 }
+
 
 
 function mostrarMensagem(texto, sucesso) {
