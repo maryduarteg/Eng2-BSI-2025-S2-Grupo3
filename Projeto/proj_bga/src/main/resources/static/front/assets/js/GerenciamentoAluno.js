@@ -4,13 +4,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         btnMostrar.addEventListener('click', toggleFormulario);
     }
 
-    const inputDataOficina = document.getElementById('data-entrada');
-    if (inputDataOficina) {
-        inputDataOficina.addEventListener('blur', validarData);
+    const inputDataEntrada = document.getElementById('data-entrada');
+    if (inputDataEntrada) {
+        inputDataEntrada.addEventListener('blur', validarData);
     }
 });
-
-
 
 window.addEventListener("load", function() {
     document.querySelectorAll("form").forEach(form => form.reset());
@@ -42,18 +40,7 @@ function aplicarMascaraData(campo) {
     campo.value = valor;
 }
 
-function aplicarMascaraHora(campo) {
-    let valor = campo.value;
-    valor = valor.replace(/\D/g, "");
 
-    valor = valor.slice(0, 4);
-
-    if (valor.length > 2) {
-        valor = valor.replace(/^(\d{2})(\d)/, "$1:$2");
-    }
-
-    campo.value = valor;
-}
 
 function converterDataBrasilParaISO(dataBr) {
     const [dia, mes, ano] = dataBr.split("/");
@@ -123,10 +110,8 @@ function validarDataFim() {
 }
 
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById("formOficina");
+    const form = document.getElementById("formAluno");
     const campos = Array.from(form.querySelectorAll(".form-control"));
 
     // Remove borda vermelha e mensagem ao digitar
@@ -148,18 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById("data-entrada").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
 
 
-function aplicarMascaraData(valor) {
-    valor = valor.replace(/\D/g, "").slice(0,8);
-    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1/$2");
-    if (valor.length > 5) valor = valor.replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
-    return valor;
-}
-
-function aplicarMascaraHora(valor) {
-    valor = valor.replace(/\D/g, "").slice(0,4);
-    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1:$2");
-    return valor;
-}
 
 function cadastrarAluno(event) {
     event.preventDefault();
@@ -204,17 +177,28 @@ function cadastrarAluno(event) {
     }
 
 
+
+    function adicionarErro(campo, msg) {
+        campo.classList.add("is-invalid");
+        if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains("invalid-feedback")) {
+            const div = document.createElement("div");
+            div.className = "invalid-feedback";
+            div.textContent = msg;
+            campo.after(div);
+        }
+    }
+
     // Monta objeto
     const Aluno = {
         dt_entrada: converterDataBrasilParaISO(form.dataEntrada.value),
         foto: professorId,
-        mae: ,
-        pai: ,
-        responsavel_pais: ,
-        conhecimento: ,
-        pais_convivem: ,
-        pensao: ,
-        pes_id:
+        mae: form.mae.value,
+        pai: form.pai.value,
+        responsavel_pais: form.responsavel.value,
+        conhecimento: form.conhecimento.value,
+        pais_convivem: form.paisconvivem.value,
+        pensao: form.pensao.value,
+        pes_id: form.professorid.value
     };
 
     fetch("http://localhost:8080/apis/aluno", {
@@ -227,23 +211,13 @@ function cadastrarAluno(event) {
             return resp.json();
         })
         .then(() => {
-            mostrarMensagem("Sucesso! Oficina cadastrada.", true);
+            mostrarMensagem("Sucesso! Aluno cadastrada.", true);
             form.reset();
         })
         .catch(() => {
-            mostrarMensagem("Erro ao cadastrar oficina!", false);
-            adicionarErro(form.professorId, "ID do professor inválido");
+            mostrarMensagem("Erro ao cadastrar aluno!", false);
+            adicionarErro(form.professorId, "ID da pessoa inválido");
         });
-
-    function adicionarErro(campo, msg) {
-        campo.classList.add("is-invalid");
-        if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains("invalid-feedback")) {
-            const div = document.createElement("div");
-            div.className = "invalid-feedback";
-            div.textContent = msg;
-            campo.after(div);
-        }
-    }
 }
 
 function converterDataBrasilParaISO(dataBr) {
@@ -272,15 +246,15 @@ function formatarDataParaBR(dataISO) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    carregarTodasOficinas();
+    carregarTodosAlunos();
 
     // Botão de salvar edição
     const btnSalvar = document.getElementById("btn-salvar-edicao");
     if (btnSalvar) btnSalvar.addEventListener("click", salvarEdicao);
 });
 
-// Função para carregar todas as oficinas
-function carregarTodasOficinas() {
+// Função para carregar todos os alunos
+function carregarTodosAlunos() {
     const tbody = document.getElementById("tabela-oficina-container");
     const msgContainer = document.getElementById("mensagem-tabela");
     const tabelaContainer = document.getElementById("tabela-container");
@@ -289,9 +263,9 @@ function carregarTodasOficinas() {
 
     tabelaContainer.classList.remove("d-none");
     tbody.innerHTML = '';
-    msgContainer.textContent = "Carregando todas as oficinas...";
+    msgContainer.textContent = "Carregando todos os alunos...";
 
-    fetch("http://localhost:8080/apis/oficina")
+    fetch("http://localhost:8080/apis/aluno")
         .then(resp => resp.json())
         .then(listaOficina => {
             tbody.innerHTML = '';
