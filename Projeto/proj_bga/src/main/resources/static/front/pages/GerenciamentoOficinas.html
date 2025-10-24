@@ -329,13 +329,27 @@
             <!-- End of Topbar -->
 
             <!-- gerenciamento das oficinas começa aqui -->
+            <!-- Busca por ID -->
+            <div id="busca-id-container" class="d-flex justify-content-center mt-4 mb-4">
+                <input
+                        type="number"
+                        id="input-busca-id"
+                        class="form-control w-25"
+                        placeholder="Digite o ID da oficina"
+                        min="1"
+                        step="1"
+                >
+                <button type="button" id="btn-buscar-oficina" class="btn btn-info mx-2">Buscar Oficina</button>
+                <button type="button" id="btn-limpar-busca" class="btn btn-secondary">Limpar</button>
+            </div>
+
+
             <div class="container-fluid">
                 <br>
                 <h2 class="text-center">Gerenciamento de oficina</h2><br><br>
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-success mx-4" id="btn-mostrar-form" data-target-id="formulario-cadastro">Cadastrar oficina</button>
                     <button type="button" class="btn btn-warning mx-4" id="btn-gerenciar-oficina" onclick="carregarTodasOficinas()" data-target-id="tabela-container">Gerenciar Oficina</button>
-                    <button type="button" class="btn btn-info mx-4" id="">Exibir Oficina</button>
                 </div>
             </div>
 
@@ -468,7 +482,7 @@
 
             <!-- Tabela de Oficinas -->
             <div id="tabela-container" class="d-none text-center">
-                <h2 class="text-center mb-4">Relação de Oficinas</h2>
+                <h2></h2>
                 <div class="row">
                     <div class="col-12 mx-auto">
                         <table class="table table-striped table-hover">
