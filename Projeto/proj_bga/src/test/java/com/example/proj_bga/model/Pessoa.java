@@ -1,4 +1,5 @@
 package com.example.proj_bga.model;
+
 import com.example.proj_bga.dao.PessoaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
