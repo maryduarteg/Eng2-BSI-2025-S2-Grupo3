@@ -21,7 +21,7 @@ function toggleFormulario() {
     if (form && botao) {
         form.classList.remove('d-none');
     } else {
-        console.error("Erro: Um dos IDs do formulário ou botão não foi encontrado.");
+        console.error("Erro: Um dos IDs do formulário ou botão não foi encontrado!.");
     }
 }
 

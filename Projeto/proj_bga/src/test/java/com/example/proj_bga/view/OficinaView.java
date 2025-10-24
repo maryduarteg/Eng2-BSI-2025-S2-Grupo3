@@ -35,7 +35,7 @@ public class OficinaView {
         );
 
         if(json.get("erro") == null)
-            return ResponseEntity.ok(new Mensagem("Oficina cadastrada com sucesso!"));
+            return ResponseEntity.ok(new Mensagem("Oficina cadastrada com sucesso!!"));
 
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
