@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("apis/aluno")
 public class AlunoView {
@@ -21,6 +21,7 @@ public class AlunoView {
 
     @PostMapping
     public ResponseEntity<Object> addAlunos(@RequestBody Aluno aluno) {
+        System.out.println(aluno);
         Map<String, Object> json = alunoController.addAluno(
                 aluno.getDt_entrada(),
                 aluno.getFoto(),
