@@ -56,6 +56,25 @@ const btnCadastrar = document.getElementById("submit-cadastrar");
 btnCadastrar.addEventListener("click",function(e)
 {
     e.preventDefault();
+    const campos = Array.from(form.querySelectorAll(".form-control"));
+    let valido = true;
+
+    // Limpa erros
+    campos.forEach(campo => {
+        campo.classList.remove("is-invalid");
+        const erroMsg = campo.nextElementSibling;
+        if (erroMsg && erroMsg.classList.contains("invalid-feedback")) erroMsg.remove();
+    });
+
+    // Campos obrigatórios
+    campos.forEach(campo => {
+        if (!campo.value.trim()) {
+            adicionarErro(campo, "Campo obrigatório");
+            valido = false;
+        }
+    });
+
+    if (!valido) return;
 
     //cadastrar aluno em função anônima
 
@@ -95,7 +114,13 @@ function converterDataBrasilParaISO(dataBr) {
     return `${ano}-${mes}-${dia}`;
 }
 
-function converterDataBrasilParaISO(dataBr) {
-    const [dia, mes, ano] = dataBr.split("/");
-    return `${ano}-${mes}-${dia}`;
+
+function adicionarErro(campo, msg) {
+    campo.classList.add("is-invalid");
+    if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains("invalid-feedback")) {
+        const div = document.createElement("div");
+        div.className = "invalid-feedback";
+        div.textContent = msg;
+        campo.after(div);
+    }
 }
