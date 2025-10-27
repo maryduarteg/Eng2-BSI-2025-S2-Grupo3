@@ -5,7 +5,6 @@ import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -36,20 +35,21 @@ public class PasseioController {
         return Map.of("erro", erroReal);
     }
 
-    public List<Map<String, Object>> getPass() {
+    public List<Map<String, Object>> getPassFiltro(String filtro) {
         Conexao conexao = new Conexao();
-        List<Passeio> passeios = passeioModel.consultarPasseio("", conexao);
+        List<Passeio> passeios = passeioModel.consultarPasseio(filtro, conexao);
         if(passeios == null){
             return null;
         }
-        List<Map<String, Object>> resultado = new ArrayList<>();
+
+        List<Map<String, Object>> result = new ArrayList<>();
         for(Passeio e: passeios){
             Map<String, Object> json = new HashMap<>();
             json.put("pde_id", e.getPdeId());
             json.put("pde_descricao", e.getDescricao());
-            resultado.add(json);
+            result.add(json);
         }
-        return resultado;
+        return result;
     }
 
     public Map<String, Object> deletarPasseio(int id) {

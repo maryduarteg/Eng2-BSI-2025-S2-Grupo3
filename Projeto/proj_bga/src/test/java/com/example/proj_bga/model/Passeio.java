@@ -4,7 +4,6 @@ import com.example.proj_bga.dao.PasseioDAO;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
 import java.util.List;
 
@@ -44,6 +43,10 @@ public class Passeio {
     }
 
     public List<Passeio> consultarPasseio(String filtro, Conexao conexao) {
+        return dao.get(filtro);
+    }
+
+    public List<Passeio> consultarPasseioFiltro(String filtro, Conexao conexao) {
         return dao.get(filtro);
     }
 

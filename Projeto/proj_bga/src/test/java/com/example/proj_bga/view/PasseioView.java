@@ -5,7 +5,6 @@ import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 import java.util.List;
 
@@ -25,8 +24,12 @@ public class PasseioView {
     }
 
     @GetMapping
-    public ResponseEntity<Object> consultar() {
-        List<Map<String, Object>> lista = passeioController.getPass();
+    public ResponseEntity<Object> consultar(@RequestParam(value = "filtro", required = false) String filtro) {
+
+        if (filtro == null) {
+            filtro = "";
+        }
+        List<Map<String, Object>> lista = passeioController.getPassFiltro(filtro);
         if (lista != null && !lista.isEmpty()) {
             return ResponseEntity.ok(lista);
         }

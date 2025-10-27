@@ -3,11 +3,8 @@ package com.example.proj_bga.dao;
 import com.example.proj_bga.model.Passeio;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
-
-import java.text.SimpleDateFormat;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,12 +100,11 @@ public class PasseioDAO implements IDAO<Passeio> {
     @Override
     public List<Passeio> get(String filtro){
         List<Passeio> lista = new ArrayList<>();
-        String sql = """
-                    SELECT * FROM passeio_descricao;
-                """;
+        String sql = "SELECT * FROM passeio_descricao";
 
         if(!filtro.isEmpty()){
-            sql += "WHERE " + filtro;
+            String termoBusca = "'%" + filtro + "%'";
+            sql += " WHERE pde_descricao ILIKE " + termoBusca;
         }
         ResultSet rs = SingletonDB.getConexao().consultar(sql);
         try{
@@ -125,4 +121,5 @@ public class PasseioDAO implements IDAO<Passeio> {
         }
         return lista;
     }
+
 }
