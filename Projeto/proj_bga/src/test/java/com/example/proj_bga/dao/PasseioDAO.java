@@ -14,30 +14,19 @@ import java.util.List;
 @Repository
 public class PasseioDAO implements IDAO<Passeio> {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public Passeio gravar(Passeio passeio) {
-        String dataFormatada = DATE_FORMAT.format(passeio.getPas_data());
-
-        String horaInicio = passeio.getPas_hora_inicio().toString();
-        String horaFinal = passeio.getPas_hora_final().toString();
-
         String sql = """
-                    INSERT INTO passeio(pas_data, pas_hora_inicio, pas_hora_final, pas_chamada_feita, pde_id)
-                        VALUES ('#1', '#2', '#3', '#4', #5) RETURNING pas_id;
-                """;
+                INSERT INTO passeio_descricao(pde_descricao)
+                    VALUES ('#1') RETURNING pde_id; 
+            """;
 
-        sql = sql.replace("#1", dataFormatada);
-        sql = sql.replace("#2", horaInicio);
-        sql = sql.replace("#3", horaFinal);
-        sql = sql.replace("#4", passeio.getPas_chamada_feita());
-        sql = sql.replace("#5", "" + passeio.getPde_id());
+        sql = sql.replace("#1", passeio.getDescricao());
 
         ResultSet rs = SingletonDB.getConexao().consultar(sql);
-
         try {
             if (rs != null && rs.next()) {
-                passeio.setPasId(rs.getInt("pas_id"));
+                passeio.setPdeId(rs.getInt("pde_id"));
                 return passeio;
             }
         } catch(SQLException e) {
@@ -48,19 +37,13 @@ public class PasseioDAO implements IDAO<Passeio> {
 
     @Override
     public Passeio alterar(Passeio passeio) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        String sql = """
-                    UPDATE passeio SET pas_data = '#1', pas_hora_inicio = '#2', pas_hora_final = '#3', pas_chamada_feita = '#4', pde_id = #5
-                        WHERE pas_id = #6;
-                """;
-        sql = sql.replace("#1", dateFormatter.format(passeio.getPas_data()));
-        sql = sql.replace("#2", passeio.getPas_hora_inicio().toString());
-        sql = sql.replace("#3", passeio.getPas_hora_final().toString());
-        sql = sql.replace("#4", passeio.getPas_chamada_feita());
-        sql = sql.replace("#5", "" + passeio.getPde_id());
-        sql = sql.replace("#6", "" + passeio.getPasId());
 
-        System.out.println("SQL FINAL DE UPDATE: " + sql);
+        String sql = """
+                    UPDATE passeio_descricao SET pde_descricao = '#1'
+                        WHERE pde_id = #2;
+                """;
+        sql = sql.replace("#1", passeio.getDescricao());
+        sql = sql.replace("#2", "" + passeio.getPdeId());
 
         if(SingletonDB.getConexao().manipular(sql)){
             return passeio;
@@ -77,11 +60,11 @@ public class PasseioDAO implements IDAO<Passeio> {
             return false;
 
         String sql = """
-                    DELETE FROM passeio
-                    WHERE pas_id = #1;
+                    DELETE FROM passeio_descricao
+                        WHERE pde_id = #1;
                  """;
 
-        sql = sql.replace("#1", "" + passeio.getPasId());
+        sql = sql.replace("#1", "" + passeio.getPdeId());
 
         System.out.println("SQL de Exclusão: " + sql);
         if (SingletonDB.getConexao().manipular(sql)) {
@@ -93,25 +76,21 @@ public class PasseioDAO implements IDAO<Passeio> {
     }
 
     @Override
-    public Passeio get(int id){
+    public Passeio get(int pde_id){
         Passeio p = null;
         String sql = """
-                SELECT * FROM passeio
-                WHERE pas_id = #1;
+                SELECT * FROM passeio_descricao
+                    WHERE pde_id = #1;
             """;
 
-        sql = sql.replace("#1", "" + id);
+        sql = sql.replace("#1", "" + pde_id);
 
         try {
             ResultSet rs = SingletonDB.getConexao().consultar(sql);
             if(rs.next()){
                 p = new Passeio(
-                        rs.getInt("pas_id"),
-                        rs.getDate("pas_data"),
-                        rs.getObject("pas_hora_inicio", LocalTime.class),
-                        rs.getObject("pas_hora_final", LocalTime.class),
-                        rs.getString("pas_chamada_feita"),
-                        rs.getInt("pde_id")
+                        rs.getInt("pde_id"),
+                        rs.getString("pde_descricao")
                 );
 
             }
@@ -125,7 +104,7 @@ public class PasseioDAO implements IDAO<Passeio> {
     public List<Passeio> get(String filtro){
         List<Passeio> lista = new ArrayList<>();
         String sql = """
-                    SELECT * FROM passeio;
+                    SELECT * FROM passeio_descricao;
                 """;
 
         if(!filtro.isEmpty()){
@@ -135,12 +114,8 @@ public class PasseioDAO implements IDAO<Passeio> {
         try{
             while(rs.next()){
                 Passeio passeio = new Passeio(
-                        rs.getInt("pas_id"),
-                        rs.getDate("pas_data"),
-                        rs.getObject("pas_hora_inicio", LocalTime.class),
-                        rs.getObject("pas_hora_final", LocalTime.class),
-                        rs.getString("pas_chamada_feita"),
-                        rs.getInt("pde_id")
+                        rs.getInt("pde_id"),
+                        rs.getString("pde_descricao")
                 );
                 lista.add(passeio);
             }
