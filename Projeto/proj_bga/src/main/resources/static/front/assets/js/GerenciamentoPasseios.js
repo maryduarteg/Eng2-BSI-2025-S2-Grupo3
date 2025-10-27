@@ -2,97 +2,15 @@ const IDS_CONTEUDO = [
     'formulario-cadastro',
     'tabela-container',
 ];
+
 let secaoAtivaID = null;
-
-// ====================================================================
-
-function formatarDataParaBR(dataISO) {
-    const dataObj = new Date(dataISO);
-    const dia = String(dataObj.getDate()).padStart(2, '0');
-    const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
-    const ano = dataObj.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-}
-
-function aplicarMascaraData(campo) {
-    let valor = campo.value;
-    valor = valor.replace(/\D/g, "");
-    valor = valor.slice(0, 8);
-    if (valor.length > 2) {
-        valor = valor.replace(/^(\d{2})(\d)/, "$1/$2");
-    }
-    if (valor.length > 5) {
-        valor = valor.replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
-    }
-    campo.value = valor;
-}
-
-function aplicarMascaraHora(campo) {
-    let valor = campo.value;
-    valor = valor.replace(/\D/g, "");
-    valor = valor.slice(0, 4);
-
-    if (valor.length > 2) {
-        valor = valor.replace(/^(\d{2})(\d)/, "$1:$2");
-    }
-    campo.value = valor;
-}
-
-function converterDataBrasilParaISO(dataBr) {
-    const [dia, mes, ano] = dataBr.split("/");
-    return `${ano}-${mes}-${dia}`;
-}
-
-// ====================================================================
-
-function validarData() {
-    const campo = document.getElementById("data-passeio");
-    if (!campo) return false;
-
-    const dataBr = campo.value.trim();
-    let mensagemErro = "";
-
-    if (dataBr === "") {
-        campo.setCustomValidity("");
-        return true;
-    }
-
-    if (dataBr.length !== 10 || dataBr.indexOf('/') === -1) {
-        mensagemErro = "Formato de data incompleto. Use DD/MM/AAAA.";
-    } else {
-        const partes = dataBr.split("/");
-        const dia = parseInt(partes[0], 10);
-        const mes = parseInt(partes[1], 10);
-        const ano = parseInt(partes[2], 10);
-
-        // Validação de calendário e data futura
-        const dataInseridaObj = new Date(ano, mes - 1, dia);
-        const dataAtual = new Date();
-        dataAtual.setHours(0, 0, 0, 0); // Zera a hora para comparação
-
-        if (dataInseridaObj.getFullYear() !== ano || (dataInseridaObj.getMonth() + 1) !== mes || dataInseridaObj.getDate() !== dia) {
-            mensagemErro = "A data inserida não é válida!";
-        } else if (dataInseridaObj.getTime() <= dataAtual.getTime()) {
-            mensagemErro = "Não é possível agendar uma data anterior ou igual à data atual.";
-        }
-    }
-
-    campo.setCustomValidity(mensagemErro);
-    if (mensagemErro !== "") {
-        campo.reportValidity();
-    }
-    return mensagemErro === "";
-}
+let idEmEdicao = null;
 
 function toggleSecao(event) {
     const botaoClicado = event.target.closest('button');
-    if (!botaoClicado)
-        return;
-
+    if (!botaoClicado) return;
     const targetId = botaoClicado.getAttribute('data-target-id');
-    if (!targetId)
-        return;
-
+    if (!targetId) return;
     IDS_CONTEUDO.forEach(id => {
         const container = document.getElementById(id);
         if (container) {
@@ -102,75 +20,117 @@ function toggleSecao(event) {
 
     const targetElement = document.getElementById(targetId);
     if (targetElement && targetId !== secaoAtivaID) {
-        targetElement.classList.remove('d-none'); // MOSTRA
+        targetElement.classList.remove('d-none');
         secaoAtivaID = targetId;
-
         if (targetId === 'tabela-container') {
             carregarTodosPasseios();
+        } else if (targetId === 'formulario-cadastro') {
+            resetarFormulario();
         }
     } else {
         secaoAtivaID = null;
     }
 }
 
-// ====================================================================
-
-function cadastrarPasseio(event) {
+function submeterFormulario(event) {
     event.preventDefault();
-
     const form = document.getElementById("formPasseio");
     if (!form.checkValidity()) {
         form.classList.add("was-validated");
         return false;
     }
-
+    const inputDescricao = document.getElementById("pde-descricao-input");
+    if (!inputDescricao) {
+        mostrarMensagem("Erro: Campo de descrição não encontrado.", false);
+        return false;
+    }
+    const metodo = idEmEdicao !== null ? "PUT" : "POST";
+    const url = "http://localhost:8080/apis/passeio";
     const dados = {
-        pas_data: converterDataBrasilParaISO(document.getElementById("data-passeio").value),
-        pas_hora_inicio: document.getElementById("hora-inicio").value,
-        pas_hora_final: document.getElementById("hora-fim").value,
-        pas_chamada_feita: "N",
-        pde_id: parseInt(document.getElementById("desc-passeio").value)
+        pde_descricao: inputDescricao.value
     };
-
-    fetch("http://localhost:8080/apis/passeio", {
-        method: "POST",
+    if (idEmEdicao !== null) {
+        dados.pde_id = idEmEdicao;
+    }
+    fetch(url, {
+        method: metodo,
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(dados),
     })
         .then(response => response.json())
         .then(res => {
-            if(res.erro) {
-                mostrarMensagem("Erro: " + res.erro, false);
+            const mensagem = res.mensagem || res.erro;
+            if (res.erro) {
+                mostrarMensagem(`Erro ao ${metodo === 'PUT' ? 'Atualizar' : 'Cadastrar'}: ${mensagem}`, false);
                 return;
             }
-            mostrarMensagem("Sucesso! O passeio foi cadastrado.", true);
-            form.reset();
-            form.classList.remove("was-validated");
+            mostrarMensagem(`Sucesso! Descrição ${metodo === 'PUT' ? 'Atualizada' : 'Cadastrada'}.`, true);
+            resetarFormulario();
+            carregarTodosPasseios();
         })
         .catch(error => {
-            console.error("Erro ao cadastrar:", error);
-            mostrarMensagem("Erro ao cadastrar passeio!", false);
+            console.error(`Erro ao ${metodo}:`, error);
+            mostrarMensagem(`Erro de rede ao tentar ${metodo}`, false);
         });
+
     return false;
+}
+
+function iniciarEdicao(id, descricao) {
+    const formContainer = document.getElementById('formulario-cadastro');
+    const tableContainer = document.getElementById('tabela-container');
+    if (formContainer && tableContainer) {
+        tableContainer.classList.add('d-none');
+        formContainer.classList.remove('d-none');
+        secaoAtivaID = 'formulario-cadastro';
+    } else {
+        mostrarMensagem("Erro: Contêineres não encontrados.", false);
+        return;
+    }
+    idEmEdicao = id;
+    const inputDescricao = document.getElementById("pde-descricao-input");
+    if (inputDescricao) {
+        inputDescricao.value = descricao;
+    }
+    const botaoSubmit = document.querySelector('#formPasseio button[type="submit"]');
+    const tituloForm = document.querySelector('#formulario-cadastro h2');
+    if (botaoSubmit) {
+        botaoSubmit.textContent = "Atualizar Descrição #" + id;
+    }
+    if (tituloForm) {
+        tituloForm.textContent = "Edição da Descrição #" + id;
+    }
+}
+
+function resetarFormulario() {
+    const form = document.getElementById("formPasseio");
+    form.reset();
+    form.classList.remove("was-validated");
+    idEmEdicao = null;
+    const botaoSubmit = document.querySelector('#formPasseio button[type="submit"]');
+    const tituloForm = document.querySelector('#formulario-cadastro h2');
+    if (botaoSubmit) {
+        botaoSubmit.textContent = "Salvar Passeio";
+    }
+    if (tituloForm) {
+        tituloForm.textContent = "Cadastro de Novo Passeio";
+    }
 }
 
 function carregarTodosPasseios() {
     const tbody = document.getElementById("tabela-passeios-container");
     const msgContainer = document.getElementById("mensagem-tabela");
-
     if (!tbody || !msgContainer) {
         console.error("ERRO CRÍTICO: Elemento HTML da Tabela não encontrado.");
         return;
     }
-
     tbody.innerHTML = '';
-    msgContainer.textContent = "Carregando todos os passeios...";
-
+    msgContainer.textContent = "Carregando todas as descrições...";
     fetch("http://localhost:8080/apis/passeio")
         .then(response => {
             if (response.status === 400) {
                 return response.json().then(data => {
-                    msgContainer.textContent = data.mensagem || "Nenhum passeio cadastrado.";
+                    msgContainer.textContent = data.mensagem || "Nenhuma descrição cadastrada.";
                     return [];
                 });
             }
@@ -179,31 +139,25 @@ function carregarTodosPasseios() {
             }
             return response.json();
         })
-        .then(listaPasseios => {
-            if (listaPasseios.length === 0) {
-                msgContainer.textContent = "Nenhum passeio cadastrado.";
+        .then(listaDescricoes => {
+            if (listaDescricoes.length === 0) {
+                msgContainer.textContent = "Nenhuma descrição cadastrada.";
                 return;
             }
-
             msgContainer.textContent = '';
-
-            listaPasseios.forEach(passeio => {
+            listaDescricoes.forEach(pde => {
                 const row = tbody.insertRow();
-
+                const descricaoSegura = pde.pde_descricao.replace(/'/g, "\\'");
                 row.innerHTML = `
-                        <td>${passeio.id}</td>
-                        <td>${formatarDataParaBR(passeio.data)}</td>
-                        <td>${passeio.hora_inicio}</td>
-                        <td>${passeio.hora_final}</td>
-                        <td>${passeio.chamada_feita === 'S' ? 'Feita' : 'Pendente'}</td>
-                        <td>${passeio.pde_id}</td>
+                        <td>${pde.pde_id}</td>
+                        <td>${pde.pde_descricao}</td>
                         <td>
-                            <button class="btn btn-sm btn-outline-info"> //botão de editar
-                                <i class="fas fa-edit"> </i>
+                            <button class="btn btn-sm btn-info" onclick="iniciarEdicao(${pde.pde_id}, '${descricaoSegura}')">
+                                <i class="fas fa-pen"> </i>
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-danger"> // botão de excluir
+                            <button class="btn btn-sm btn-danger" onclick="confirmaExclusao(${pde.pde_id})">
                                 <i class="fas fa-trash"> </i>
                             </button>
                         </td>
@@ -211,8 +165,42 @@ function carregarTodosPasseios() {
             });
         })
         .catch(error => {
-            console.error("Erro ao carregar passeios:", error);
+            console.error("Erro ao carregar descrições:", error);
             msgContainer.textContent = "Erro ao carregar dados do servidor.";
+        });
+}
+
+function confirmaExclusao(id) {
+    if(confirm(`Deseja realmente excluir a descrição com ID ${id}?`))
+        executarExclusao(id);
+}
+
+function executarExclusao(id) {
+    fetch(`http://localhost:8080/apis/passeio/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        return response.json().then(data => ({ status: response.status, body: data }));
+    })
+        .then(({ status, body }) => {
+            const containerMensagem = document.getElementById("mensagem-tabela");
+            if (status === 200) {
+                containerMensagem.textContent = body.mensagem || `Passeio ${id} excluído com sucesso.`;
+                carregarTodosPasseios();
+            } else if (status === 400 || status === 404) {
+                containerMensagem.textContent = body.mensagem || body.erro || "Erro na requisição.";
+                containerMensagem.style.color = 'red';
+            } else {
+                containerMensagem.textContent = `Erro do Servidor (${status}): Falha na exclusão.`;
+                containerMensagem.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao excluir:", error);
+            document.getElementById("mensagem-tabela").textContent = "Erro de rede ao tentar excluir o passeio.";
+            document.getElementById("mensagem-tabela").style.color = 'red';
         });
 }
 
@@ -224,11 +212,7 @@ function mostrarMensagem(texto, sucesso) {
     }
 }
 
-
-// ====================================================================
-
 document.addEventListener('DOMContentLoaded', (event) => {
-    // 1. Anexar o TOGGLE universal a todos os botões no grupo mestre
     const divBotoes = document.getElementById('btn-group-master');
     if (divBotoes) {
         divBotoes.querySelectorAll('button').forEach(botao => {
@@ -249,7 +233,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (inputHoraFim) {
         inputHoraFim.addEventListener('blur', () => validarHora(inputHoraFim));
     }
-
 });
 
 window.addEventListener("load", function() {
