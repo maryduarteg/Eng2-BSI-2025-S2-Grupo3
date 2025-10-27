@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style_Oficina.css">
+    <link rel="stylesheet" href="../assets/css/style_alunos.css">
 
 </head>
 
@@ -358,56 +358,85 @@
             <div id="formulario-cadastro" class="card p-4 mt-4 d-none" style="font-size: large;">
                 <h2 class="text-center mb-4">Cadastro de Novo Aluno</h2>
 
-                <form id="formOficina" class="needs-validation" novalidate>
+                <form id="formAlunoCadastrar" class="needs-validation" novalidate>
                     <div class="row">
 
                         <!-- Data de Entrada -->
                         <div class="col-md-4 mb-3">
-                            <label for="data-entrada" class="form-label">Data de Entrada</label>
-                            <input type="text" id="data-entrada" name="data-entrada" maxlength="10"
+                            <label for="data-entrada" class="form-label">Data de Entrada<span class="required">*</span></label>
+                            <input type="text" id="data-entrada" name="dataEntrada" maxlength="10"
                                    placeholder="DD/MM/AAAA" class="form-control" required>
+                        </div>
+
+                        <!-- Foto -->
+                        <div class="col-md-6 mb-3">
+                            <label for="foto" class="form-label">Foto <span class="required">*</span></label>
+                            <input type="text" id="foto" name="foto" class="form-control" required>
                         </div>
 
                         <!-- Nome da Mãe -->
                         <div class="col-md-6 mb-3">
                             <label for="nome-mae" class="form-label">Nome da Mãe <span class="required">*</span></label>
-                            <input type="text" id="nome-mae" name="nome-mae" class="form-control" required>
+                            <input type="text" id="nome-mae" name="nomeMae" class="form-control" required>
                         </div>
 
                         <!-- Nome do Pai -->
                         <div class="col-md-6 mb-3">
-                            <label for="nome-pai" class="form-label">Nome do Pai</label>
-                            <input type="text" id="nome-pai" name="nome-pai" class="form-control" required>
+                            <label for="nome-pai" class="form-label">Nome do Pai<span class="required">*</span></label>
+                            <input type="text" id="nome-pai" name="nomePai" class="form-control" required>
                         </div>
 
 
-
-                        <!-- Data de Fim -->
-                        <div class="col-md-4 mb-3">
-                            <label for="data-fim-oficina" class="form-label">Data de Fim</label>
-                            <input type="text" id="data-fim-oficina" name="dataFim" maxlength="10"
-                                   placeholder="DD/MM/AAAA" class="form-control" required>
-                        </div>
-
-                        <!-- Hora de Início -->
+                        <!-- Responsavel-->
                         <div class="col-md-2 mb-3">
-                            <label for="hora-inicio-oficina" class="form-label">Hora de Início</label>
-                            <input type="text" id="hora-inicio-oficina" name="horaInicio" maxlength="5"
-                                   placeholder="HH:MM" class="form-control" required>
+                            <label for="responsavel" class="form-label">Tem responsável<span class="required">*</span></label>
+                            <select id = "responsavel" name = "responsavel">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
                         </div>
 
-                        <!-- Hora de Fim -->
-                        <div class="col-md-2 mb-3">
-                            <label for="hora-fim-oficina" class="form-label">Hora de Fim</label>
-                            <input type="text" id="hora-fim-oficina" name="horaFim" maxlength="5"
-                                   placeholder="HH:MM" class="form-control" required>
+                        <!-- Conhecimento-->
+                        <div class="col-md-3 mb-3">
+                            <label for="conhecimento" class="form-label">O aluno tem conhecimento<span class="required">*</span></label>
+                            <select id = "conhecimento" name = "conhecimento">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
                         </div>
+
+                        <!-- Pais convivem-->
+                        <div class="col-md-2 mb-3">
+                            <label for="paisconvivem" class="form-label">Os pais convivem<span class="required">*</span></label>
+                            <select id = "paisconvivem" name = "paisConvivem">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Pensao -->
+                        <div class="col-md-3 mb-3 tempensao">
+                            <label for="pensao" class="form-label">O aluno tem pensao<span class="required">*</span></label>
+                            <select id = "pensao" name = "pensao">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Pessoa -->
+                        <div class="col-md-2 mb-3">
+                            <label for="pessoa" class="form-label">Pessoa<span class="required">*</span></label>
+                            <select id = "pessoa" name = "pessoa">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
 
                         <!-- Botão -->
                         <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-primary">Cadastrar Oficina</button>
+                            <button type="" class="btn btn-primary" id="submit-cadastrar">Cadastrar Aluno</button>
                         </div>
-
+                        <span class="required texto-required">* Campos de preenchimento obrigatório</span>
                     </div>
                 </form>
 

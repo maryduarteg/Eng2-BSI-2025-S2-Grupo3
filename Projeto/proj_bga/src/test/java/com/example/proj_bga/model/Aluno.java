@@ -122,6 +122,23 @@ public class Aluno {
         this.pes_id = pes_id;
     }
 
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "dao=" + dao +
+                ", id=" + id +
+                ", dt_entrada=" + dt_entrada +
+                ", foto='" + foto + '\'' +
+                ", mae='" + mae + '\'' +
+                ", pai='" + pai + '\'' +
+                ", responsavel_pais=" + responsavel_pais +
+                ", conhecimento=" + conhecimento +
+                ", pais_convivem=" + pais_convivem +
+                ", pensao=" + pensao +
+                ", pes_id=" + pes_id +
+                '}';
+    }
+
     public List<Aluno> consultar(String filtro, Conexao conexao) {
         return this.dao.get(filtro);
     }
