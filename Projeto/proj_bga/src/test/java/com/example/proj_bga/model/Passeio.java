@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -15,78 +13,34 @@ public class Passeio {
     @Autowired
     private PasseioDAO dao;
 
-    private int id;
-    private Date pas_data;
-    private LocalTime pas_hora_inicio;
-    private LocalTime pas_hora_final;
-    private String pas_chamada_feita;
     private int pde_id;
+    private String pde_descricao;
 
-    public Passeio(int id, Date pas_data, LocalTime pas_hora_inicio, LocalTime pas_hora_final, String pas_chamada_feita, int pde_id) {
-        this.id = id;
-        this.pas_data = pas_data;
-        this.pas_hora_inicio = pas_hora_inicio;
-        this.pas_hora_final = pas_hora_final;
-        this.pas_chamada_feita = pas_chamada_feita;
+    public Passeio(int pde_id, String descricao) {
         this.pde_id = pde_id;
+        this.pde_descricao =  descricao;
     }
 
-    public Passeio(Date pas_data, LocalTime pas_hora_inicio, LocalTime pas_hora_final, String pas_chamada_feita, int pde_id) {
-        this.pas_data = pas_data;
-        this.pas_hora_inicio = pas_hora_inicio;
-        this.pas_hora_final = pas_hora_final;
-        this.pas_chamada_feita = pas_chamada_feita;
-        this.pde_id = pde_id;
+    public Passeio(String descricao) {
+        this.pde_descricao = descricao;
     }
 
     public Passeio(){}
 
-    public int getPasId() {
-        return id;
-    }
-
-    public void setPasId(int id) {
-        this.id = id;
-    }
-
-    public Date getPas_data() {
-        return pas_data;
-    }
-
-    public void setPas_data(Date pas_data) {
-        this.pas_data = pas_data;
-    }
-
-    public LocalTime getPas_hora_inicio() {
-        return pas_hora_inicio;
-    }
-
-    public void setPas_hora_inicio(LocalTime pas_hora_inicio) {
-        this.pas_hora_inicio = pas_hora_inicio;
-    }
-
-    public LocalTime getPas_hora_final() {
-        return pas_hora_final;
-    }
-
-    public void setPas_hora_final(LocalTime pas_hora_final) {
-        this.pas_hora_final = pas_hora_final;
-    }
-
-    public String getPas_chamada_feita() {
-        return pas_chamada_feita;
-    }
-
-    public void setPas_chamada_feita(String pas_chamada_feita) {
-        this.pas_chamada_feita = pas_chamada_feita;
-    }
-
-    public int getPde_id() {
+    public int getPdeId() {
         return pde_id;
     }
 
-    public void setPde_id(int pde_id) {
+    public void setPdeId(int pde_id) {
         this.pde_id = pde_id;
+    }
+
+    public String getDescricao() {
+        return pde_descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.pde_descricao = descricao;
     }
 
     public List<Passeio> consultarPasseio(String filtro, Conexao conexao) {
