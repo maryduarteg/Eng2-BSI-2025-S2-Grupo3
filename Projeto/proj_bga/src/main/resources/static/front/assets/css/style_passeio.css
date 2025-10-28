@@ -18,3 +18,34 @@
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+.required-label::after {
+    content: " *";
+    color: red;
+    font-size: 0.9em;
+    vertical-align: super;
+}
+
+#mensagem-passeio, #mensagem-tabela {
+    /* Garante que o container da mensagem tenha um estilo base */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Estilo de Sucesso (verde) */
+.mensagem.sucesso {
+    color: #0f5132; /* Texto verde escuro */
+    background-color: #d1e7dd; /* Fundo verde claro */
+    border-color: #badbcc;
+}
+
+/* Estilo de Erro/Perigo (vermelho) */
+.mensagem.erro {
+    color: #842029; /* Texto vermelho escuro */
+    background-color: #f8d7da; /* Fundo vermelho claro */
+    border-color: #f5c2c7;
+}

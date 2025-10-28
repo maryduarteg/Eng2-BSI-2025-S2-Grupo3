@@ -7,22 +7,26 @@ let idEmEdicao = null;
 
 function toggleSecao(event) {
     const botaoClicado = event.target.closest('button');
-    if (!botaoClicado) return;
+    if (!botaoClicado)
+        return;
 
     const targetId = botaoClicado.getAttribute('data-target-id');
-    if (!targetId) return;
+    if (!targetId)
+        return;
+
     IDS_CONTEUDO.forEach(id => {
         const container = document.getElementById(id);
         if (container) {
             container.classList.add('d-none');
         }
     });
+
     const targetElement = document.getElementById(targetId);
     if (targetElement && targetId !== secaoAtivaID) {
         targetElement.classList.remove('d-none');
         secaoAtivaID = targetId;
         if (targetId === 'tabela-container') {
-            carregarPasseios();
+            carregarPasseios("", true);
         } else if (targetId === 'formulario-cadastro') {
             resetarFormulario();
         }
@@ -31,7 +35,7 @@ function toggleSecao(event) {
     }
 }
 
-function carregarPasseios(termoBusca = "") {
+function carregarPasseios(termoBusca = "", limparMensagem = true) {
     const tbody = document.getElementById("tabela-passeios-container");
     const msgContainer = document.getElementById("mensagem-tabela");
     const inputBusca = document.getElementById("input-busca-id");
@@ -41,15 +45,28 @@ function carregarPasseios(termoBusca = "") {
         return;
     }
 
+    if (limparMensagem) {
+        msgContainer.className = '';
+        msgContainer.textContent = '';
+    }
+
     tbody.innerHTML = '';
-    msgContainer.textContent = termoBusca ?
-        `Buscando por "${termoBusca}"...` :
-        "Carregando todas as descrições...";
+
+    if (msgContainer.textContent === '') {
+        msgContainer.textContent = termoBusca ?
+            `Buscando por "${termoBusca}"...` :
+            "Carregando todas as descrições...";
+    }
+
     const url = "http://localhost:8080/apis/passeio" + (termoBusca ? `?filtro=${encodeURIComponent(termoBusca)}` : "");
+
     fetch(url)
         .then(response => {
             if (response.status === 400) {
                 return response.json().then(data => {
+                    if (limparMensagem) {
+                        msgContainer.className = '';
+                    }
                     msgContainer.textContent = data.mensagem || "Nenhuma descrição cadastrada.";
                     return [];
                 });
@@ -64,9 +81,15 @@ function carregarPasseios(termoBusca = "") {
                 msgContainer.textContent = termoBusca ?
                     `Nenhuma descrição encontrada para "${termoBusca}".` :
                     "Nenhuma descrição cadastrada.";
+                msgContainer.className = '';
                 return;
             }
-            msgContainer.textContent = '';
+
+            if (limparMensagem) {
+                msgContainer.textContent = '';
+                msgContainer.className = '';
+            }
+
             listaDescricoes.forEach(pde => {
                 const row = tbody.insertRow();
                 const descricaoSegura = pde.pde_descricao.replace(/'/g, "\\'");
@@ -89,14 +112,14 @@ function carregarPasseios(termoBusca = "") {
         })
         .catch(error => {
             console.error("Erro ao carregar descrições:", error);
-            msgContainer.textContent = "Erro ao carregar dados do servidor.";
+            mostrarMensagemTabela("Erro ao carregar dados do servidor.", false);
         });
 }
 
 function buscarPasseiosFiltrados() {
     const inputBusca = document.getElementById("input-busca-id");
     const termo = inputBusca ? inputBusca.value.trim() : "";
-    carregarPasseios(termo);
+    carregarPasseios(termo, true);
 }
 
 function limparBusca() {
@@ -104,7 +127,7 @@ function limparBusca() {
     if (inputBusca) {
         inputBusca.value = "";
     }
-    carregarPasseios();
+    carregarPasseios("", true);
 }
 
 function iniciarEdicao(id, descricao) {
@@ -118,6 +141,12 @@ function iniciarEdicao(id, descricao) {
     } else {
         mostrarMensagem("Erro: Contêineres não encontrados.", false);
         return;
+    }
+
+    const mensagemContainer = document.getElementById("mensagem-passeio");
+    if (mensagemContainer) {
+        mensagemContainer.innerHTML = '';
+        mensagemContainer.className = 'mt-3';
     }
 
     idEmEdicao = id;
@@ -155,7 +184,6 @@ function submeterFormulario(event) {
 
     const metodo = idEmEdicao !== null ? "PUT" : "POST";
     const url = "http://localhost:8080/apis/passeio";
-
     const dados = { pde_descricao: inputDescricao.value };
 
     if (idEmEdicao !== null) {
@@ -169,14 +197,16 @@ function submeterFormulario(event) {
     })
         .then(response => response.json())
         .then(res => {
-            const mensagem = res.mensagem || res.erro;
+            const acao = metodo === 'PUT' ? 'Atualizar' : 'Cadastrar';
             if (res.erro) {
-                mostrarMensagem(`Erro ao ${metodo === 'PUT' ? 'Atualizar' : 'Cadastrar'}: ${mensagem}`, false);
+                mostrarMensagem(`Erro ao ${acao}: ${res.erro || res.mensagem || 'Falha desconhecida.'}`, false);
                 return;
             }
-            mostrarMensagem(`Sucesso! Descrição ${metodo === 'PUT' ? 'Atualizada' : 'Cadastrada'}.`, true);
+            const msgSucesso = res.mensagem || `Sucesso! Descrição ${acao === 'Atualizar' ? 'Atualizada' : 'Cadastrada'}.`;
+            mostrarMensagem(msgSucesso, true);
             resetarFormulario();
-            carregarPasseios();
+
+            carregarPasseios("", true);
         })
         .catch(error => {
             console.error(`Erro ao ${metodo}:`, error);
@@ -191,6 +221,7 @@ function resetarFormulario() {
     form.reset();
     form.classList.remove("was-validated");
     idEmEdicao = null;
+
     const botaoSubmit = document.querySelector('#formPasseio button[type="submit"]');
     const tituloForm = document.querySelector('#formulario-cadastro h2');
 
@@ -207,7 +238,20 @@ function confirmaExclusao(id) {
         executarExclusao(id);
 }
 
+function mostrarMensagemTabela(texto, sucesso) {
+    const container = document.getElementById("mensagem-tabela");
+    if(container) {
+        container.className = 'mt-3';
+        container.textContent = texto;
+        container.classList.add('mensagem');
+        container.classList.add(sucesso ? 'sucesso' : 'erro');
+    }
+}
+
 function executarExclusao(id) {
+    const inputBusca = document.getElementById("input-busca-id");
+    const termoBusca = inputBusca ? inputBusca.value || "" : "";
+
     fetch(`http://localhost:8080/apis/passeio/${id}`, {
         method: "DELETE",
         headers: {
@@ -217,30 +261,28 @@ function executarExclusao(id) {
         return response.json().then(data => ({ status: response.status, body: data }));
     })
         .then(({ status, body }) => {
-            const containerMensagem = document.getElementById("mensagem-tabela");
             if (status === 200) {
-                containerMensagem.textContent = body.mensagem || `Passeio ${id} excluído com sucesso.`;
-                carregarPasseios(); // Recarrega a tabela após o DELETE
-            } else if (status === 400 || status === 404) {
-                containerMensagem.textContent = body.mensagem || body.erro || "Erro na requisição.";
-                containerMensagem.style.color = 'red';
+                const mensagem = body.mensagem || `Passeio ${id} excluído com sucesso.`;
+                mostrarMensagemTabela(mensagem, true);
+                carregarPasseios(termoBusca, false);
             } else {
-                containerMensagem.textContent = `Erro do Servidor (${status}): Falha na exclusão.`;
-                containerMensagem.style.color = 'red';
+                const mensagem = body.mensagem || body.erro || `Erro ${status} ao excluir o passeio ${id}.`;
+                mostrarMensagemTabela(mensagem, false);
             }
         })
         .catch(error => {
             console.error("Erro ao excluir:", error);
-            document.getElementById("mensagem-tabela").textContent = "Erro de rede ao tentar excluir o passeio.";
-            document.getElementById("mensagem-tabela").style.color = 'red';
+            mostrarMensagemTabela("Erro de rede ao tentar excluir o passeio.", false);
         });
 }
 
 function mostrarMensagem(texto, sucesso) {
     const container = document.getElementById("mensagem-passeio");
     if(container) {
+        container.className = 'mt-3';
         container.innerHTML = texto;
-        container.className = 'mensagem ' + (sucesso ? 'sucesso' : 'erro');
+        container.classList.add('mensagem');
+        container.classList.add(sucesso ? 'sucesso' : 'erro');
     }
 }
 
