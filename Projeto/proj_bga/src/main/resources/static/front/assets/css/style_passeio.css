@@ -27,7 +27,6 @@
 }
 
 #mensagem-passeio, #mensagem-tabela {
-    /* Garante que o container da mensagem tenha um estilo base */
     padding: 1rem;
     margin-bottom: 1rem;
     border: 1px solid transparent;
@@ -36,16 +35,23 @@
     font-weight: 600;
 }
 
-/* Estilo de Sucesso (verde) */
 .mensagem.sucesso {
-    color: #0f5132; /* Texto verde escuro */
-    background-color: #d1e7dd; /* Fundo verde claro */
+    color: #0f5132;
+    background-color: #d1e7dd;
     border-color: #badbcc;
 }
 
-/* Estilo de Erro/Perigo (vermelho) */
 .mensagem.erro {
-    color: #842029; /* Texto vermelho escuro */
-    background-color: #f8d7da; /* Fundo vermelho claro */
+    color: #842029;
+    background-color: #f8d7da;
     border-color: #f5c2c7;
+}
+
+.icone-decorativo {
+    background-image: url('../assets/img/logo.png');
+    width: 15px;
+    height: 15px;
+    background-size: 40px;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
