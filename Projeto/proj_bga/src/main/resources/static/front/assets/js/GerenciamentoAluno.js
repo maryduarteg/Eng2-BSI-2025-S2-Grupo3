@@ -2,11 +2,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const btnMostrar = document.getElementById('btn-mostrar-form');
     if (btnMostrar)
         btnMostrar.addEventListener('click', toggleFormulario);
-});
 
-/*window.addEventListener("load", function() {
-    document.querySelectorAll("form").forEach(form => form.reset());
-});*/
+    //adiciona uma lista com as pessoas
+    const selectPessoa = document.getElementById('pessoa');
+
+    fetch("http://localhost:8080/apis/pessoa")
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(listaPessoa => {
+            console.log("Resposta da API:", listaPessoa);
+
+            // Garante que o select existe e limpa o conteúdo
+            selectPessoa.innerHTML = '';
+
+            if (!listaPessoa || listaPessoa.length === 0) {
+                console.log("Nenhuma pessoa cadastrada.");
+                return;
+            }
+
+            // Preenche o select
+            listaPessoa.forEach(pessoa => {
+                const option = document.createElement('option');
+                option.value = pessoa.id ?? "-";
+                option.textContent = pessoa.nome ?? "-";
+                selectPessoa.appendChild(option);
+                console.log("Adicionando:", pessoa.nome);
+            });
+        })
+        .catch(err => console.error("Erro capturado:", err));
+
+});
 
 function toggleFormulario() {
     const form = document.getElementById('formulario-cadastro');
@@ -18,8 +45,10 @@ function toggleFormulario() {
         console.error("Erro: Um dos IDs do formulário ou botão não foi encontrado!.");
     }
 }
+document.getElementById("data-entrada").addEventListener("keyup", aplicarMascaraData);
 
-function aplicarMascaraData(campo) {
+function aplicarMascaraData(e) {
+    let campo = e.target;
     let valor = campo.value;
 
     valor = valor.replace(/\D/g, "");
@@ -27,12 +56,12 @@ function aplicarMascaraData(campo) {
     if (valor.length > 2) {
         valor = valor.replace(/^(\d{2})(\d)/, "$1/$2");
     }
-
     if (valor.length > 5) {
         valor = valor.replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
     }
     campo.value = valor;
 }
+
 
 
 document.addEventListener('DOMContentLoaded', () =>
@@ -106,7 +135,7 @@ btnCadastrar.addEventListener("click",function(e)
 });
 
 // Máscaras para datas e horas
-document.getElementById("data-entrada").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
+
 
 
 function converterDataBrasilParaISO(dataBr) {

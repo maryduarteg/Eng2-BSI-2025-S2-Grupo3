@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
+import java.util.List;
 
 @Component
 public class Pessoa {
@@ -152,4 +153,10 @@ public class Pessoa {
         return false;
     }
 
+    public List<Pessoa> getAll()
+    {
+        List<Pessoa> lista = null;
+        lista = dao.get("");
+        return lista;
+    }
 }
