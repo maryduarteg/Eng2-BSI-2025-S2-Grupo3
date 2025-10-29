@@ -160,12 +160,77 @@ function carregarTodosAlunos()
 {
     const tabela = document.getElementById("tabela-container");
     tabela.classList.remove("d-none");
-    fetch("http://localhost:8080/apis/aluno", {
-    })
+
+    fetch("http://localhost:8080/apis/aluno")
         .then(resp => {
-            console.log("Status:", resp.status);
-            return resp.text();
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
         })
-        .then(text => console.log("Resposta:", text))
-        .catch(err => console.error("Erro:", err));
+        .then(listaAluno => {
+            console.log("Resposta da API:", listaPessoa);
+
+            // Garante que o select existe e limpa o conteúdo
+            selectPessoa.innerHTML = '';
+
+            if (!listaAluno || listaAluno.length === 0) {
+                console.log("Nenhum aluno cadastrado.");
+                return;
+            }
+            const tablebody = document.getElementById("tabela-aluno-container");
+            // Preenche a tabela
+            listaAluno.forEach(aluno => {
+                let linha = document.createElement("tr");
+                let coluna = document.createElement("td");
+                coluna.innerHTML = aluno.foto ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.id ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.dt_entrada ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.mae ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.pai ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.responsavel ?? "-";
+                linha.appendChild(coluna);
+
+                coluna.innerHTML = aluno.ativo ?? "-";
+                linha.appendChild(coluna);
+
+                linha.appendChild(createBotaoEditar(aluno.id));
+                linha.appendChild(createBotaoExcluir(aluno.id));
+                tablebody.appendChild(linha);
+
+            });
+        })
+        .catch(err => console.error("Erro capturado:", err));
+}
+
+function createBotaoEditar(id)
+{
+    let botao = document.createElement("button");
+    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-editar");
+    let info = document.createElement("i");
+    info.classList.add("fas", "fa-edit");
+    botao.dataset.id = id;
+
+    botao.appendChild(info);
+    return botao;
+}
+
+function createBotaoExcluir(id)
+{
+    let botao = document.createElement("button");
+    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-excluir");
+    let info = document.createElement("i");
+    info.classList.add("fas", "fa-trash");
+    botao.dataset.id = id;
+
+    botao.appendChild(info);
+    return botao;
 }
