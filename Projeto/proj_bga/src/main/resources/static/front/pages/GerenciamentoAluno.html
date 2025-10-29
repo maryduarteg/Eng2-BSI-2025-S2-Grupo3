@@ -445,37 +445,87 @@
 
 
             <!-- Formulário de Edição -->
-            <div id="formulario-editar-oficina" class="card p-4 mt-4 d-none" style="font-size: large;">
+            <div id="formulario-editar-aluno" class="card p-4 mt-4 d-none" style="font-size: large;">
                 <h2 class="text-center mb-4">Editar Aluno</h2>
 
-                <form id="formEdicaoAluno" class="needs-validation" novalidate>
+                <form id="formEdicaoAluno" class="needs-validation" novalidate data-id="">
                     <input type="hidden" id="editar-id">
 
                     <div class="row">
+                        <!-- Data de Entrada -->
+                        <div class="col-md-4 mb-3">
+                            <label for="editarDataEntrada" class="form-label">Data de Nascimento</label>
+                            <input type="text" id="editarDataEntrada" name="editarDataEntrada" class="form-control" maxlength="10" placeholder="DD/MM/AAAA" required disabled="true">
+                        </div>
+
+                        <!-- Foto -->
+                        <div class="col-md-6 mb-3">
+                            <label for="editarFoto" class="form-label">Foto</label>
+                            <input type="text" id="editarFoto" name="editarFoto" class="form-control" required>
+                        </div>
+
                         <!-- Nome da Mae -->
                         <div class="col-md-6 mb-3">
-                            <label for="editar-mae" class="form-label">Nome da Mae</label>
-                            <input type="text" id="editar-mae" class="form-control" required>
+                            <label for="editarMae" class="form-label">Nome da Mae</label>
+                            <input type="text" id="editarMae" name="editarMae" class="form-control" required>
                         </div>
 
-                        <!-- Professor -->
+                        <!-- Nome do Pai-->
                         <div class="col-md-6 mb-3">
-                            <label for="editar-professor" class="form-label">Professor (ID)</label>
-                            <input type="number" id="editar-professor" class="form-control" min="1" required>
+                            <label for="editarPai" class="form-label">Nome do Pai</label>
+                            <input type="text" id="editarPai" name="editarPai" class="form-control" required>
                         </div>
 
-                        <!-- Data de Início -->
-                        <div class="col-md-4 mb-3">
-                            <label for="editar-data-nascimento" class="form-label">Data de Nascimento</label>
-                            <input type="text" id="editar-data-nascimento" class="form-control" maxlength="10" placeholder="DD/MM/AAAA" required>
+                        <!-- Responsavel-->
+                        <div class="col-md-2 mb-3">
+                            <label for="editarResponsavel" class="form-label">Tem responsável<span class="required">*</span></label>
+                            <select id = "editarResponsavel" name = "editarResponsavel">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Conhecimento-->
+                        <div class="col-md-3 mb-3">
+                            <label for="editarConhecimento" class="form-label">O aluno tem conhecimento<span class="required">*</span></label>
+                            <select id = "editarConhecimento" name = "editarConhecimento">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Pais convivem-->
+                        <div class="col-md-2 mb-3">
+                            <label for="editarPaisconvivem" class="form-label">Os pais convivem<span class="required">*</span></label>
+                            <select id = "editarPaisconvivem" name = "editarPaisconvivem">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Pensao -->
+                        <div class="col-md-3 mb-3 tempensao">
+                            <label for="editarPensao" class="form-label">O aluno tem pensao<span class="required">*</span></label>
+                            <select id = "editarPensao" name = "editarPensao">
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select>
+                        </div>
+
+                        <!-- Pessoa -->
+                        <div class="col-md-2 mb-3">
+                            <label for="editarPessoa" class="form-label">Pessoa<span class="required">*</span></label>
+                            <select id = "editarPessoa" name = "editarPessoa">
+                                <option value=""></option>
+                            </select>
                         </div>
 
                         <!-- Status -->
                         <div class="col-md-4 mb-3">
-                            <label for="editar-ativo" class="form-label">Status</label>
+                            <label for="editar-ativo" class="form-label">Ativo</label>
                             <select id="editar-ativo" class="form-select" required>
-                                <option value="S">Ativa</option>
-                                <option value="I">Inativa</option>
+                                <option value="S">Sim</option>
+                                <option value="N">Não</option>
                             </select>
                         </div>
 
@@ -492,7 +542,7 @@
             </div>
 
 
-            <!-- Tabela de Oficinas -->
+            <!-- Tabela de Alunos -->
             <div id="tabela-container" class="d-none text-center">
                 <h2></h2>
                 <div class="row">
@@ -500,22 +550,21 @@
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
+                                <th>Foto</th>
                                 <th>ID</th>
-                                <th>Nome Oficina</th>
-                                <th>Data de Início</th>
-                                <th>Data do Fim</th>
-                                <th>Horário de Inicio</th>
-                                <th>Horário do Fim</th>
-                                <th>Professor</th>
-                                <th>Status</th>
+                                <th>Data de entrada</th>
+                                <th>Mãe</th>
+                                <th>Pai</th>
+                                <th>Responsável</th>
+                                <th>Ativo</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                             </thead>
-                            <tbody id="tabela-oficina-container">
+                            <tbody id="tabela-aluno-container">
                             </tbody>
                         </table>
-                        <p id="mensagem-tabela" class="text-center text-muted">Carregando oficinas...</p>
+                        <p id="mensagem-tabela" class="text-center text-muted">Carregando alunos...</p>
                     </div>
                 </div>
             </div>

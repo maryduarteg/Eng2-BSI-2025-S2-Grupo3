@@ -1,3 +1,4 @@
+//CADASTRO
 document.addEventListener('DOMContentLoaded', (event) => {
     const btnMostrar = document.getElementById('btn-mostrar-form');
     if (btnMostrar)
@@ -116,7 +117,7 @@ btnCadastrar.addEventListener("click",function(e)
         conhecimento: form.conhecimento.value,
         pais_convivem: form.paisConvivem.value,
         pensao: form.pensao.value,
-        pes_id: "2"
+        pes_id: form.pessoa.value
     };
 
     console.log("JSON enviado:", aluno);
@@ -152,4 +153,19 @@ function adicionarErro(campo, msg) {
         div.textContent = msg;
         campo.after(div);
     }
+}
+
+//EDIÇÃO
+function carregarTodosAlunos()
+{
+    const tabela = document.getElementById("tabela-container");
+    tabela.classList.remove("d-none");
+    fetch("http://localhost:8080/apis/aluno", {
+    })
+        .then(resp => {
+            console.log("Status:", resp.status);
+            return resp.text();
+        })
+        .then(text => console.log("Resposta:", text))
+        .catch(err => console.error("Erro:", err));
 }
