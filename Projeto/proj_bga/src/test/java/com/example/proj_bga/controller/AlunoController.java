@@ -27,12 +27,12 @@ public class AlunoController {
 
         if (gravado != null) {
             Map<String, Object> json = new HashMap<>();
-            json.put("Id", gravado.getId());
+            json.put("id", gravado.getId());
             json.put("dt_entrada", gravado.getDt_entrada());
             json.put("foto", gravado.getFoto());
             json.put("mae", gravado.getMae());
             json.put("pai", gravado.getPai());
-            json.put("responsavel/pais", gravado.getResponsavel_pais());
+            json.put("responsavel_pais", gravado.getResponsavel_pais());
             json.put("conhecimento", gravado.getConhecimento());
             json.put("pais_convivem", gravado.getPais_convivem());
             json.put("pensao", gravado.getPensao());
@@ -44,6 +44,8 @@ public class AlunoController {
     }
     public List<Map<String, Object>> getAlunos(String filtro) {
         Conexao conexao = new Conexao();
+        Pessoa pessoa = null;
+
         List<Aluno> alunos = alunoModel.consultar(filtro, conexao);
         if(alunos == null){
             return null;
@@ -52,16 +54,22 @@ public class AlunoController {
         List<Map<String, Object>> resultado = new ArrayList<>();
         for(Aluno e: alunos){
             Map<String, Object> json = new HashMap<>();
-            json.put("Id", e.getId());
+            json.put("id", e.getId());
             json.put("dt_entrada", e.getDt_entrada());
             json.put("foto", e.getFoto());
             json.put("mae", e.getMae());
             json.put("pai", e.getPai());
-            json.put("responsavel/pais", e.getResponsavel_pais());
+            json.put("responsavel_pais", e.getResponsavel_pais());
             json.put("conhecimento", e.getConhecimento());
             json.put("pais_convivem", e.getPais_convivem());
             json.put("pensao", e.getPensao());
             json.put("pes_id", e.getPes_id());
+            pessoa = pessoaModel.getId(e.getPes_id());
+            if(pessoa == null)
+                json.put("ativo", "-");
+            else
+                json.put("ativo", pessoa.getAtivo());
+
             resultado.add(json);
         }
         return resultado;
@@ -73,6 +81,7 @@ public class AlunoController {
             char conhecimento, char pais_convivem,
             char pensao, int pes_id)
     {
+        Pessoa pessoa = null;
         if(id <= 0 || dt_entrada == null || foto.isEmpty()|| mae.isEmpty() ||
                 pai.isEmpty() || pes_id <= 0 || responsavel_pais == '\u0000'
                 || (conhecimento == '\u0000') || pais_convivem == '\u0000' || pensao== '\u0000') {
@@ -98,7 +107,7 @@ public class AlunoController {
             return Map.of(
                     "id", atualizado.getId(),
                     "dt_nasc", atualizado.getDt_entrada(),
-                    "data", atualizado.getFoto(),
+                    "foto", atualizado.getFoto(),
                     "hora_inicio", atualizado.getMae(),
                     "hora_final", atualizado.getPai(),
                     "responsavel_pais",  atualizado.getResponsavel_pais(),
@@ -106,6 +115,7 @@ public class AlunoController {
                     "pais_convivem", atualizado.getPais_convivem(),
                     "pensao", atualizado.getPensao(),
                     "pes_id", atualizado.getPes_id()
+
             );
         } else {
             return Map.of("erro", "Erro ao atualizar aluno");

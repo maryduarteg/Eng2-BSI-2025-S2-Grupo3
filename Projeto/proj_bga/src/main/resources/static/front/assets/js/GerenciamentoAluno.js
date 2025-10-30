@@ -1,5 +1,6 @@
 //CADASTRO
 document.addEventListener('DOMContentLoaded', (event) => {
+
     const btnMostrar = document.getElementById('btn-mostrar-form');
     if (btnMostrar)
         btnMostrar.addEventListener('click', toggleFormulario);
@@ -13,13 +14,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return resp.json();
         })
         .then(listaPessoa => {
-            console.log("Resposta da API:", listaPessoa);
+            //console.log("Resposta da API:", listaPessoa);
 
             // Garante que o select existe e limpa o conteúdo
             selectPessoa.innerHTML = '';
 
             if (!listaPessoa || listaPessoa.length === 0) {
-                console.log("Nenhuma pessoa cadastrada.");
+                //console.log("Nenhuma pessoa cadastrada.");
                 return;
             }
 
@@ -29,22 +30,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option.value = pessoa.id ?? "-";
                 option.textContent = pessoa.nome ?? "-";
                 selectPessoa.appendChild(option);
-                console.log("Adicionando:", pessoa.nome);
+                //console.log("Adicionando:", pessoa.nome);
             });
         })
         .catch(err => console.error("Erro capturado:", err));
-
-});
+    }
+);
 
 function toggleFormulario() {
     const form = document.getElementById('formulario-cadastro');
     const botao = document.getElementById('btn-mostrar-form');
 
-    if (form && botao) {
+    if (form && botao)
         form.classList.remove('d-none');
-    } else {
-        console.error("Erro: Um dos IDs do formulário ou botão não foi encontrado!.");
-    }
 }
 document.getElementById("data-entrada").addEventListener("keyup", aplicarMascaraData);
 
@@ -62,8 +60,6 @@ function aplicarMascaraData(e) {
     }
     campo.value = valor;
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () =>
 {
@@ -120,7 +116,7 @@ btnCadastrar.addEventListener("click",function(e)
         pes_id: form.pessoa.value
     };
 
-    console.log("JSON enviado:", aluno);
+    //console.log("JSON enviado:", aluno);
 
     fetch("http://localhost:8080/apis/aluno", {
         method: "POST",
@@ -144,6 +140,16 @@ function converterDataBrasilParaISO(dataBr) {
     return `${ano}-${mes}-${dia}`;
 }
 
+function formatarDataParaBR(dataISO) {
+    if (!dataISO) return "";
+    const data = new Date(dataISO);
+    if (isNaN(data)) return "";
+    const dia = String(data.getDate()).padStart(2,"0");
+    const mes = String(data.getMonth()+1).padStart(2,"0");
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
 
 function adicionarErro(campo, msg) {
     campo.classList.add("is-invalid");
@@ -160,6 +166,8 @@ function carregarTodosAlunos()
 {
     const tabela = document.getElementById("tabela-container");
     tabela.classList.remove("d-none");
+    let msg = document.getElementById("mensagem-tabela");
+    msg.classList.remove("d-none");
 
     fetch("http://localhost:8080/apis/aluno")
         .then(resp => {
@@ -167,70 +175,139 @@ function carregarTodosAlunos()
             return resp.json();
         })
         .then(listaAluno => {
-            console.log("Resposta da API:", listaPessoa);
-
-            // Garante que o select existe e limpa o conteúdo
-            selectPessoa.innerHTML = '';
+            //console.log("Resposta da API:", listaAluno);
 
             if (!listaAluno || listaAluno.length === 0) {
-                console.log("Nenhum aluno cadastrado.");
+                //console.log("Nenhum aluno cadastrado.");
                 return;
             }
             const tablebody = document.getElementById("tabela-aluno-container");
             // Preenche a tabela
             listaAluno.forEach(aluno => {
                 let linha = document.createElement("tr");
-                let coluna = document.createElement("td");
-                coluna.innerHTML = aluno.foto ?? "-";
-                linha.appendChild(coluna);
 
-                coluna.innerHTML = aluno.id ?? "-";
-                linha.appendChild(coluna);
+                let tdFoto = document.createElement("td");
+                tdFoto.innerHTML = aluno.foto ?? "-";
+                linha.appendChild(tdFoto);
 
-                coluna.innerHTML = aluno.dt_entrada ?? "-";
-                linha.appendChild(coluna);
+                let tdId = document.createElement("td");
+                tdId.innerHTML = aluno.id ?? "-";
+                linha.appendChild(tdId);
 
-                coluna.innerHTML = aluno.mae ?? "-";
-                linha.appendChild(coluna);
+                let tdEntrada = document.createElement("td");
+                tdEntrada.innerHTML = formatarDataParaBR(aluno.dt_entrada) ?? "-";
+                linha.appendChild(tdEntrada);
 
-                coluna.innerHTML = aluno.pai ?? "-";
-                linha.appendChild(coluna);
+                let tdMae = document.createElement("td");
+                tdMae.innerHTML = aluno.mae ?? "-";
+                linha.appendChild(tdMae);
 
-                coluna.innerHTML = aluno.responsavel ?? "-";
-                linha.appendChild(coluna);
+                let tdPai = document.createElement("td");
+                tdPai.innerHTML = aluno.pai ?? "-";
+                linha.appendChild(tdPai);
 
-                coluna.innerHTML = aluno.ativo ?? "-";
-                linha.appendChild(coluna);
+                let tdResponsavel = document.createElement("td");
+                tdResponsavel.innerHTML = aluno.responsavel_pais ?? "-";
+                linha.appendChild(tdResponsavel);
 
-                linha.appendChild(createBotaoEditar(aluno.id));
-                linha.appendChild(createBotaoExcluir(aluno.id));
+                let tdAtivo = document.createElement("td");
+                tdAtivo.innerHTML = aluno.ativo ?? "-";
+                linha.appendChild(tdAtivo);
+
+                // Botões
+                let tdAlterar = document.createElement("td");
+                tdAlterar.appendChild(createBotaoEditar(aluno.id, aluno.ativo));
+                let tdAtivDes = document.createElement("td");
+                tdAtivDes.appendChild(createBotaoAtivDes(aluno.pes_id, aluno.ativo));
+
+                linha.appendChild(tdAlterar);
+                linha.appendChild(tdAtivDes);
                 tablebody.appendChild(linha);
-
+                //console.log("Adicionando:", aluno.id)
+                msg.classList.add("d-none");
             });
         })
         .catch(err => console.error("Erro capturado:", err));
+
+    let botoesEditar = document.getElementsByClassName("btn-editar");
+    let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
+
+    Array.from(botoesEditar).forEach(e)
+    {
+        e.addEventListener("click",function(){
+            if(e.dataset.status === 'N')
+                console.log("Este registro está desativado. Não pode ser alterado")
+        });
+    }
+
+    Array.from(botoesAtivDes).forEach(e)
+    {
+        e.addEventListener("click",ativarDesativarRegistro(e.dataset.id));
+    }
 }
 
-function createBotaoEditar(id)
+function createBotaoEditar(id, status)
 {
     let botao = document.createElement("button");
     botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-editar");
     let info = document.createElement("i");
     info.classList.add("fas", "fa-edit");
     botao.dataset.id = id;
+    botao.dataset.status = status;
+    botao.appendChild(info);
+    return botao;
+}
+
+function createBotaoAtivDes(id, status)
+{
+    let botao = document.createElement("button");
+    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-ativdes");
+    let info = document.createElement("i");
+
+    if(status === 'S')
+        info.classList.add("fas", "fa-trash");
+    else
+        info.classList.add("fas", "fa-check");
+
+    botao.dataset.status = status;
 
     botao.appendChild(info);
     return botao;
 }
 
-function createBotaoExcluir(id)
+function ativarDesativarRegistro(id)
 {
-    let botao = document.createElement("button");
-    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-excluir");
-    let info = document.createElement("i");
-    info.classList.add("fas", "fa-trash");
-    botao.dataset.id = id;
+    fetch(`http://localhost:8080/apis/pessoa/${id}`) // ajuste a URL conforme sua API
+        .then(response => {
+            if (!response.ok) throw new Error('Pessoa não encontrada');
+            return response.json();
+        })
+        .then(pessoa => {
 
-    botao.appendChild(info);
-    return botao;
+            const pes = {
+                id: pessoa.id,
+                nome: pessoa.nome,
+                cpf: pessoa.cpf,
+                dt_nascimento: pessoa.dtnasc,
+                rg: pessoa.rg,
+                ativo: pessoa.ativo,
+                end_id: pessoa.end
+            }
+
+            fetch("http://localhost:8080/apis/aluno", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(pes)
+            })
+                .then(resp => {
+                    console.log("Status:", resp.status);
+                    return resp.text();
+                })
+                .then(text => console.log("Resposta:", text))
+                .catch(err => console.error("Erro:", err));
+
+        })
+        .catch(err => {
+            console.log(err)
+        });
 }

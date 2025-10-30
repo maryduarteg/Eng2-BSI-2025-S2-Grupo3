@@ -96,6 +96,7 @@ public class AlunoDAO implements IDAO<Aluno>
                 Aluno aluno = new Aluno();
                 aluno.setId(rs.getInt("alu_id"));
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
+                aluno.setFoto(rs.getString("alu_foto"));
                 aluno.setMae(rs.getString("alu_mae"));
                 aluno.setPai(rs.getString("alu_pai"));
                 aluno.setResponsavel_pais(rs.getString("alu_responsavel_pais").charAt(0));
