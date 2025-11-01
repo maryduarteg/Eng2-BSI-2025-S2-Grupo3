@@ -66,7 +66,7 @@ public class AlunoController {
             json.put("pais_convivem", e.getPais_convivem());
             json.put("pensao", e.getPensao());
             json.put("pes_id", e.getPes_id());
-            pessoa = pessoaModel.getId(e.getPes_id());
+            pessoa = pessoaModel.getId(e.getPes_id(), conexao);
             if(pessoa == null)
                 json.put("ativo", "-");
             else
@@ -134,10 +134,10 @@ public class AlunoController {
         else
         {
             Aluno aux = alunoModel.consultar(id, conexao);
-            Pessoa paux = pessoaModel.getId(aux.getPes_id());
+            Pessoa paux = pessoaModel.getId(aux.getPes_id(), conexao);
             System.out.println(aux.getId() +" "+aux.getPes_id());
             paux.setAtivo('N');
-            boolean deletado = pessoaModel.alterarPessoa(paux);
+            boolean deletado = pessoaModel.alterarPessoa(paux, conexao);
 
             if (deletado)
                 return Map.of("mensagem", "Aluno " + id + " removido com sucesso!");
