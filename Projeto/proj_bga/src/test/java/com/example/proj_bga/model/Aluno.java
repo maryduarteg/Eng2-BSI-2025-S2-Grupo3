@@ -140,29 +140,19 @@ public class Aluno {
     }
 
     public List<Aluno> consultar(String filtro, Conexao conexao) {
-        return this.dao.get(filtro);
+        return this.dao.get(filtro, conexao);
     }
 
-    public Aluno consultar(String filtro){
-        return (Aluno) dao.get(filtro);
+    public Aluno consultar(int id, Conexao conexao){ return dao.get(id, conexao);}
+
+    public Aluno gravar(Aluno aluno, Conexao conexao) {
+        return (Aluno) this.dao.gravar(aluno, conexao);
     }
 
-    public Aluno consultar(int id){
-        return dao.get(id);
+    public boolean deletarAluno(Aluno aluno, Conexao conexao) {
+        return dao.excluir(aluno, conexao);
     }
 
-    public Aluno gravar(Aluno aluno) {
-        return (Aluno) this.dao.gravar(aluno);
-    }
-
-    public boolean deletarAluno(Aluno aluno) {
-        return dao.excluir(aluno);
-    }
-
-    public Aluno update(Aluno aluno)
-    {
-        return dao.alterar(aluno);
-    }
-
-    public boolean consultarAtivo(int id){return dao.verificarAtivoExistente(id);}
+    public Aluno update(Aluno aluno, Conexao conexao) {return dao.alterar(aluno, conexao);}
+    public boolean consultarAtivo(int id, Conexao conexao){return dao.verificarAtivoExistente(id, conexao);}
 }

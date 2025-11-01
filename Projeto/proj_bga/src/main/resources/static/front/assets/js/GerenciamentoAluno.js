@@ -165,6 +165,7 @@ function adicionarErro(campo, msg) {
 function carregarTodosAlunos()
 {
     const tabela = document.getElementById("tabela-container");
+
     tabela.classList.remove("d-none");
     let msg = document.getElementById("mensagem-tabela");
     msg.classList.remove("d-none");
@@ -182,6 +183,7 @@ function carregarTodosAlunos()
                 return;
             }
             const tablebody = document.getElementById("tabela-aluno-container");
+            tablebody.innerHTML = "";
             // Preenche a tabela
             listaAluno.forEach(aluno => {
                 let linha = document.createElement("tr");
@@ -225,25 +227,25 @@ function carregarTodosAlunos()
                 tablebody.appendChild(linha);
                 //console.log("Adicionando:", aluno.id)
                 msg.classList.add("d-none");
+
+                let botoesEditar = document.getElementsByClassName("btn-editar");
+                let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
+
+                Array.from(botoesEditar).forEach(e => {
+                    e.addEventListener("click", function() {
+                        if (e.dataset.status === 'N')
+                            console.log("Este registro está desativado. Não pode ser alterado");
+                    });
+                });
+
+                Array.from(botoesAtivDes).forEach(e => {
+                    e.addEventListener("click", () => ativarDesativarRegistro(e.dataset.id));
+                });
             });
         })
         .catch(err => console.error("Erro capturado:", err));
 
-    let botoesEditar = document.getElementsByClassName("btn-editar");
-    let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
 
-    Array.from(botoesEditar).forEach(e)
-    {
-        e.addEventListener("click",function(){
-            if(e.dataset.status === 'N')
-                console.log("Este registro está desativado. Não pode ser alterado")
-        });
-    }
-
-    Array.from(botoesAtivDes).forEach(e)
-    {
-        e.addEventListener("click",ativarDesativarRegistro(e.dataset.id));
-    }
 }
 
 function createBotaoEditar(id, status)
@@ -264,25 +266,28 @@ function createBotaoAtivDes(id, status)
     botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-ativdes");
     let info = document.createElement("i");
 
+
     if(status === 'S')
         info.classList.add("fas", "fa-trash");
     else
         info.classList.add("fas", "fa-check");
 
     botao.dataset.status = status;
+    botao.dataset.id = id;
 
     botao.appendChild(info);
     return botao;
 }
 
-function ativarDesativarRegistro(id)
-{
-    fetch(`http://localhost:8080/apis/pessoa/${id}`) // ajuste a URL conforme sua API
+function ativarDesativarRegistro(id) {
+
+    fetch(`http://localhost:8080/apis/pessoa/${id}`)
         .then(response => {
             if (!response.ok) throw new Error('Pessoa não encontrada');
-            return response.json();
+            return response.json(); // aqui!
         })
         .then(pessoa => {
+            let ativ = pessoa.ativo === 'S' ? 'N' : 'S';
 
             const pes = {
                 id: pessoa.id,
@@ -290,11 +295,13 @@ function ativarDesativarRegistro(id)
                 cpf: pessoa.cpf,
                 dt_nascimento: pessoa.dtnasc,
                 rg: pessoa.rg,
-                ativo: pessoa.ativo,
+                ativo: ativ,
                 end_id: pessoa.end
-            }
+            };
 
-            fetch("http://localhost:8080/apis/aluno", {
+            console.log(pes);
+
+            fetch("http://localhost:8080/apis/pessoa", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(pes)
@@ -305,9 +312,6 @@ function ativarDesativarRegistro(id)
                 })
                 .then(text => console.log("Resposta:", text))
                 .catch(err => console.error("Erro:", err));
-
         })
-        .catch(err => {
-            console.log(err)
-        });
+        .catch(err => console.error(err));
 }

@@ -16,14 +16,17 @@ public class AlunoController {
     Pessoa pessoaModel = new Pessoa();
     @Autowired
     private Aluno alunoModel;
+
    public Map<String, Object> addAluno(LocalDate dt_entrada, String foto,
            String mae, String pai, char responsavel_pais,
            char conhecimento, char pais_convivem,
            char pensao, int pes_id)
    {
-        Aluno novo = new Aluno(0, dt_entrada, foto, mae, pai, responsavel_pais, conhecimento,
+       Conexao conexao = SingletonDB.conectar();
+
+       Aluno novo = new Aluno(0, dt_entrada, foto, mae, pai, responsavel_pais, conhecimento,
                 pais_convivem, pensao, pes_id);
-        Aluno gravado = alunoModel.gravar(novo);
+        Aluno gravado = alunoModel.gravar(novo, conexao);
 
         if (gravado != null) {
             Map<String, Object> json = new HashMap<>();
@@ -43,9 +46,8 @@ public class AlunoController {
         }
     }
     public List<Map<String, Object>> getAlunos(String filtro) {
-        Conexao conexao = new Conexao();
+        Conexao conexao = SingletonDB.conectar();
         Pessoa pessoa = null;
-
         List<Aluno> alunos = alunoModel.consultar(filtro, conexao);
         if(alunos == null){
             return null;
@@ -87,7 +89,8 @@ public class AlunoController {
                 || (conhecimento == '\u0000') || pais_convivem == '\u0000' || pensao== '\u0000') {
             return Map.of("erro", "Dados inválidos!!");
         }
-        Aluno encontrado = alunoModel.consultar(id);
+        Conexao conexao = SingletonDB.conectar();
+        Aluno encontrado = alunoModel.consultar(id, conexao);
         if(encontrado == null) {
             return Map.of("erro", "Aluno não encontrado");
         }
@@ -102,7 +105,7 @@ public class AlunoController {
         encontrado.setPensao(pensao);
         encontrado.setPes_id(pes_id);
 
-        Aluno atualizado = alunoModel.update(encontrado);
+        Aluno atualizado = alunoModel.update(encontrado, conexao);
         if(atualizado != null) {
             return Map.of(
                     "id", atualizado.getId(),
@@ -123,13 +126,14 @@ public class AlunoController {
     }
 
     public Map<String, Object> deletarAluno(int id) {
-        boolean resp = alunoModel.consultarAtivo(id);
+        Conexao conexao = SingletonDB.conectar();
+        boolean resp = alunoModel.consultarAtivo(id, conexao);
 
         if (!resp)
             return Map.of("erro", "Aluno não encontrado para exclusão.");
         else
         {
-            Aluno aux = alunoModel.consultar(id);
+            Aluno aux = alunoModel.consultar(id, conexao);
             Pessoa paux = pessoaModel.getId(aux.getPes_id());
             System.out.println(aux.getId() +" "+aux.getPes_id());
             paux.setAtivo('N');
@@ -139,7 +143,7 @@ public class AlunoController {
                 return Map.of("mensagem", "Aluno " + id + " removido com sucesso!");
             else
             {
-                String erroReal = SingletonDB.getConexao().getMensagemErro();
+                String erroReal = conexao.getMensagemErro();
                 System.err.println("Falha no DELETE. Erro: " + erroReal);
                 return Map.of("erro", erroReal);
             }

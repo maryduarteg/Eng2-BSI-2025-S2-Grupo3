@@ -4,6 +4,7 @@ import com.example.proj_bga.model.Aluno;
 import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
+import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,8 @@ public class PessoaController {
     @Autowired
     private Pessoa pessoaModel;
     public List<Map<String, Object>> getAll() {
-        Conexao conexao = new Conexao();
-        List<Pessoa> pessoas = pessoaModel.getAll();
+        Conexao conexao = SingletonDB.conectar();
+        List<Pessoa> pessoas = pessoaModel.getAll(conexao);
         if(pessoas == null)
             return null;
 
@@ -34,7 +35,9 @@ public class PessoaController {
     }
 
     public Map<String, Object> getByID(int id) {
-        Pessoa p = pessoaModel.getId(id); // pega a pessoa do DAO
+        Conexao conexao = SingletonDB.conectar();
+
+        Pessoa p = pessoaModel.getId(id, conexao); // pega a pessoa do DAO
 
         if (p == null) {
             return null; // ou pode lançar exceção / retornar Map com "erro"
@@ -56,11 +59,13 @@ public class PessoaController {
                                               String nome, String cpf, LocalDate dtnasc,
                                               String rg, char ativo, int end)
     {
+        Conexao conexao = SingletonDB.conectar();
+
         if(id <= 0 || dtnasc == null || nome.isEmpty()|| cpf.isEmpty() ||
                 rg.isEmpty() || end <= 0 || ativo == '\u0000')
             return Map.of("erro", "Dados inválidos!!");
 
-        Pessoa encontrado = pessoaModel.getId(id);
+        Pessoa encontrado = pessoaModel.getId(id, conexao);
         if(encontrado == null) {
             return Map.of("erro", "Aluno não encontrado");
         }
@@ -72,7 +77,7 @@ public class PessoaController {
         encontrado.setAtivo(ativo);
         encontrado.setEnd_id(end);
 
-        boolean resp = pessoaModel.alterarPessoa(encontrado);
+        boolean resp = pessoaModel.alterarPessoa(encontrado, conexao);
 
         return Map.of("resposta", resp);
 
