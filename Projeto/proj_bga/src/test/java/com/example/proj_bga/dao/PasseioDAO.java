@@ -1,6 +1,7 @@
 package com.example.proj_bga.dao;
 
 import com.example.proj_bga.model.Passeio;
+import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
@@ -12,29 +13,26 @@ import java.util.List;
 public class PasseioDAO implements IDAO<Passeio> {
 
     @Override
-    public Passeio gravar(Passeio passeio) {
+    public Passeio gravar(Passeio passeio, Conexao conexao) {
         String sql = """
                 INSERT INTO passeio_descricao(pde_descricao)
-                    VALUES ('#1') RETURNING pde_id; 
+                    VALUES ('#1'); 
             """;
 
         sql = sql.replace("#1", passeio.getDescricao());
 
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
         try {
-            if (rs != null && rs.next()) {
-                passeio.setPdeId(rs.getInt("pde_id"));
+            if (conexao.manipular(sql))
                 return passeio;
-            }
-        } catch(SQLException e) {
-            System.out.println("Erro ao obter ID do Passeio: " + e.getMessage());
+        } catch(Exception e) {
+            System.out.println("Erro ao gravar Passeio: " + e.getMessage());
         }
         return null;
     }
 
     @Override
-    public Passeio alterar(Passeio passeio) {
-
+    public Passeio alterar(Passeio passeio, Conexao conexao) {
+        Passeio retorno = null;
         String sql = """
                     UPDATE passeio_descricao SET pde_descricao = '#1'
                         WHERE pde_id = #2;
@@ -42,17 +40,18 @@ public class PasseioDAO implements IDAO<Passeio> {
         sql = sql.replace("#1", passeio.getDescricao());
         sql = sql.replace("#2", "" + passeio.getPdeId());
 
-        if(SingletonDB.getConexao().manipular(sql)){
-            return passeio;
+        if(conexao.manipular(sql)){
+            retorno = passeio;
         }
         else{
-            System.out.println("Erro ao alterar Passeio:" + SingletonDB.getConexao().getMensagemErro());
-            return null;
+            System.out.println("Erro ao alterar Passeio:" + SingletonDB.conectar().getMensagemErro());
         }
+
+        return retorno;
     }
 
     @Override
-    public boolean excluir(Passeio passeio) {
+    public boolean excluir(Passeio passeio, Conexao conexao) {
         if (passeio == null)
             return false;
 
@@ -63,17 +62,17 @@ public class PasseioDAO implements IDAO<Passeio> {
 
         sql = sql.replace("#1", "" + passeio.getPdeId());
 
-        System.out.println("SQL de Exclusão: " + sql);
-        if (SingletonDB.getConexao().manipular(sql)) {
-            return true;
-        } else {
-            System.err.println("Erro SQL no DELETE: " + SingletonDB.getConexao().getMensagemErro());
-            return false;
+        try {
+            if(conexao.manipular(sql))
+                return true;
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir o registro: " + e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public Passeio get(int pde_id){
+    public Passeio get(int pde_id, Conexao conexao){
         Passeio p = null;
         String sql = """
                 SELECT * FROM passeio_descricao
@@ -83,7 +82,7 @@ public class PasseioDAO implements IDAO<Passeio> {
         sql = sql.replace("#1", "" + pde_id);
 
         try {
-            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            ResultSet rs = SingletonDB.conectar().consultar(sql);
             if(rs.next()){
                 p = new Passeio(
                         rs.getInt("pde_id"),
@@ -98,7 +97,7 @@ public class PasseioDAO implements IDAO<Passeio> {
     }
 
     @Override
-    public List<Passeio> get(String filtro){
+    public List<Passeio> get(String filtro, Conexao conexao){
         List<Passeio> lista = new ArrayList<>();
         String sql = "SELECT * FROM passeio_descricao";
 
@@ -106,7 +105,7 @@ public class PasseioDAO implements IDAO<Passeio> {
             String termoBusca = "'%" + filtro + "%'";
             sql += " WHERE pde_descricao ILIKE " + termoBusca;
         }
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        ResultSet rs = SingletonDB.conectar().consultar(sql);
         try{
             while(rs.next()){
                 Passeio passeio = new Passeio(

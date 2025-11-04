@@ -1,7 +1,9 @@
 package com.example.proj_bga.dao;
+
 import com.example.proj_bga.model.Aluno;
-import com.example.proj_bga.util.SingletonDB;
+import com.example.proj_bga.util.Conexao;
 import org.springframework.stereotype.Repository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,9 +12,8 @@ import java.util.List;
 @Repository
 public class AlunoDAO implements IDAO<Aluno>
 {
-
     @Override
-    public Object gravar(Aluno aluno) {
+    public Object gravar(Aluno aluno, Conexao conexao) {
         String sql = """
                 INSERT INTO aluno(
                 	alu_dt_entrada, alu_foto, alu_mae, alu_pai, alu_responsavel_pais, alu_conhecimento, alu_pais_convivem, alu_pensao, pes_id)
@@ -29,7 +30,7 @@ public class AlunoDAO implements IDAO<Aluno>
         sql = sql.replace("#9",""+ aluno.getPes_id());
 
         try {
-            if(SingletonDB.getConexao().manipular(sql))
+            if(conexao.manipular(sql))
                 return aluno;
         } catch (Exception e) {
             System.out.println("Erro ao gravar Aluno: " + e.getMessage());
@@ -38,7 +39,7 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public Aluno alterar(Aluno aluno) {
+    public Aluno alterar(Aluno aluno, Conexao conexao) {
         Aluno retorno = null;
         String sql = """
              UPDATE aluno
@@ -60,7 +61,7 @@ public class AlunoDAO implements IDAO<Aluno>
 
 
         try {
-            if(SingletonDB.getConexao().manipular(sql))
+            if(conexao.manipular(sql))
                 retorno = aluno;
         } catch (Exception e) {
             System.out.println("Erro ao alterar Aluno: " + e.getMessage());
@@ -69,13 +70,13 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public boolean excluir(Aluno aluno) {
+    public boolean excluir(Aluno aluno, Conexao conexao) {
         String sql = """
                 DELETE FROM aluno
                 	WHERE alu_id = #1;""";
         sql = sql.replace("#1",""+ aluno.getId());
         try {
-            if(SingletonDB.getConexao().manipular(sql))
+            if(conexao.manipular(sql))
                 return true;
         } catch (Exception e) {
             System.out.println("Erro ao alterar Aluno: " + e.getMessage());
@@ -84,18 +85,19 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public List<Aluno> get(String filtro) {
+    public List<Aluno> get(String filtro, Conexao conexao) {
         List<Aluno> lista = new ArrayList<>();
         String sql = "Select * from aluno ";
         if(!filtro.isEmpty())
             sql = sql + filtro;
 
         try {
-            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            ResultSet rs = conexao.consultar(sql);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 aluno.setId(rs.getInt("alu_id"));
                 aluno.setDt_entrada(rs.getDate("alu_dt_entrada").toLocalDate());
+                aluno.setFoto(rs.getString("alu_foto"));
                 aluno.setMae(rs.getString("alu_mae"));
                 aluno.setPai(rs.getString("alu_pai"));
                 aluno.setResponsavel_pais(rs.getString("alu_responsavel_pais").charAt(0));
@@ -113,7 +115,7 @@ public class AlunoDAO implements IDAO<Aluno>
     }
 
     @Override
-    public Aluno get(int id){
+    public Aluno get(int id, Conexao conexao){
         Aluno a = null;
         String sql = """
                 SELECT * FROM aluno
@@ -123,7 +125,7 @@ public class AlunoDAO implements IDAO<Aluno>
         sql = sql.replace("#1", "" + id);
 
         try {
-            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            ResultSet rs = conexao.consultar(sql);
             if(rs.next()){
                 a = new Aluno();
                 a.setId(rs.getInt("alu_id"));
@@ -142,7 +144,7 @@ public class AlunoDAO implements IDAO<Aluno>
         return a;
     }
 
-    public boolean verificarAtivoExistente(int id)
+    public boolean verificarAtivoExistente(int id, Conexao conexao)
     {
         String sql = """
                 SELECT P.PES_ID
@@ -152,7 +154,7 @@ public class AlunoDAO implements IDAO<Aluno>
                 AND A.ALU_ID = #
                 """;
         sql = sql.replace("#",""+id);
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        ResultSet rs = conexao.consultar(sql);
         try {
             if(rs.next())
                 return true;

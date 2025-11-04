@@ -4,20 +4,16 @@ public class SingletonDB {
 
     private static Conexao conexao=null;
 
-    private SingletonDB() {
+    public SingletonDB() {
     }
 
-    public static boolean conectar()
+    public static Conexao conectar()
     {
-
         if(conexao == null)
         {
             conexao=new Conexao();
             conexao.conectar("jdbc:postgresql://localhost:5432/","bga-db","postgres","postgres123");
         }
-        return conexao.getEstadoConexao();
-    }
-    public static Conexao getConexao() {
         return conexao;
     }
 }

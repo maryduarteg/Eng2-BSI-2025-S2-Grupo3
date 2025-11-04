@@ -1,25 +1,23 @@
 package com.example.proj_bga.dao;
 
-import com.example.proj_bga.model.Aluno;
 import com.example.proj_bga.model.Pessoa;
-import com.example.proj_bga.util.SingletonDB;
+import com.example.proj_bga.util.Conexao;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class PessoaDAO implements IDAO<Pessoa>{
     @Override
-    public Object gravar(Pessoa entidade) {
+    public Object gravar(Pessoa entidade, Conexao conexao) {
         return null;
     }
 
     @Override
-    public Object alterar(Pessoa pessoa) {
+    public Object alterar(Pessoa pessoa,Conexao conexao) {
 
         String sql = """
                     UPDATE public.pessoa
@@ -36,29 +34,29 @@ public class PessoaDAO implements IDAO<Pessoa>{
 
 
 
-        if(SingletonDB.getConexao().manipular(sql)){
+        if(conexao.manipular(sql)){
             return pessoa;
         }
         else{
-            System.out.println("Erro ao alterar pessoa:" + SingletonDB.getConexao().getMensagemErro());
+            System.out.println("Erro ao alterar pessoa:" + conexao.getMensagemErro());
             return null;
         }
     }
 
     @Override
-    public boolean excluir(Pessoa entidade) {
+    public boolean excluir(Pessoa entidade, Conexao conexao) {
         return false;
     }
 
     @Override
-    public List<Pessoa> get(String filtro) {
+    public List<Pessoa> get(String filtro, Conexao conexao) {
         List<Pessoa> lista = new ArrayList<>();
         String sql = "select * from pessoa ";
         if(!filtro.isEmpty())
             sql = sql + filtro;
 
         try {
-            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            ResultSet rs = conexao.consultar(sql);
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("pes_id"));
@@ -73,7 +71,7 @@ public class PessoaDAO implements IDAO<Pessoa>{
     }
 
     @Override
-    public Pessoa get(int id) {
+    public Pessoa get(int id,Conexao conexao) {
 
         Pessoa p = null;
         String sql = """
@@ -82,7 +80,7 @@ public class PessoaDAO implements IDAO<Pessoa>{
             """;
 
         sql = sql.replace("#1", ""+id);
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        ResultSet rs = conexao.consultar(sql);
 
         try {
             if(rs.next()){

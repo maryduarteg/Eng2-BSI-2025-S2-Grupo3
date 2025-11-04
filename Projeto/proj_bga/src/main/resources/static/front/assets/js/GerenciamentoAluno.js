@@ -1,10 +1,13 @@
+//CADASTRO
 document.addEventListener('DOMContentLoaded', (event) => {
+
     const btnMostrar = document.getElementById('btn-mostrar-form');
     if (btnMostrar)
         btnMostrar.addEventListener('click', toggleFormulario);
 
     //adiciona uma lista com as pessoas
     const selectPessoa = document.getElementById('pessoa');
+    const selectEditarPessoa = document.getElementById('editarPessoa');
 
     fetch("http://localhost:8080/apis/pessoa")
         .then(resp => {
@@ -12,13 +15,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return resp.json();
         })
         .then(listaPessoa => {
-            console.log("Resposta da API:", listaPessoa);
+            //console.log("Resposta da API:", listaPessoa);
 
             // Garante que o select existe e limpa o conteúdo
             selectPessoa.innerHTML = '';
 
             if (!listaPessoa || listaPessoa.length === 0) {
-                console.log("Nenhuma pessoa cadastrada.");
+                //console.log("Nenhuma pessoa cadastrada.");
                 return;
             }
 
@@ -28,22 +31,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option.value = pessoa.id ?? "-";
                 option.textContent = pessoa.nome ?? "-";
                 selectPessoa.appendChild(option);
-                console.log("Adicionando:", pessoa.nome);
+                selectEditarPessoa.appendChild(option);
+                //console.log("Adicionando:", pessoa.nome);
             });
         })
         .catch(err => console.error("Erro capturado:", err));
-
-});
+    }
+);
 
 function toggleFormulario() {
     const form = document.getElementById('formulario-cadastro');
     const botao = document.getElementById('btn-mostrar-form');
 
-    if (form && botao) {
+    if (form && botao)
         form.classList.remove('d-none');
-    } else {
-        console.error("Erro: Um dos IDs do formulário ou botão não foi encontrado!.");
-    }
 }
 document.getElementById("data-entrada").addEventListener("keyup", aplicarMascaraData);
 
@@ -61,8 +62,6 @@ function aplicarMascaraData(e) {
     }
     campo.value = valor;
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () =>
 {
@@ -116,10 +115,10 @@ btnCadastrar.addEventListener("click",function(e)
         conhecimento: form.conhecimento.value,
         pais_convivem: form.paisConvivem.value,
         pensao: form.pensao.value,
-        pes_id: "2"
+        pes_id: form.pessoa.value
     };
 
-    console.log("JSON enviado:", aluno);
+    //console.log("JSON enviado:", aluno);
 
     fetch("http://localhost:8080/apis/aluno", {
         method: "POST",
@@ -143,6 +142,16 @@ function converterDataBrasilParaISO(dataBr) {
     return `${ano}-${mes}-${dia}`;
 }
 
+function formatarDataParaBR(dataISO) {
+    if (!dataISO) return "";
+    const data = new Date(dataISO);
+    if (isNaN(data)) return "";
+    const dia = String(data.getDate()).padStart(2,"0");
+    const mes = String(data.getMonth()+1).padStart(2,"0");
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
 
 function adicionarErro(campo, msg) {
     campo.classList.add("is-invalid");
@@ -153,3 +162,249 @@ function adicionarErro(campo, msg) {
         campo.after(div);
     }
 }
+
+//EDIÇÃO
+function carregarTodosAlunos()
+{
+    const tabela = document.getElementById("tabela-container");
+
+    tabela.classList.remove("d-none");
+    let msg = document.getElementById("mensagem-tabela");
+    msg.classList.remove("d-none");
+
+    fetch("http://localhost:8080/apis/aluno")
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(listaAluno => {
+            //console.log("Resposta da API:", listaAluno);
+
+            if (!listaAluno || listaAluno.length === 0) {
+                //console.log("Nenhum aluno cadastrado.");
+                return;
+            }
+            const tablebody = document.getElementById("tabela-aluno-container");
+            tablebody.innerHTML = "";
+            // Preenche a tabela
+            listaAluno.forEach(aluno => {
+                let linha = document.createElement("tr");
+
+                let tdFoto = document.createElement("td");
+                tdFoto.innerHTML = aluno.foto ?? "-";
+                linha.appendChild(tdFoto);
+
+                let tdId = document.createElement("td");
+                tdId.innerHTML = aluno.id ?? "-";
+                linha.appendChild(tdId);
+
+                let tdEntrada = document.createElement("td");
+                tdEntrada.innerHTML = formatarDataParaBR(aluno.dt_entrada) ?? "-";
+                linha.appendChild(tdEntrada);
+
+                let tdMae = document.createElement("td");
+                tdMae.innerHTML = aluno.mae ?? "-";
+                linha.appendChild(tdMae);
+
+                let tdPai = document.createElement("td");
+                tdPai.innerHTML = aluno.pai ?? "-";
+                linha.appendChild(tdPai);
+
+                let tdResponsavel = document.createElement("td");
+                tdResponsavel.innerHTML = aluno.responsavel_pais ?? "-";
+                linha.appendChild(tdResponsavel);
+
+                let tdAtivo = document.createElement("td");
+                tdAtivo.innerHTML = aluno.ativo ?? "-";
+                linha.appendChild(tdAtivo);
+
+                // Botões
+                let tdAlterar = document.createElement("td");
+                tdAlterar.appendChild(createBotaoEditar(aluno.id, aluno.ativo));
+                let tdAtivDes = document.createElement("td");
+                tdAtivDes.appendChild(createBotaoAtivDes(aluno.pes_id, aluno.ativo));
+
+                linha.appendChild(tdAlterar);
+                linha.appendChild(tdAtivDes);
+                tablebody.appendChild(linha);
+                //console.log("Adicionando:", aluno.id)
+                msg.classList.add("d-none");
+
+                let botoesEditar = document.getElementsByClassName("btn-editar");
+                let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
+
+                Array.from(botoesEditar).forEach(e => {
+                    e.addEventListener("click", function() {
+                        if (e.dataset.status === 'N')
+                            console.log("Este registro está desativado. Não pode ser alterado");
+                        else
+                            carregarEdicao(e.dataset.id);
+
+                    });
+                });
+
+                Array.from(botoesAtivDes).forEach(e => {
+                    e.addEventListener("click", () => ativarDesativarRegistro(e.dataset.id));
+                });
+            });
+        })
+        .catch(err => console.error("Erro capturado:", err));
+
+
+}
+
+function createBotaoEditar(id, status)
+{
+    let botao = document.createElement("button");
+    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-editar");
+    let info = document.createElement("i");
+    info.classList.add("fas", "fa-edit");
+    botao.dataset.id = id;
+    botao.dataset.status = status;
+    botao.appendChild(info);
+    return botao;
+}
+
+function createBotaoAtivDes(id, status)
+{
+    let botao = document.createElement("button");
+    botao.classList.add("btn", "btn-sm", "btn-outline-info", "btn-ativdes");
+    let info = document.createElement("i");
+
+
+    if(status === 'S')
+        info.classList.add("fas", "fa-trash");
+    else
+        info.classList.add("fas", "fa-check");
+
+    botao.dataset.status = status;
+    botao.dataset.id = id;
+
+    botao.appendChild(info);
+    return botao;
+}
+
+function ativarDesativarRegistro(id) {
+
+    fetch(`http://localhost:8080/apis/pessoa/${id}`)
+        .then(response => {
+            if (!response.ok) throw new Error('Pessoa não encontrada');
+            return response.json(); // aqui!
+        })
+        .then(pessoa => {
+            let ativ = pessoa.ativo === 'S' ? 'N' : 'S';
+
+            const pes = {
+                id: pessoa.id,
+                nome: pessoa.nome,
+                cpf: pessoa.cpf,
+                dt_nascimento: pessoa.dtnasc,
+                rg: pessoa.rg,
+                ativo: ativ,
+                end_id: pessoa.end
+            };
+
+            fetch("http://localhost:8080/apis/pessoa", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(pes)
+            })
+                .then(resp => {
+                    console.log("Status:", resp.status);
+                    return resp.text();
+                })
+                .then(text => console.log("Resposta:", text))
+                .catch(err => console.error("Erro:", err));
+        })
+        .catch(err => console.error(err));
+}
+const formEdicaoMain = document.getElementById("formulario-editar-aluno");
+function carregarEdicao(id)
+{
+
+    let tabela = document.getElementById("tabela-container");
+    const formEdicao = document.getElementById("formEdicaoAluno");
+    tabela.classList.add("d-none");
+    formEdicaoMain.classList.remove("d-none");
+
+    fetch(`http://localhost:8080/apis/aluno/${id}`)
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(aluno => {
+            console.log("Resposta da API:", aluno);
+            if (!aluno) {
+                console.log("Aluno não encontrado.");
+                return;
+            }
+            formEdicaoMain.dataset.id =  aluno[0].id;
+            document.getElementById("editarDataEntrada").value = formatarDataParaBR(aluno[0].dt_entrada);
+            document.getElementById("editarFoto").value = aluno[0].foto;
+            document.getElementById("editarMae").value = aluno[0].mae;
+            document.getElementById("editarPai").value = aluno[0].pai;
+            document.getElementById("editarResponsavel").value = aluno[0].responsavel_pais;
+            document.getElementById("editarConhecimento").value = aluno[0].conhecimento;
+            document.getElementById("editarPaisconvivem").value = aluno[0].pais_convivem;
+            document.getElementById("editarPensao").value = aluno[0].pensao;
+            document.getElementById("editarPessoa").value = aluno[0].pes_id;
+            document.getElementById("editarAtivo").value = aluno[0].ativo;
+
+        })
+        .catch(err => console.error("Erro capturado:", err));
+}
+
+const btnAtualizar = document.getElementById("btn-salvar-edicao");
+btnAtualizar.addEventListener("click",function()
+{
+
+    const campos = Array.from(form.querySelectorAll(".form-controledicao"));
+    let valido = true;
+
+
+    // Limpa erros
+    campos.forEach(campo => {
+        campo.classList.remove("is-invalid");
+        const erroMsg = campo.nextElementSibling;
+        if (erroMsg && erroMsg.classList.contains("invalid-feedback")) erroMsg.remove();
+    });
+    // Campos obrigatórios
+    campos.forEach(campo => {
+        console.log(`Campo: ${campo.name || campo.id} | Valor: "${campo.value}"`);
+        if (campo.value.trim() === "") {
+            adicionarErro(campo, "Campo obrigatório");
+            valido = false;
+        }
+    });
+
+
+    if (!valido) {console.log("retornou");return;}
+    console.log("não retornou");
+    //cadastrar aluno em função anônima
+    const aluno = {
+        id: formEdicaoMain.dataset.id,
+        dt_entrada: converterDataBrasilParaISO(document.getElementById("editarDataEntrada").value),
+        foto: document.getElementById("editarFoto").value,
+        mae: document.getElementById("editarMae").value,
+        pai: document.getElementById("editarPai").value,
+        responsavel_pais: document.getElementById("editarResponsavel").value,
+        conhecimento: document.getElementById("editarConhecimento").value,
+        pais_convivem: document.getElementById("editarPaisconvivem").value,
+        pensao: document.getElementById("editarPensao").value,
+        pes_id: document.getElementById("editarPessoa").value
+    };
+
+    console.log("JSON enviado:", aluno);
+
+    fetch("http://localhost:8080/apis/aluno", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(aluno)
+    })
+        .then(resp => {
+            console.log("Status:", resp.status);
+            return resp.text();
+        })
+        .then(text => console.log("Resposta:", text))
+        .catch(err => console.error("Erro:", err));
+});

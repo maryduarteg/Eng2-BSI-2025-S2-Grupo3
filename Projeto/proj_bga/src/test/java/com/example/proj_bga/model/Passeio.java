@@ -43,24 +43,28 @@ public class Passeio {
     }
 
     public List<Passeio> consultarPasseio(String filtro, Conexao conexao) {
-        return dao.get(filtro);
+        return dao.get(filtro, conexao);
     }
 
     public List<Passeio> consultarPasseioFiltro(String filtro, Conexao conexao) {
-        return dao.get(filtro);
+        return dao.get(filtro, conexao);
     }
 
-    public Passeio consultarPasseioID(int id){
-        return dao.get(id);
+    public Passeio consultarPasseioID(int id, Conexao conexao){
+        return dao.get(id, conexao);
     }
 
-    public Passeio gravarPasseio(Passeio passeio) {
-        return dao.gravar(passeio);
+    public Passeio gravarPasseio(Passeio passeio, Conexao conexao) {
+        return dao.gravar(passeio, conexao);
     }
 
-    public boolean deletarPasseio(Passeio passeio) { return dao.excluir(passeio); }
+    public boolean deletarPasseio(Passeio passeio, Conexao conexao) {
+        return dao.excluir(passeio, conexao);
+    }
 
-    public Passeio alterarPasseio(Passeio passeio) { return dao.alterar(passeio); }
+    public Passeio alterarPasseio(Passeio passeio, Conexao conexao) {
+        return dao.alterar(passeio, conexao);
+    }
 }
 
 
