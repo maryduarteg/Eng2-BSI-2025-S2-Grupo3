@@ -1,7 +1,5 @@
 package com.example.proj_bga.controller;
 
-import com.example.proj_bga.model.Aluno;
-import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;

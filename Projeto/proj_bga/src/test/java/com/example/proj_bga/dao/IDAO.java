@@ -1,6 +1,7 @@
 package com.example.proj_bga.dao;
 
 import com.example.proj_bga.util.Conexao;
+
 import java.util.List;
 
 public interface IDAO<T>{

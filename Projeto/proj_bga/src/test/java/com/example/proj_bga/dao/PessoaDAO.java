@@ -1,14 +1,11 @@
 package com.example.proj_bga.dao;
 
-import com.example.proj_bga.model.Aluno;
 import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
-import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

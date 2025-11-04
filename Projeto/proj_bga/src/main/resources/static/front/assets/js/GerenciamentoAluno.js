@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     //adiciona uma lista com as pessoas
     const selectPessoa = document.getElementById('pessoa');
+    const selectEditarPessoa = document.getElementById('editarPessoa');
 
     fetch("http://localhost:8080/apis/pessoa")
         .then(resp => {
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option.value = pessoa.id ?? "-";
                 option.textContent = pessoa.nome ?? "-";
                 selectPessoa.appendChild(option);
+                selectEditarPessoa.appendChild(option);
                 //console.log("Adicionando:", pessoa.nome);
             });
         })
@@ -235,6 +237,9 @@ function carregarTodosAlunos()
                     e.addEventListener("click", function() {
                         if (e.dataset.status === 'N')
                             console.log("Este registro está desativado. Não pode ser alterado");
+                        else
+                            carregarEdicao(e.dataset.id);
+
                     });
                 });
 
@@ -299,8 +304,6 @@ function ativarDesativarRegistro(id) {
                 end_id: pessoa.end
             };
 
-            console.log(pes);
-
             fetch("http://localhost:8080/apis/pessoa", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -315,3 +318,93 @@ function ativarDesativarRegistro(id) {
         })
         .catch(err => console.error(err));
 }
+const formEdicaoMain = document.getElementById("formulario-editar-aluno");
+function carregarEdicao(id)
+{
+
+    let tabela = document.getElementById("tabela-container");
+    const formEdicao = document.getElementById("formEdicaoAluno");
+    tabela.classList.add("d-none");
+    formEdicaoMain.classList.remove("d-none");
+
+    fetch(`http://localhost:8080/apis/aluno/${id}`)
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(aluno => {
+            console.log("Resposta da API:", aluno);
+            if (!aluno) {
+                console.log("Aluno não encontrado.");
+                return;
+            }
+            formEdicaoMain.dataset.id =  aluno[0].id;
+            document.getElementById("editarDataEntrada").value = formatarDataParaBR(aluno[0].dt_entrada);
+            document.getElementById("editarFoto").value = aluno[0].foto;
+            document.getElementById("editarMae").value = aluno[0].mae;
+            document.getElementById("editarPai").value = aluno[0].pai;
+            document.getElementById("editarResponsavel").value = aluno[0].responsavel_pais;
+            document.getElementById("editarConhecimento").value = aluno[0].conhecimento;
+            document.getElementById("editarPaisconvivem").value = aluno[0].pais_convivem;
+            document.getElementById("editarPensao").value = aluno[0].pensao;
+            document.getElementById("editarPessoa").value = aluno[0].pes_id;
+            document.getElementById("editarAtivo").value = aluno[0].ativo;
+
+        })
+        .catch(err => console.error("Erro capturado:", err));
+}
+
+const btnAtualizar = document.getElementById("btn-salvar-edicao");
+btnAtualizar.addEventListener("click",function()
+{
+
+    const campos = Array.from(form.querySelectorAll(".form-controledicao"));
+    let valido = true;
+
+
+    // Limpa erros
+    campos.forEach(campo => {
+        campo.classList.remove("is-invalid");
+        const erroMsg = campo.nextElementSibling;
+        if (erroMsg && erroMsg.classList.contains("invalid-feedback")) erroMsg.remove();
+    });
+    // Campos obrigatórios
+    campos.forEach(campo => {
+        console.log(`Campo: ${campo.name || campo.id} | Valor: "${campo.value}"`);
+        if (campo.value.trim() === "") {
+            adicionarErro(campo, "Campo obrigatório");
+            valido = false;
+        }
+    });
+
+
+    if (!valido) {console.log("retornou");return;}
+    console.log("não retornou");
+    //cadastrar aluno em função anônima
+    const aluno = {
+        id: formEdicaoMain.dataset.id,
+        dt_entrada: converterDataBrasilParaISO(document.getElementById("editarDataEntrada").value),
+        foto: document.getElementById("editarFoto").value,
+        mae: document.getElementById("editarMae").value,
+        pai: document.getElementById("editarPai").value,
+        responsavel_pais: document.getElementById("editarResponsavel").value,
+        conhecimento: document.getElementById("editarConhecimento").value,
+        pais_convivem: document.getElementById("editarPaisconvivem").value,
+        pensao: document.getElementById("editarPensao").value,
+        pes_id: document.getElementById("editarPessoa").value
+    };
+
+    console.log("JSON enviado:", aluno);
+
+    fetch("http://localhost:8080/apis/aluno", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(aluno)
+    })
+        .then(resp => {
+            console.log("Status:", resp.status);
+            return resp.text();
+        })
+        .then(text => console.log("Resposta:", text))
+        .catch(err => console.error("Erro:", err));
+});
