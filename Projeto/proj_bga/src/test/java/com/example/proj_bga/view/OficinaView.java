@@ -40,6 +40,16 @@ public class OficinaView {
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
 
+    @GetMapping("/professores")
+    public ResponseEntity<Object> getProfessores() {
+        List<Map<String, Object>> lista = oficinaController.getProfessores();
+        if (lista != null && !lista.isEmpty()) {
+            return ResponseEntity.ok(lista);
+        } else {
+            return ResponseEntity.badRequest().body(new Mensagem("Nenhum professor encontrado!"));
+        }
+    }
+
 
     @GetMapping
     public ResponseEntity<Object> get() {
@@ -53,8 +63,8 @@ public class OficinaView {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getOficinaID(@PathVariable("id") int id) {
+    @GetMapping("/{id:\\d+}")
+    public ResponseEntity<Object> getOficinaId(@PathVariable int id) {
         Map<String, Object> oficina = oficinaController.getOficinaPorId(id);
 
         if (oficina != null) {
@@ -112,6 +122,24 @@ public class OficinaView {
         }
     }
 
+
+    // Verificar conflito de horário
+    @GetMapping("/verificar-conflito")
+    public ResponseEntity<Map<String, Boolean>> verificarConflito(
+            @RequestParam("professorId") int professorId,
+            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicio,
+            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFim,
+            @RequestParam("horaInicio") String horaInicio,
+            @RequestParam("horaFim") String horaFim) {
+
+        LocalTime horaInicioLT = LocalTime.parse(horaInicio);
+        LocalTime horaFimLT = LocalTime.parse(horaFim);
+
+        boolean conflito = oficinaController.existeConflitoDeHorario( professorId, dataInicio, dataFim, horaInicioLT, horaFimLT );
+        Map<String, Boolean> resposta = new HashMap<>();
+        resposta.put("existe", conflito);
+        return ResponseEntity.ok(resposta);
+    }
 
 
 

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.*;
 
 @Repository
 public class OficinaDAO implements IDAO<Oficina> {
@@ -167,4 +167,66 @@ public class OficinaDAO implements IDAO<Oficina> {
     public Oficina getID(int id) {
         return get(id);
     }
+
+    public boolean existeConflitoDeHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
+        String sql = """ 
+                SELECT ofc_hora_inicio, 
+                ofc_hora_termino, ofc_dt_inicial,
+                 ofc_dt_final FROM oficina WHERE prof_id = %d 
+                 AND ofc_ativo = 'S' 
+                 AND (
+                  (ofc_dt_inicial <= '%s' 
+                  AND ofc_dt_final >= '%s') 
+                  ) 
+                  """.
+                formatted( professorId, new java.sql.Date(dataFim.getTime()), new java.sql.Date(dataInicio.getTime()) );
+        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        try {
+            while (rs != null && rs.next())
+            {
+                LocalTime hiExistente = rs.getTime("ofc_hora_inicio").toLocalTime();
+                LocalTime hfExistente = rs.getTime("ofc_hora_termino").toLocalTime(); // Verifica sobreposição de horário
+                boolean sobrepoeHoras = !(horaFim.isBefore(hiExistente) || horaInicio.isAfter(hfExistente));
+                if (sobrepoeHoras) {
+                    return true; // conflito encontrado
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println("Erro ao verificar conflito de horário: " + e.getMessage());
+        }
+        return false; // sem conflito
+    }
+
+
+    public List<Map<String, Object>> listarProfessores() {
+        List<Map<String, Object>> lista = new ArrayList<>();
+
+        String sql = """
+        SELECT pe.pes_id AS id, pe.pes_nome AS nome
+        FROM professor p
+        JOIN pessoa pe ON pe.pes_id = p.pes_id
+        ORDER BY pe.pes_nome;
+    """;
+
+        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+
+        try {
+            while (rs.next()) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("id", rs.getInt("id"));
+                item.put("nome", rs.getString("nome"));
+                lista.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
+
 }
+
+

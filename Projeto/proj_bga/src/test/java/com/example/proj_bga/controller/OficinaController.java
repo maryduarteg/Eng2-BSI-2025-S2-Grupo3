@@ -171,6 +171,16 @@ public class OficinaController {
                 return Map.of("erro", "Erro ao atualizar Oficina");
             }
         }
-    }
+
+        public boolean existeConflitoDeHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
+        return oficinaModel.verificarConflitoHorario(professorId, dataInicio, dataFim, horaInicio, horaFim);
+        }
+
+        public List<Map<String, Object>> getProfessores() {
+            return oficinaModel.listarProfessores();
+        }
+
+}
+
 
 

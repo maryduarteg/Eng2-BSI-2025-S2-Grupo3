@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public class Oficina {
     @Autowired
@@ -132,4 +134,13 @@ public class Oficina {
     }
 
     public Oficina alterarOficina(Oficina oficina) { return dao.alterar(oficina); }
+
+    public boolean verificarConflitoHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
+        return dao.existeConflitoDeHorario(professorId, dataInicio, dataFim, horaInicio, horaFim);
+    }
+
+    public List<Map<String, Object>> listarProfessores() {
+        return dao.listarProfessores();
+    }
+
 }
