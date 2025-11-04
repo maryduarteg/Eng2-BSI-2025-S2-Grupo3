@@ -117,30 +117,30 @@ public class Oficina {
     }
 
     public List<Oficina> consultarOficinas(String filtro, Conexao conexao){
-        return dao.get(filtro);
+        return dao.get(filtro, conexao);
     }
-    public Oficina consultarOficinasID(int id){
-        return dao.get(id);
+    public Oficina consultarOficinasID(int id, Conexao conexao){
+        return dao.get(id, conexao);
     }
 
-    public Oficina gravarOficina(Oficina oficina) {
-        return dao.gravar(oficina);
+    public Oficina gravarOficina(Oficina oficina, Conexao conexao) {
+        return dao.gravar(oficina, conexao);
     }
 
 //    public boolean deletarOficina(Oficina oficina) { return dao.excluir(oficina); }
 
-    public boolean inativarOficina(int id) {
-        return dao.inativarOficina(id);
+    public boolean inativarOficina(int id, Conexao conexao) {
+        return dao.inativarOficina(id, conexao);
     }
 
-    public Oficina alterarOficina(Oficina oficina) { return dao.alterar(oficina); }
+    public Oficina alterarOficina(Oficina oficina, Conexao conexao) { return dao.alterar(oficina, conexao); }
 
-    public boolean verificarConflitoHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
-        return dao.existeConflitoDeHorario(professorId, dataInicio, dataFim, horaInicio, horaFim);
+    public boolean verificarConflitoHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim, Conexao conexao) {
+        return dao.existeConflitoDeHorario(professorId, dataInicio, dataFim, horaInicio, horaFim, conexao);
     }
 
-    public List<Map<String, Object>> listarProfessores() {
-        return dao.listarProfessores();
+    public List<Map<String, Object>> listarProfessores(Conexao conexao) {
+        return dao.listarProfessores(conexao);
     }
 
 }

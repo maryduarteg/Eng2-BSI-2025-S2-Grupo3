@@ -1,6 +1,7 @@
 package com.example.proj_bga.dao;
 
 import com.example.proj_bga.model.Oficina;
+import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import java.util.*;
 public class OficinaDAO implements IDAO<Oficina> {
 
     @Override
-    public Oficina gravar(Oficina oficina) {
+    public Oficina gravar(Oficina oficina, Conexao conexao) {
         String sql = String.format("""
                 INSERT INTO oficina (
                     ofc_nome, ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo
@@ -30,7 +31,7 @@ public class OficinaDAO implements IDAO<Oficina> {
                 oficina.getAtivo()
         );
 
-        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
+        ResultSet resultado = conexao.consultar(sql);
 
         try {
             if (resultado != null && resultado.next()) {
@@ -47,7 +48,7 @@ public class OficinaDAO implements IDAO<Oficina> {
     }
 
     @Override
-    public Oficina alterar(Oficina oficina) {
+    public Oficina alterar(Oficina oficina, Conexao conexao) {
         String sql = """
                 UPDATE oficina
                 SET ofc_nome = '#1',
@@ -69,21 +70,21 @@ public class OficinaDAO implements IDAO<Oficina> {
         sql = sql.replace("#7", String.valueOf(oficina.getAtivo()));
         sql = sql.replace("#8", String.valueOf(oficina.getId()));
 
-        if (SingletonDB.getConexao().manipular(sql)) {
+        if (conexao.manipular(sql)) {
             return oficina;
         } else {
-            System.out.println("Erro ao alterar Oficina: " + SingletonDB.getConexao().getMensagemErro());
+            System.out.println("Erro ao alterar Oficina: " + conexao.getMensagemErro());
             return null;
         }
     }
 
     @Override
-    public boolean excluir(Oficina oficina) {
+    public boolean excluir(Oficina oficina, Conexao conexao) {
         if (oficina == null) return false;
-        return inativarOficina(oficina.getId());
+        return inativarOficina(oficina.getId(), conexao);
     }
 
-    public boolean inativarOficina(int id) {
+    public boolean inativarOficina(int id, Conexao conexao) {
         String sql = """
                 UPDATE oficina
                 SET ofc_ativo = 'I'
@@ -91,20 +92,20 @@ public class OficinaDAO implements IDAO<Oficina> {
                 """;
         sql = sql.replace("#1", String.valueOf(id));
 
-        if (SingletonDB.getConexao().manipular(sql)) {
+        if (conexao.manipular(sql)) {
             return true;
         } else {
-            System.err.println("Erro ao inativar Oficina: " + SingletonDB.getConexao().getMensagemErro());
+            System.err.println("Erro ao inativar Oficina: " + conexao.getMensagemErro());
             return false;
         }
     }
 
     @Override
-    public Oficina get(int id) {
+    public Oficina get(int id, Conexao conexao) {
         if (id <= 0) return null;
 
         String sql = "SELECT * FROM oficina WHERE ofc_id = " + id;
-        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
+        ResultSet resultado = conexao.consultar(sql);
 
         try {
             if (resultado.next()) {
@@ -130,7 +131,7 @@ public class OficinaDAO implements IDAO<Oficina> {
     }
 
     @Override
-    public List<Oficina> get(String filtro) {
+    public List<Oficina> get(String filtro, Conexao conexao) {
         List<Oficina> oficinas = new ArrayList<>();
         String sql = "SELECT * FROM oficina";
 
@@ -138,7 +139,7 @@ public class OficinaDAO implements IDAO<Oficina> {
             sql += " WHERE " + filtro;
         }
 
-        ResultSet resultado = SingletonDB.getConexao().consultar(sql);
+        ResultSet resultado = conexao.consultar(sql);
 
         try {
             while (resultado.next()) {
@@ -164,11 +165,11 @@ public class OficinaDAO implements IDAO<Oficina> {
     }
 
     // Retorna uma Oficina pelo ID, sem precisar usar o get(int)
-    public Oficina getID(int id) {
-        return get(id);
+    public Oficina getID(int id, Conexao conexao) {
+        return get(id, conexao);
     }
 
-    public boolean existeConflitoDeHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
+    public boolean existeConflitoDeHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim, Conexao conexao) {
         String sql = """ 
                 SELECT ofc_hora_inicio, 
                 ofc_hora_termino, ofc_dt_inicial,
@@ -180,7 +181,7 @@ public class OficinaDAO implements IDAO<Oficina> {
                   ) 
                   """.
                 formatted( professorId, new java.sql.Date(dataFim.getTime()), new java.sql.Date(dataInicio.getTime()) );
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        ResultSet rs = conexao.consultar(sql);
         try {
             while (rs != null && rs.next())
             {
@@ -199,7 +200,7 @@ public class OficinaDAO implements IDAO<Oficina> {
     }
 
 
-    public List<Map<String, Object>> listarProfessores() {
+    public List<Map<String, Object>> listarProfessores(Conexao conexao) {
         List<Map<String, Object>> lista = new ArrayList<>();
 
         String sql = """
@@ -209,7 +210,7 @@ public class OficinaDAO implements IDAO<Oficina> {
         ORDER BY pe.pes_nome;
     """;
 
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        ResultSet rs = conexao.consultar(sql);
 
         try {
             while (rs.next()) {

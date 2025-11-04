@@ -2,8 +2,10 @@ package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.OficinaController;
 import com.example.proj_bga.model.Oficina;
+import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class OficinaView {
 
     @Autowired
     private OficinaController oficinaController;
+    private ConversionService conversionService;
 
     @PostMapping
     public ResponseEntity<Object> addOficinas(@RequestBody Oficina dto) {
@@ -41,8 +44,8 @@ public class OficinaView {
     }
 
     @GetMapping("/professores")
-    public ResponseEntity<Object> getProfessores() {
-        List<Map<String, Object>> lista = oficinaController.getProfessores();
+    public ResponseEntity<Object> getProfessores(Conexao conexao) {
+        List<Map<String, Object>> lista = oficinaController.getProfessores(conexao);
         if (lista != null && !lista.isEmpty()) {
             return ResponseEntity.ok(lista);
         } else {
@@ -64,8 +67,8 @@ public class OficinaView {
     }
 
     @GetMapping("/{id:\\d+}")
-    public ResponseEntity<Object> getOficinaId(@PathVariable int id) {
-        Map<String, Object> oficina = oficinaController.getOficinaPorId(id);
+    public ResponseEntity<Object> getOficinaId(@PathVariable int id, Conexao conexao) {
+        Map<String, Object> oficina = oficinaController.getOficinaPorId(id, conexao);
 
         if (oficina != null) {
             return ResponseEntity.ok(oficina); // HTTP 200 com JSON da oficina
@@ -135,7 +138,7 @@ public class OficinaView {
         LocalTime horaInicioLT = LocalTime.parse(horaInicio);
         LocalTime horaFimLT = LocalTime.parse(horaFim);
 
-        boolean conflito = oficinaController.existeConflitoDeHorario( professorId, dataInicio, dataFim, horaInicioLT, horaFimLT );
+        boolean conflito = oficinaController.existeConflitoDeHorario( professorId, dataInicio, dataFim, horaInicioLT, horaFimLT);
         Map<String, Boolean> resposta = new HashMap<>();
         resposta.put("existe", conflito);
         return ResponseEntity.ok(resposta);
