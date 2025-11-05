@@ -1,14 +1,10 @@
 package com.example.proj_bga.controller;
 
-import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.model.Usuario;
-import com.example.proj_bga.util.Conexao;
-import com.example.proj_bga.util.SingletonDB;
 import com.example.proj_bga.util.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.*;
 
 @Service

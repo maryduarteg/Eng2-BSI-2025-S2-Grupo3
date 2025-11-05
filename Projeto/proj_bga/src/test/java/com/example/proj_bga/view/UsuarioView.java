@@ -1,6 +1,5 @@
 package com.example.proj_bga.view;
 
-import com.example.proj_bga.controller.OficinaController;
 import com.example.proj_bga.controller.UsuarioController;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;

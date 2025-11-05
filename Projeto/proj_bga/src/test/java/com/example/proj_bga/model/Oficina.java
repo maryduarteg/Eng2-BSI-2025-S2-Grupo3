@@ -1,55 +1,24 @@
 package com.example.proj_bga.model;
 
+
 import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-@Repository
 public class Oficina {
     @Autowired
     private OficinaDAO dao;
 
     private int id;
-    private String nome;
-    private LocalTime horaInicio;
-    private LocalTime horaFim;
-    private Date dataInicio;
-    private Date dataFim;
-    private int professor;
-    private char ativo;
+    private String descricao;
 
-    public Oficina(){}
+    public Oficina() {}
 
-    public Oficina(int id, String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo) {
+    public Oficina(int id, String descricao) {
         this.id = id;
-        this.nome = nome;
-        this.horaInicio = horaInicio;
-        this.horaFim = horaFim;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.professor = professor;
-        this.ativo = ativo;
-    }
-
-    public Oficina(String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo) {
-        this.nome = nome;
-        this.horaInicio = horaInicio;
-        this.horaFim = horaFim;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.professor = professor;
-        this.ativo = ativo;
-    }
-
-    public Oficina(int ofcCod, String ofcDesc) {
-        nome = ofcDesc;
-        id = ofcCod;
+        this.descricao = descricao;
     }
 
     public int getId() {
@@ -57,90 +26,31 @@ public class Oficina {
     }
 
     public void setId(int id) {
-        this.id = id;
+
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public LocalTime getHoraInicio() {
-        return horaInicio;
+    public Oficina gravarOficina(Oficina novo, Conexao conexao) {
+        return (Oficina) dao.gravar(novo,conexao);
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
+    public Oficina consultarOficinasID(int id, Conexao conexao) {
+        return dao.get(id,conexao);
+
     }
 
-    public LocalTime getHoraTermino() {
-        return horaFim;
+    public Oficina alterarOficina(Oficina encontrada, Conexao conexao) {
+        return (Oficina) dao.alterar(encontrada,conexao);
     }
 
-    public void setHoraTermino(LocalTime horaFim) {
-        this.horaFim = horaFim;
+    public List<Oficina> consultarOficinas(String s, Conexao conexao) {
+        return dao.get("",conexao);
     }
-
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public int getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(int professor) {
-        this.professor = professor;
-    }
-
-    public char getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(char ativo) {
-        this.ativo = ativo;
-    }
-
-    public List<Oficina> consultarOficinas(String filtro, Conexao conexao){
-        return dao.get(filtro, conexao);
-    }
-    public Oficina consultarOficinasID(int id, Conexao conexao){
-        return dao.get(id, conexao);
-    }
-
-    public Oficina gravarOficina(Oficina oficina, Conexao conexao) {
-        return dao.gravar(oficina, conexao);
-    }
-
-//    public boolean deletarOficina(Oficina oficina) { return dao.excluir(oficina); }
-
-    public boolean inativarOficina(int id, Conexao conexao) {
-        return dao.inativarOficina(id, conexao);
-    }
-
-    public Oficina alterarOficina(Oficina oficina, Conexao conexao) { return dao.alterar(oficina, conexao); }
-
-    public boolean verificarConflitoHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim, Conexao conexao) {
-        return dao.existeConflitoDeHorario(professorId, dataInicio, dataFim, horaInicio, horaFim, conexao);
-    }
-
-    public List<Map<String, Object>> listarProfessores(Conexao conexao) {
-        return dao.listarProfessores(conexao);
-    }
-
 }

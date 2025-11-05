@@ -96,7 +96,7 @@ function carregarProfessores() {
         document.getElementById("editar-professor")    // edição
     ];
 
-    fetch("http://localhost:8080/apis/oficina/professores")
+    fetch("http://localhost:8080/apis/ofertaoficina/professores")
         .then(resp => resp.json())
         .then(listaProfessores => {
             selects.forEach(select => {
@@ -213,7 +213,7 @@ function cadastrarOficina(event) {
     };
 
     // Verifica conflito de horários no backend antes de cadastrar
-    fetch(`http://localhost:8080/apis/oficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
+    fetch(`http://localhost:8080/apis/ofertaoficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
         .then(resp => resp.json())
         .then(conflito => {
             if (conflito.existe) {
@@ -221,7 +221,7 @@ function cadastrarOficina(event) {
                 mostrarMensagem("Conflito detectado: professor já ocupado nesse horário.", false);
             } else {
                 // Se não há conflito, cadastrar
-                fetch("http://localhost:8080/apis/oficina", {
+                fetch("http://localhost:8080/apis/ofertaoficina", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(oficina)
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para carregar todas as oficinas
 function carregarTodasOficinas() {
-    fetch("http://localhost:8080/apis/oficina")
+    fetch("http://localhost:8080/apis/ofertaoficina")
         .then(resp => resp.json())
         .then(data => {
             todasOficinas = data; // ← salva a lista completa
@@ -363,7 +363,7 @@ function ativarBotoesExcluir() {
             const id = botao.dataset.id;
             if (!id || !confirm("Deseja realmente inativar esta oficina?")) return;
 
-            fetch(`http://localhost:8080/apis/oficina/inativar/${id}`, { method: "PUT" })
+            fetch(`http://localhost:8080/apis/ofertaoficina/inativar/${id}`, { method: "PUT" })
                 .then(resp => {
                     if (!resp.ok) throw new Error("Erro ao inativar oficina");
                     botao.closest("tr").cells[7].textContent = "Inativa";
@@ -382,7 +382,7 @@ function ativarBotoesEditar() {
     document.querySelectorAll(".btn-editar").forEach(botao => {
         botao.addEventListener("click", () => {
             const id = botao.dataset.id;
-            fetch(`http://localhost:8080/apis/oficina/${id}`)
+            fetch(`http://localhost:8080/apis/ofertaoficina/${id}`)
                 .then(resp => resp.json())
                 .then(oficina => {
                     document.getElementById("editar-id").value = oficina.idOficina;
@@ -479,7 +479,7 @@ function salvarEdicao() {
     if (!valido) return;
 
     //Verificação de conflito antes de atualizar (mesmo do cadastrar)
-    fetch(`http://localhost:8080/apis/oficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
+    fetch(`http://localhost:8080/apis/ofertaoficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
         .then(resp => resp.json())
         .then(conflito => {
             if (conflito.existe) {
@@ -500,7 +500,7 @@ function salvarEdicao() {
                 Ativo: ativo
             });
 
-            fetch(`http://localhost:8080/apis/oficina?${params.toString()}`, { method: "PUT" })
+            fetch(`http://localhost:8080/apis/ofertaoficina?${params.toString()}`, { method: "PUT" })
                 .then(resp => {
                     if (!resp.ok) throw new Error();
                     mostrarMensagem("Alteração realizada com sucesso!", true);
@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Faz a requisição para buscar a oficina por ID
-        fetch(`http://localhost:8080/apis/oficina/${id}`) // ajuste a URL conforme sua API
+        fetch(`http://localhost:8080/apis/ofertaoficina/${id}`) // ajuste a URL conforme sua API
             .then(response => {
                 if (!response.ok) throw new Error('Oficina não encontrada');
                 return response.json();

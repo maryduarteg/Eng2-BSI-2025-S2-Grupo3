@@ -1,13 +1,11 @@
 package com.example.proj_bga.dao;
 
-import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.model.Usuario;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -1,6 +1,6 @@
 package com.example.proj_bga.view;
-
 import com.example.proj_bga.controller.OficinaController;
+import com.example.proj_bga.model.OfertaOficina;
 import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.Mensagem;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
@@ -15,10 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-@CrossOrigin("*")
-@RestController
-@RequestMapping("apis/oficina")
+@Service
 public class OficinaView {
 
     @Autowired
@@ -28,13 +26,7 @@ public class OficinaView {
     @PostMapping
     public ResponseEntity<Object> addOficinas(@RequestBody Oficina dto) {
         Map<String, Object> json = oficinaController.addOficina(
-                dto.getNome(),
-                dto.getHoraInicio(),
-                dto.getHoraTermino(),
-                dto.getDataInicio(),
-                dto.getDataFim(),
-                dto.getProfessor(),
-                dto.getAtivo()
+                dto.getDescricao()
         );
 
         if(json.get("erro") == null)
@@ -43,15 +35,6 @@ public class OficinaView {
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
 
-    @GetMapping("/professores")
-    public ResponseEntity<Object> getProfessores(Conexao conexao) {
-        List<Map<String, Object>> lista = oficinaController.getProfessores(conexao);
-        if (lista != null && !lista.isEmpty()) {
-            return ResponseEntity.ok(lista);
-        } else {
-            return ResponseEntity.badRequest().body(new Mensagem("Nenhum professor encontrado!"));
-        }
-    }
 
 
     @GetMapping
@@ -79,30 +62,13 @@ public class OficinaView {
     }
 
 
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
-//        Map<String, Object> json = oficinaController.deletarOficina(id);
-//        if(json.get("erro") == null){
-//            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
-//        }
-//        else{
-//            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
-//        }
-//    }
-
     @PutMapping
     public ResponseEntity<Object> updateOficinas(
             @RequestParam("id") int id,
-            @RequestParam("Nome") String nome,
-            @RequestParam("Hora_Inicio") LocalTime horaInicio,
-            @RequestParam("Hora_Fim") LocalTime horaFim,
-            @RequestParam("Data_Inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicio,
-            @RequestParam("Data_Fim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFim,
-            @RequestParam("Professor") int professor,
-            @RequestParam("Ativo") char ativo) {
+            @RequestParam("descricao") String descricao
+            ) {
 
-        Map<String, Object> json = oficinaController.updateOficina(id, nome, horaInicio, horaFim, dataInicio, dataFim, professor, ativo);
+        Map<String, Object> json = oficinaController.updateOficina(id, descricao);
 
         if (json.get("erro") == null) {
             return ResponseEntity.ok(new Mensagem(
@@ -114,37 +80,5 @@ public class OficinaView {
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
         }
     }
-
-    @PutMapping("/inativar/{id}")
-    public ResponseEntity<Object> inativarOficina(@PathVariable("id") int id) {
-        Map<String, Object> json = oficinaController.inativarOficina(id); // chama o método que você já tem
-        if(json.get("erro") == null){
-            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
-        } else {
-            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
-        }
-    }
-
-
-    // Verificar conflito de horário
-    @GetMapping("/verificar-conflito")
-    public ResponseEntity<Map<String, Boolean>> verificarConflito(
-            @RequestParam("professorId") int professorId,
-            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicio,
-            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFim,
-            @RequestParam("horaInicio") String horaInicio,
-            @RequestParam("horaFim") String horaFim) {
-
-        LocalTime horaInicioLT = LocalTime.parse(horaInicio);
-        LocalTime horaFimLT = LocalTime.parse(horaFim);
-
-        boolean conflito = oficinaController.existeConflitoDeHorario( professorId, dataInicio, dataFim, horaInicioLT, horaFimLT);
-        Map<String, Boolean> resposta = new HashMap<>();
-        resposta.put("existe", conflito);
-        return ResponseEntity.ok(resposta);
-    }
-
-
-
 
 }

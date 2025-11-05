@@ -1,5 +1,5 @@
 package com.example.proj_bga.controller;
-
+import com.example.proj_bga.model.OfertaOficina;
 import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
@@ -11,30 +11,23 @@ import java.util.*;
 
 @Service
 public class OficinaController {
-
     @Autowired
-    private Oficina oficinaModel;
+    private Oficina OficinaModel;
 
-    //adicionar Oficina
-    public Map<String, Object> addOficina(String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo)
+    public Map<String, Object> addOficina(String descricao)
     {
         Conexao conexao = SingletonDB.conectar();
-        if(nome == null || horaInicio == null || horaFim == null || dataInicio == null || dataFim == null || professor == 0){
+        if(descricao == null ){
             return Map.of("erro", "Dados inválidos para cadastro!!");
         }
 
-        Oficina novo =  new Oficina(nome, horaInicio, horaFim, dataInicio, dataFim, professor, ativo);
+        Oficina novo =  new Oficina(0,descricao);
 
-        Oficina gravada = oficinaModel.gravarOficina(novo, conexao);
+        Oficina gravada = OficinaModel.gravarOficina(novo, conexao);
         if(gravada != null){
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", novo.getId());
-            json.put("hora_inicio", novo.getHoraInicio());
-            json.put("hora_termino", novo.getHoraTermino());
-            json.put("data_inicio", novo.getDataInicio());
-            json.put("data_fim", novo.getDataFim());
-            json.put("pde_id", novo.getProfessor());
-            json.put("ativo", novo.getAtivo());
+            json.put("descricao", novo.getDescricao());
             return json;
         }
         String erroReal = "Erro desconhecido ao cadastrar oficina.";
@@ -48,143 +41,63 @@ public class OficinaController {
         return Map.of("erro", erroReal);
     }
 
-    //Exibir Oficina
-    public List<Map<String, Object>> getOficina(){
-        Conexao conexao = new Conexao();
-        List<Oficina> oficina = oficinaModel.consultarOficinas("", conexao);
-        if(oficina == null){
-            return null;
-    }
-
-        List<Map<String, Object>> resultado = new ArrayList<>();
-        for (Oficina o: oficina)
-        {
-            Map<String, Object> json = new HashMap<>();
-            json.put("nome", o.getNome());
-            json.put("idOficina", o.getId());
-            json.put("hora_inicio", o.getHoraInicio());
-            json.put("hora_termino", o.getHoraTermino());
-            json.put("data_inicio", o.getDataInicio());
-            json.put("data_fim", o.getDataFim());
-            json.put("pde_id", o.getProfessor());
-            json.put("ativo", o.getAtivo());
-            resultado.add(json);
+    public Map<String, Object> updateOficina(int id, String descricao) {
+        Conexao conexao = SingletonDB.conectar();
+        if(descricao == null ) {
+            return Map.of("erro", "Dados inválidos!!");
         }
-        return resultado;
+
+        Oficina encontrada = OficinaModel.consultarOficinasID(id, conexao);
+        if(encontrada == null) {
+            return Map.of("erro", "Oficina não encontrada");
+        }
+
+        encontrada.setId(id);
+        encontrada.setDescricao(descricao);
+
+
+        Oficina atualizada = OficinaModel.alterarOficina(encontrada, conexao);
+
+        if(atualizada != null) { // Atualização ocorreu com sucesso
+            return Map.of(
+                    "idOficina", atualizada.getId(),
+                    "descricao", atualizada.getDescricao()
+            );
+        } else {
+            return Map.of("erro", "Erro ao atualizar Oficina");
+        }
     }
 
-    // Exibir uma única Oficina por ID
     public Map<String, Object> getOficinaPorId(int id, Conexao conexao) {
-        Oficina o = oficinaModel.consultarOficinasID(id,conexao); // pega a oficina do DAO
+        Oficina o = OficinaModel.consultarOficinasID(id,conexao); // pega a oficina do DAO
 
         if (o == null) {
             return null; // ou pode lançar exceção / retornar Map com "erro"
         }
 
         Map<String, Object> json = new HashMap<>();
-        json.put("nome", o.getNome());
         json.put("idOficina", o.getId());
-        json.put("hora_inicio", o.getHoraInicio());
-        json.put("hora_termino", o.getHoraTermino());
-        json.put("data_inicio", o.getDataInicio());
-        json.put("data_fim", o.getDataFim());
-        json.put("pde_id", o.getProfessor());
-        json.put("ativo", o.getAtivo());
+        json.put("descricao", o.getDescricao());
 
         return json;
     }
 
-
-    //deletar oficina
-//    public Map<String, Object> deletarOficina(int id) {
-//        Oficina oficina = oficinaModel.consultarOficinasID(id);
-//
-//        if (oficina == null) {
-//            return Map.of("erro", "Oficina não encontrada para exclusão.");
-//        }
-//
-//        boolean deletada = oficinaModel.deletarOficina(oficina);
-//
-//        if (deletada) {
-//            return Map.of("mensagem", "Oficina " + id + " Inativa com sucesso!");
-//        } else {
-//            String erroReal = SingletonDB.getConexao().getMensagemErro();
-//            System.err.println("Falha no DELETE. Erro: " + erroReal);
-//
-//            return Map.of("erro", erroReal);
-//        }
-//    }
-
-    public Map<String, Object> inativarOficina(int id) {
-        Conexao conexao = SingletonDB.conectar();
-        Oficina oficina = oficinaModel.consultarOficinasID(id, conexao);
-
-        if (oficina == null) {
-            return Map.of("erro", "Oficina não encontrada para inativação.");
+    public List<Map<String, Object>> getOficina(){
+        Conexao conexao = new Conexao();
+        List<Oficina> lista = OficinaModel.consultarOficinas("", conexao);
+        if(lista == null){
+            return null;
         }
 
-        boolean inativada = oficinaModel.inativarOficina(id, conexao);
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        for (Oficina o: lista)
+        {
+            Map<String, Object> json = new HashMap<>();
+            json.put("idOficina", o.getId());
+            json.put("descricao", o.getDescricao());
 
-        if (inativada) {
-            return Map.of("mensagem", "Oficina " + id + " inativada com sucesso!");
-        } else {
-            String erroReal = conexao.getMensagemErro();
-            System.err.println("Falha ao inativar. Erro: " + erroReal);
-
-            return Map.of("erro", erroReal);
+            resultado.add(json);
         }
+        return resultado;
     }
-
-
-
-    // Atualizar Oficina
-        public Map<String, Object> updateOficina(int id, String nome, LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo) {
-            Conexao conexao = SingletonDB.conectar();
-            if(id <= 0 || nome == null || horaInicio == null || horaFim == null || dataInicio == null || dataFim == null || professor == 0) {
-                return Map.of("erro", "Dados inválidos!!");
-            }
-
-            Oficina encontrada = oficinaModel.consultarOficinasID(id, conexao);
-            if(encontrada == null) {
-                return Map.of("erro", "Oficina não encontrada");
-            }
-
-            encontrada.setNome(nome);
-            encontrada.setHoraInicio(horaInicio);
-            encontrada.setHoraTermino(horaFim);
-            encontrada.setDataInicio(dataInicio);
-            encontrada.setDataFim(dataFim);
-            encontrada.setProfessor(professor);
-            encontrada.setAtivo(ativo);
-
-            Oficina atualizada = oficinaModel.alterarOficina(encontrada, conexao);
-
-            if(atualizada != null) { // Atualização ocorreu com sucesso
-                return Map.of(
-                        "id", atualizada.getId(),
-                        "nome", atualizada.getNome(),
-                        "horaInicio", atualizada.getHoraInicio(),
-                        "horaTermino", atualizada.getHoraTermino(),
-                        "dataInicio", atualizada.getDataInicio(),
-                        "dataFim", atualizada.getDataFim(),
-                        "professor", atualizada.getProfessor(),
-                        "ativo", atualizada.getAtivo()
-                );
-            } else {
-                return Map.of("erro", "Erro ao atualizar Oficina");
-            }
-        }
-
-        public boolean existeConflitoDeHorario(int professorId, Date dataInicio, Date dataFim, LocalTime horaInicio, LocalTime horaFim) {
-            Conexao conexao = SingletonDB.conectar();
-            return oficinaModel.verificarConflitoHorario(professorId, dataInicio, dataFim, horaInicio, horaFim, conexao);
-        }
-
-        public List<Map<String, Object>> getProfessores(Conexao conexao) {
-            return oficinaModel.listarProfessores(conexao);
-        }
-
 }
-
-
-

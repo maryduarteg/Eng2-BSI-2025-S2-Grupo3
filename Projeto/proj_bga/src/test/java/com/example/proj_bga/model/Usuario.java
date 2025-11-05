@@ -1,16 +1,8 @@
 package com.example.proj_bga.model;
 
-import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.dao.UsuarioDAO;
-import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Repository
 public class Usuario {
