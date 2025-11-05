@@ -25,8 +25,8 @@ public class DiasOficinaDAO implements IDAO<DiasOficina>{
 
     @Override
     public List<DiasOficina> get(String filtro, Conexao conexao) {
-        Pessoa p = null;
-        String sql = """
+        DiasOficina p = null;
+        /*String sql = """
                 SELECT * FROM pessoa
                 WHERE pes_id = #1;
             """;
@@ -46,9 +46,9 @@ public class DiasOficinaDAO implements IDAO<DiasOficina>{
                 p.setEnd_id(rs.getInt("end_id"));
             }
         } catch(Exception e) {
-            System.out.println("Erro ao obter Pessoa: " + e.getMessage());
-        }
-        return p;
+            System.out.println("Erro ao obter Dias Oficina: " + e.getMessage());
+        }*/
+        return null;
     }
 
     @Override
