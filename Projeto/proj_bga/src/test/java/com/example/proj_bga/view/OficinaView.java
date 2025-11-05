@@ -2,8 +2,10 @@ package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.OficinaController;
 import com.example.proj_bga.model.Oficina;
+import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class OficinaView {
 
     @Autowired
     private OficinaController oficinaController;
+    private ConversionService conversionService;
 
     @PostMapping
     public ResponseEntity<Object> addOficinas(@RequestBody Oficina dto) {
@@ -40,6 +43,16 @@ public class OficinaView {
         return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
     }
 
+    @GetMapping("/professores")
+    public ResponseEntity<Object> getProfessores(Conexao conexao) {
+        List<Map<String, Object>> lista = oficinaController.getProfessores(conexao);
+        if (lista != null && !lista.isEmpty()) {
+            return ResponseEntity.ok(lista);
+        } else {
+            return ResponseEntity.badRequest().body(new Mensagem("Nenhum professor encontrado!"));
+        }
+    }
+
 
     @GetMapping
     public ResponseEntity<Object> get() {
@@ -53,9 +66,9 @@ public class OficinaView {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getOficinaID(@PathVariable("id") int id) {
-        Map<String, Object> oficina = oficinaController.getOficinaPorId(id);
+    @GetMapping("/{id:\\d+}")
+    public ResponseEntity<Object> getOficinaId(@PathVariable int id, Conexao conexao) {
+        Map<String, Object> oficina = oficinaController.getOficinaPorId(id, conexao);
 
         if (oficina != null) {
             return ResponseEntity.ok(oficina); // HTTP 200 com JSON da oficina
@@ -112,6 +125,24 @@ public class OficinaView {
         }
     }
 
+
+    // Verificar conflito de horário
+    @GetMapping("/verificar-conflito")
+    public ResponseEntity<Map<String, Boolean>> verificarConflito(
+            @RequestParam("professorId") int professorId,
+            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicio,
+            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFim,
+            @RequestParam("horaInicio") String horaInicio,
+            @RequestParam("horaFim") String horaFim) {
+
+        LocalTime horaInicioLT = LocalTime.parse(horaInicio);
+        LocalTime horaFimLT = LocalTime.parse(horaFim);
+
+        boolean conflito = oficinaController.existeConflitoDeHorario( professorId, dataInicio, dataFim, horaInicioLT, horaFimLT);
+        Map<String, Boolean> resposta = new HashMap<>();
+        resposta.put("existe", conflito);
+        return ResponseEntity.ok(resposta);
+    }
 
 
 

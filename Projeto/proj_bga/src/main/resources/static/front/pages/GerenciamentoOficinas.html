@@ -329,20 +329,6 @@
             <!-- End of Topbar -->
 
             <!-- gerenciamento das oficinas começa aqui -->
-            <!-- Busca por ID -->
-            <div id="busca-id-container" class="d-flex justify-content-center mt-4 mb-4">
-                <input
-                        type="number"
-                        id="input-busca-id"
-                        class="form-control w-25"
-                        placeholder="Digite o ID da oficina"
-                        min="1"
-                        step="1"
-                >
-                <button type="button" id="btn-buscar-oficina" class="btn btn-info mx-2">Buscar Oficina</button>
-                <button type="button" id="btn-limpar-busca" class="btn btn-secondary">Limpar</button>
-            </div>
-
 
             <div class="container-fluid">
                 <br>
@@ -354,7 +340,6 @@
             </div>
 
 
-            <!-- HTML do Formulário -->
             <div id="formulario-cadastro" class="card p-4 mt-4 d-none" style="font-size: large;">
                 <h2 class="text-center mb-4">Cadastro de Nova Oficina</h2>
 
@@ -363,41 +348,44 @@
 
                         <!-- Nome da Oficina -->
                         <div class="col-md-6 mb-3">
-                            <label for="nome-oficina" class="form-label">Nome da Oficina</label>
+                            <label for="nome-oficina" class="form-label">Nome da Oficina <span class="text-danger">*</span></label>
                             <input type="text" id="nome-oficina" name="nome" class="form-control" required>
                         </div>
 
                         <!-- Professor -->
                         <div class="col-md-6 mb-3">
-                            <label for="professor-id" class="form-label">Professor (ID)</label>
-                            <input type="number" id="professor-id" name="professorId" class="form-control"
-                                   placeholder="Digite o ID do professor" min="1" required>
+                            <label for="professor-select" class="form-label">Professor <span class="text-danger">*</span></label>
+                            <select id="professor-select" name="professorId" class="form-control" required>
+                                <option value="">Selecione um professor</option>
+                            </select>
                         </div>
+
+
 
                         <!-- Data de Início -->
                         <div class="col-md-4 mb-3">
-                            <label for="data-inicio-oficina" class="form-label">Data de Início</label>
+                            <label for="data-inicio-oficina" class="form-label">Data de Início <span class="text-danger">*</span></label>
                             <input type="text" id="data-inicio-oficina" name="dataInicio" maxlength="10"
                                    placeholder="DD/MM/AAAA" class="form-control" required>
                         </div>
 
                         <!-- Data de Fim -->
                         <div class="col-md-4 mb-3">
-                            <label for="data-fim-oficina" class="form-label">Data de Fim</label>
+                            <label for="data-fim-oficina" class="form-label">Data de Fim <span class="text-danger">*</span></label>
                             <input type="text" id="data-fim-oficina" name="dataFim" maxlength="10"
                                    placeholder="DD/MM/AAAA" class="form-control" required>
                         </div>
 
                         <!-- Hora de Início -->
                         <div class="col-md-2 mb-3">
-                            <label for="hora-inicio-oficina" class="form-label">Hora de Início</label>
+                            <label for="hora-inicio-oficina" class="form-label">Hora de Início <span class="text-danger">*</span></label>
                             <input type="text" id="hora-inicio-oficina" name="horaInicio" maxlength="5"
                                    placeholder="HH:MM" class="form-control" required>
                         </div>
 
                         <!-- Hora de Fim -->
                         <div class="col-md-2 mb-3">
-                            <label for="hora-fim-oficina" class="form-label">Hora de Fim</label>
+                            <label for="hora-fim-oficina" class="form-label">Hora de Fim <span class="text-danger">*</span></label>
                             <input type="text" id="hora-fim-oficina" name="horaFim" maxlength="5"
                                    placeholder="HH:MM" class="form-control" required>
                         </div>
@@ -414,6 +402,7 @@
             </div>
 
 
+
             <!-- Formulário de Edição -->
             <div id="formulario-editar-oficina" class="card p-4 mt-4 d-none" style="font-size: large;">
                 <h2 class="text-center mb-4">Editar Oficina</h2>
@@ -424,43 +413,45 @@
                     <div class="row">
                         <!-- Nome da Oficina -->
                         <div class="col-md-6 mb-3">
-                            <label for="editar-nome" class="form-label">Nome da Oficina</label>
+                            <label for="editar-nome" class="form-label">Nome da Oficina <span class="text-danger">*</span></label>
                             <input type="text" id="editar-nome" class="form-control" required>
                         </div>
 
                         <!-- Professor -->
                         <div class="col-md-6 mb-3">
-                            <label for="editar-professor" class="form-label">Professor (ID)</label>
-                            <input type="number" id="editar-professor" class="form-control" min="1" required>
+                            <label for="editar-professor" class="form-label">Professor <span class="text-danger">*</span></label>
+                            <select id="editar-professor" name="professorId" class="form-control" required>
+                                <option value="">Selecione um professor</option>
+                            </select>
                         </div>
 
                         <!-- Data de Início -->
                         <div class="col-md-4 mb-3">
-                            <label for="editar-data-inicio" class="form-label">Data de Início</label>
+                            <label for="editar-data-inicio" class="form-label">Data de Início <span class="text-danger">*</span></label>
                             <input type="text" id="editar-data-inicio" class="form-control" maxlength="10" placeholder="DD/MM/AAAA" required>
                         </div>
 
                         <!-- Data de Fim -->
                         <div class="col-md-4 mb-3">
-                            <label for="editar-data-fim" class="form-label">Data de Fim</label>
+                            <label for="editar-data-fim" class="form-label">Data de Fim <span class="text-danger">*</span></label>
                             <input type="text" id="editar-data-fim" class="form-control" maxlength="10" placeholder="DD/MM/AAAA" required>
                         </div>
 
                         <!-- Hora de Início -->
                         <div class="col-md-2 mb-3">
-                            <label for="editar-hora-inicio" class="form-label">Hora de Início</label>
+                            <label for="editar-hora-inicio" class="form-label">Hora de Início <span class="text-danger">*</span></label>
                             <input type="text" id="editar-hora-inicio" class="form-control" maxlength="5" placeholder="HH:MM" required>
                         </div>
 
                         <!-- Hora de Fim -->
                         <div class="col-md-2 mb-3">
-                            <label for="editar-hora-fim" class="form-label">Hora de Fim</label>
+                            <label for="editar-hora-fim" class="form-label">Hora de Fim <span class="text-danger">*</span></label>
                             <input type="text" id="editar-hora-fim" class="form-control" maxlength="5" placeholder="HH:MM" required>
                         </div>
 
                         <!-- Status -->
                         <div class="col-md-4 mb-3">
-                            <label for="editar-ativo" class="form-label">Status</label>
+                            <label for="editar-ativo" class="form-label">Status <span class="text-danger">*</span></label>
                             <select id="editar-ativo" class="form-select" required>
                                 <option value="S">Ativa</option>
                                 <option value="I">Inativa</option>
@@ -469,9 +460,7 @@
 
                         <!-- Botão -->
                         <div class="col-12 mt-3">
-                            <button type="button" id="btn-salvar-edicao" class="btn btn-primary w-100">
-                                Salvar Alterações
-                            </button>
+                            <button type="button" id="btn-salvar-edicao" class="btn btn-primary w-100">Salvar Alterações</button>
                         </div>
                     </div>
                 </form>
@@ -480,9 +469,29 @@
             </div>
 
 
+
             <!-- Tabela de Oficinas -->
             <div id="tabela-container" class="d-none text-center">
                 <h2></h2>
+                <div class="row mb-3 justify-content-center">
+                    <!-- Filtro por status -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Status da Oficina:</label>
+                        <select id="filtro-status" class="form-control">
+                            <option value="">Todas</option>
+                            <option value="S">Ativas</option>
+                            <option value="I">Inativas</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtro por nome -->
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Buscar por Nome:</label>
+                        <input type="text" id="filtro-nome" class="form-control" placeholder="Digite o nome da oficina...">
+                    </div>
+
+                </div>
+
                 <div class="row">
                     <div class="col-12 mx-auto">
                         <table class="table table-striped table-hover">

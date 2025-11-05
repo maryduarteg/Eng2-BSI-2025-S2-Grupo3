@@ -1,3 +1,6 @@
+let todasOficinas = []; // armazenará a lista completa
+let debounceTimer = null;
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const btnMostrar = document.getElementById('btn-mostrar-form');
     if (btnMostrar) {
@@ -60,106 +63,6 @@ function converterDataBrasilParaISO(dataBr) {
     return `${ano}-${mes}-${dia}`;
 }
 
-function validarDataInicio() {
-    const campo = document.getElementById("data-inicio-oficina");
-    const dataBr = campo.value.trim();
-    let mensagemErro = "";
-
-    if (dataBr === "") {
-        campo.setCustomValidity("");
-        return true;
-    }
-
-    if (dataBr.length != 10 || dataBr.indexOf('/') == -1)
-        mensagemErro = "Formato de data incompleto. Use DD/MM/AAAA.";
-    else {
-        const partes = dataBr.split("/");
-        const dia = parseInt(partes[0], 10);
-        const mes = parseInt(partes[1], 10);
-        const ano = parseInt(partes[2], 10);
-        const dataInseridaObj = new Date(ano, mes - 1, dia);
-        const dataAtual = new Date();
-
-        if (dataInseridaObj.getFullYear() != ano || (dataInseridaObj.getMonth() + 1) != mes || dataInseridaObj.getDate() != dia)
-            mensagemErro = "A data inserida não é válida!";
-        else if (dataInseridaObj.getTime() <= dataAtual.getTime())
-            mensagemErro = "Não é possível agendar uma data anterior ou igual à data atual.";
-    }
-}
-
-function validarDataFim() {
-    const campoInicio = document.getElementById("data-inicio-oficina");
-    const campoFim = document.getElementById("data-fim-oficina");
-    const dataInicioBr = campoInicio.value.trim();
-    const dataFimBr = campoFim.value.trim();
-    let mensagemErro = "";
-
-    if (dataFimBr === "") {
-        campoFim.setCustomValidity("");
-        return true;
-    }
-
-    if (dataFimBr.length != 10 || dataFimBr.indexOf('/') == -1) {
-        mensagemErro = "Formato de data incompleto. Use DD/MM/AAAA.";
-    } else {
-        const partesInicio = dataInicioBr.split("/");
-        const partesFim = dataFimBr.split("/");
-
-        // Converter para objeto Date
-        const dataInicio = new Date(partesInicio[2], partesInicio[1] - 1, partesInicio[0]);
-        const dataFim = new Date(partesFim[2], partesFim[1] - 1, partesFim[0]);
-
-        // Verificações básicas de validade
-        if (isNaN(dataFim.getTime())) {
-            mensagemErro = "A data final não é válida!";
-        } else if (dataInicioBr !== "" && dataFim.getTime() <= dataInicio.getTime()) {
-            mensagemErro = "A data final deve ser posterior à data inicial.";
-        }
-    }
-
-    campoFim.setCustomValidity(mensagemErro);
-    campoFim.reportValidity(); // mostra a mensagem
-    return mensagemErro === "";
-}
-
-function validarHoraFim() {
-    const campoInicio = document.getElementById("hora-inicio-oficina");
-    const campoFim = document.getElementById("hora-fim-oficina");
-    const horaInicioStr = campoInicio.value.trim();
-    const horaFimStr = campoFim.value.trim();
-    let mensagemErro = "";
-
-    // Se o campo estiver vazio, não mostra erro ainda
-    if (horaFimStr === "") {
-        campoFim.setCustomValidity("");
-        return true;
-    }
-
-    // Verifica formato básico HH:MM
-    const regexHora = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    if (!regexHora.test(horaInicioStr) || !regexHora.test(horaFimStr)) {
-        mensagemErro = "Formato de hora inválido. Use HH:MM.";
-    } else {
-        // Converte para objeto Date para comparar
-        const [horaIni, minIni] = horaInicioStr.split(":").map(Number);
-        const [horaFim, minFim] = horaFimStr.split(":").map(Number);
-
-        const inicio = new Date();
-        const fim = new Date();
-        inicio.setHours(horaIni, minIni, 0, 0);
-        fim.setHours(horaFim, minFim, 0, 0);
-
-        if (fim.getTime() <= inicio.getTime()) {
-            mensagemErro = "A hora de término deve ser posterior à hora de início.";
-        }
-    }
-
-    campoFim.setCustomValidity(mensagemErro);
-    campoFim.reportValidity();
-    return mensagemErro === "";
-}
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById("formOficina");
     const campos = Array.from(form.querySelectorAll(".form-control"));
@@ -180,23 +83,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Máscaras para datas e horas
-document.getElementById("data-inicio-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
-document.getElementById("data-fim-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraData(e.target.value));
-document.getElementById("hora-inicio-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraHora(e.target.value));
-document.getElementById("hora-fim-oficina").addEventListener("keyup", e => e.target.value = aplicarMascaraHora(e.target.value));
+document.getElementById("data-inicio-oficina").addEventListener("keyup", e => aplicarMascaraData(e.target));
+document.getElementById("data-fim-oficina").addEventListener("keyup", e => aplicarMascaraData(e.target));
+document.getElementById("hora-inicio-oficina").addEventListener("keyup", e => aplicarMascaraHora(e.target));
+document.getElementById("hora-fim-oficina").addEventListener("keyup", e => aplicarMascaraHora(e.target));
 
-function aplicarMascaraData(valor) {
-    valor = valor.replace(/\D/g, "").slice(0,8);
-    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1/$2");
-    if (valor.length > 5) valor = valor.replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
-    return valor;
+
+// Função para carregar professores nos selects de cadastro e edição
+function carregarProfessores() {
+    const selects = [
+        document.getElementById("professor-select"),   // cadastro
+        document.getElementById("editar-professor")    // edição
+    ];
+
+    fetch("http://localhost:8080/apis/oficina/professores")
+        .then(resp => resp.json())
+        .then(listaProfessores => {
+            selects.forEach(select => {
+                if (!select) return;
+                // Limpa opções antigas e adiciona placeholder
+                select.innerHTML = '<option value="">Selecione um professor</option>';
+
+                listaProfessores.forEach(prof => {
+                    const option = document.createElement("option");
+                    option.value = prof.id;      // id do professor vindo do backend
+                    option.textContent = prof.nome; // nome do professor vindo do backend
+                    select.appendChild(option);
+                });
+            });
+        })
+        .catch(err => console.error("Erro ao carregar professores:", err));
 }
 
-function aplicarMascaraHora(valor) {
-    valor = valor.replace(/\D/g, "").slice(0,4);
-    if (valor.length > 2) valor = valor.replace(/^(\d{2})(\d)/, "$1:$2");
-    return valor;
-}
+// Chamar função após DOM carregado
+document.addEventListener('DOMContentLoaded', () => {
+    carregarProfessores();
+});
+
+
 
 function cadastrarOficina(event) {
     event.preventDefault();
@@ -226,24 +150,43 @@ function cadastrarOficina(event) {
         valido = false;
     }
 
-    // Validação datas
+    // Validação de data (formato DD/MM/AAAA)
     const dataInicio = form.dataInicio.value.trim();
     const dataFim = form.dataFim.value.trim();
     if (dataInicio && dataFim) {
         const [di, mi, ai] = dataInicio.split("/").map(Number);
         const [df, mf, af] = dataFim.split("/").map(Number);
-        const inicio = new Date(ai, mi-1, di);
-        const fim = new Date(af, mf-1, df);
+
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const inicio = new Date(ai, mi - 1, di);
+        const fim = new Date(af, mf - 1, df);
+
+        if (inicio < hoje) {
+            adicionarErro(form.dataInicio, "A data inicial não pode ser anterior à data atual");
+            valido = false;
+        }
         if (fim < inicio) {
-            adicionarErro(form.dataFim, "Data final deve ser igual ou posterior à data inicial");
+            adicionarErro(form.dataFim, "A data final deve ser igual ou posterior à data inicial");
             valido = false;
         }
     }
 
-    // Validação horas
+    // Validação de hora (HH:MM)
+    const horaRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
     const horaInicio = form.horaInicio.value.trim();
     const horaFim = form.horaFim.value.trim();
-    if (horaInicio && horaFim) {
+
+    if (!horaRegex.test(horaInicio)) {
+        adicionarErro(form.horaInicio, "Hora inválida (use formato 24h: HH:MM)");
+        valido = false;
+    }
+    if (!horaRegex.test(horaFim)) {
+        adicionarErro(form.horaFim, "Hora inválida (use formato 24h: HH:MM)");
+        valido = false;
+    }
+
+    if (horaRegex.test(horaInicio) && horaRegex.test(horaFim)) {
         const [hi, mi] = horaInicio.split(":").map(Number);
         const [hf, mf] = horaFim.split(":").map(Number);
         const inicio = new Date();
@@ -258,7 +201,7 @@ function cadastrarOficina(event) {
 
     if (!valido) return;
 
-    // Monta objeto
+    // Monta objeto para envio
     const oficina = {
         nome: form.nome.value.trim(),
         professor: professorId,
@@ -269,24 +212,36 @@ function cadastrarOficina(event) {
         ativo: "S"
     };
 
-    fetch("http://localhost:8080/apis/oficina", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(oficina)
-    })
-        .then(resp => {
-            if (!resp.ok) throw new Error("Erro ao cadastrar");
-            return resp.json();
+    // Verifica conflito de horários no backend antes de cadastrar
+    fetch(`http://localhost:8080/apis/oficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
+        .then(resp => resp.json())
+        .then(conflito => {
+            if (conflito.existe) {
+                adicionarErro(form.professorId, "O professor já possui oficina nesse horário!");
+                mostrarMensagem("Conflito detectado: professor já ocupado nesse horário.", false);
+            } else {
+                // Se não há conflito, cadastrar
+                fetch("http://localhost:8080/apis/oficina", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(oficina)
+                })
+                    .then(resp => {
+                        if (!resp.ok) throw new Error("Erro ao cadastrar");
+                        return resp.json();
+                    })
+                    .then(() => {
+                        mostrarMensagem("Sucesso! Oficina cadastrada.", true);
+                        form.reset();
+                    })
+                    .catch(() => {
+                        mostrarMensagem("Erro ao cadastrar oficina!", false);
+                    });
+            }
         })
-        .then(() => {
-            mostrarMensagem("Sucesso! Oficina cadastrada.", true);
-            form.reset();
-        })
-        .catch(() => {
-            mostrarMensagem("Erro ao cadastrar oficina!", false);
-            adicionarErro(form.professorId, "ID do professor inválido");
-        });
+        .catch(() => mostrarMensagem("Erro ao verificar conflito!", false));
 
+    // Função auxiliar para erro
     function adicionarErro(campo, msg) {
         campo.classList.add("is-invalid");
         if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains("invalid-feedback")) {
@@ -297,6 +252,13 @@ function cadastrarOficina(event) {
         }
     }
 }
+
+// Converte DD/MM/AAAA → YYYY-MM-DD
+function converterDataBrasilParaISO(data) {
+    const [dia, mes, ano] = data.split("/");
+    return `${ano}-${mes}-${dia}`;
+}
+
 
 function converterDataBrasilParaISO(dataBr) {
     const [dia, mes, ano] = dataBr.split("/");
@@ -333,53 +295,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para carregar todas as oficinas
 function carregarTodasOficinas() {
-    const tbody = document.getElementById("tabela-oficina-container");
-    const msgContainer = document.getElementById("mensagem-tabela");
-    const tabelaContainer = document.getElementById("tabela-container");
-
-    if (!tbody || !msgContainer || !tabelaContainer) return;
-
-    tabelaContainer.classList.remove("d-none");
-    tbody.innerHTML = '';
-    msgContainer.textContent = "Carregando todas as oficinas...";
-
     fetch("http://localhost:8080/apis/oficina")
         .then(resp => resp.json())
-        .then(listaOficina => {
-            tbody.innerHTML = '';
-            if (!listaOficina || listaOficina.length === 0) {
-                msgContainer.textContent = "Nenhuma oficina cadastrada.";
-                return;
-            }
-            msgContainer.textContent = '';
-            listaOficina.forEach(oficina => {
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>${oficina.idOficina ?? "-"}</td>
-                    <td>${oficina.nome ?? "-"}</td>
-                    <td>${formatarDataParaBR(oficina.data_inicio) ?? "-"}</td>
-                    <td>${formatarDataParaBR(oficina.data_fim) ?? "-"}</td>
-                    <td>${oficina.hora_inicio ? oficina.hora_inicio.slice(0,5) : "-"}</td>
-                    <td>${oficina.hora_termino ? oficina.hora_termino.slice(0,5) : "-"}</td>
-                    <td>${oficina.pde_id ?? "-"}</td>
-                    <td>${oficina.ativo === "S" ? "Ativa" : "Inativa"}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-info btn-editar" data-id="${oficina.idOficina}" title="Editar Oficina">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger btn-excluir" data-id="${oficina.idOficina}" title="Inativar Oficina">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-            });
-            ativarBotoesExcluir();
-            ativarBotoesEditar();
+        .then(data => {
+            todasOficinas = data; // ← salva a lista completa
+            aplicarFiltros();     // ← atualiza a tabela com filtros
+            document.getElementById("tabela-container").classList.remove("d-none");
         })
         .catch(err => console.error(err));
 }
+
+function aplicarFiltros() {
+    const nomeFiltro = document.getElementById("filtro-nome").value.toLowerCase();
+    const statusFiltro = document.getElementById("filtro-status").value; // S, N ou vazio
+
+    const tbody = document.getElementById("tabela-oficina-container");
+    const msgContainer = document.getElementById("mensagem-tabela");
+    tbody.innerHTML = '';
+
+    let lista = todasOficinas;
+
+    // Filtro por nome
+    if (nomeFiltro) {
+        lista = lista.filter(o => o.nome && o.nome.toLowerCase().includes(nomeFiltro));
+    }
+
+    // Filtro por ativo / inativo
+    if (statusFiltro !== "") {
+        lista = lista.filter(o => o.ativo === statusFiltro);
+    }
+
+    // Se não encontrar nada
+    if (lista.length === 0) {
+        msgContainer.textContent = "Nenhuma oficina encontrada com os filtros selecionados.";
+        return;
+    } else {
+        msgContainer.textContent = "";
+    }
+
+    // Monta tabela filtrada
+    lista.forEach(oficina => {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+            <td>${oficina.idOficina ?? "-"}</td>
+            <td>${oficina.nome ?? "-"}</td>
+            <td>${formatarDataParaBR(oficina.data_inicio) ?? "-"}</td>
+            <td>${formatarDataParaBR(oficina.data_fim) ?? "-"}</td>
+            <td>${oficina.hora_inicio ? oficina.hora_inicio.slice(0,5) : "-"}</td>
+            <td>${oficina.hora_termino ? oficina.hora_termino.slice(0,5) : "-"}</td>
+            <td>${oficina.pde_id ?? "-"}</td>
+            <td>${oficina.ativo === "S" ? "Ativa" : "Inativa"}</td>
+            <td><button class="btn btn-sm btn-outline-info btn-editar" data-id="${oficina.idOficina}"><i class="fas fa-edit"></i></button></td>
+            <td><button class="btn btn-sm btn-danger btn-excluir" data-id="${oficina.idOficina}"><i class="fas fa-trash"></i></button></td>
+        `;
+    });
+
+    ativarBotoesExcluir();
+    ativarBotoesEditar();
+}
+
+
 
 // Inativar oficina
 function ativarBotoesExcluir() {
@@ -420,54 +395,119 @@ function ativarBotoesEditar() {
                     document.getElementById("editar-ativo").value = oficina.ativo;
 
                     document.getElementById("formulario-editar-oficina").classList.remove("d-none");
+
+                    // ✅ Máscaras aplicadas ao abrir o formulário de edição
+                    document.getElementById("editar-data-inicio").addEventListener("keyup", e => aplicarMascaraData(e.target));
+                    document.getElementById("editar-data-fim").addEventListener("keyup", e => aplicarMascaraData(e.target));
+                    document.getElementById("editar-hora-inicio").addEventListener("keyup", e => aplicarMascaraHora(e.target));
+                    document.getElementById("editar-hora-fim").addEventListener("keyup", e => aplicarMascaraHora(e.target));
                 });
         });
     });
 }
 
+
 // Salvar edição
 function salvarEdicao() {
+    const form = document.getElementById("form-editar-oficina");
+    let valido = true;
+
     const id = document.getElementById("editar-id").value;
-    const nome = document.getElementById("editar-nome").value.trim();
-    const dataInicio = document.getElementById("editar-data-inicio").value.trim();
-    const dataFim = document.getElementById("editar-data-fim").value.trim();
-    const horaInicio = document.getElementById("editar-hora-inicio").value.trim();
-    const horaFim = document.getElementById("editar-hora-fim").value.trim();
-    const professor = document.getElementById("editar-professor").value;
+    const nome = document.getElementById("editar-nome");
+    const dataInicioCampo = document.getElementById("editar-data-inicio");
+    const dataFimCampo = document.getElementById("editar-data-fim");
+    const horaInicioCampo = document.getElementById("editar-hora-inicio");
+    const horaFimCampo = document.getElementById("editar-hora-fim");
+    const professor = document.getElementById("editar-professor");
     const ativo = document.getElementById("editar-ativo").value;
 
-    if (!id || !nome || !dataInicio || !dataFim || !horaInicio || !horaFim || !professor) {
-        alert("Preencha todos os campos!");
-        return;
-    }
+    const campos = [nome, dataInicioCampo, dataFimCampo, horaInicioCampo, horaFimCampo, professor];
 
-    // Monta query params para o backend
-    const params = new URLSearchParams({
-        id: id,
-        Nome: nome,
-        Hora_Inicio: horaInicio,
-        Hora_Fim: horaFim,
-        Data_Inicio: converterDataBrasilParaISO(dataInicio),
-        Data_Fim: converterDataBrasilParaISO(dataFim),
-        Professor: professor,
-        Ativo: ativo
+    // Remove erros existentes
+    campos.forEach(campo => {
+        campo.classList.remove("is-invalid");
+        if (campo.nextElementSibling && campo.nextElementSibling.classList.contains("invalid-feedback")) {
+            campo.nextElementSibling.remove();
+        }
     });
 
-    fetch(`http://localhost:8080/apis/oficina?${params.toString()}`, { method: "PUT" })
-        .then(resp => {
-            if (!resp.ok) throw new Error("Erro ao atualizar oficina");
-            return resp.json();
-        })
-        .then(() => {
-            mostrarMensagem("Alteração concluída com sucesso!", true);
+    function erro(campo, msg) {
+        campo.classList.add("is-invalid");
+        const div = document.createElement("div");
+        div.className = "invalid-feedback";
+        div.textContent = msg;
+        campo.after(div);
+        valido = false;
+    }
 
-            // Esconde formulário de edição e recarrega tabela
-            document.getElementById("formulario-editar-oficina").classList.add("d-none");
-            carregarTodasOficinas();
-        })
-        .catch(err => {
-            console.error(err);
-            mostrarMensagem("Erro ao atualizar oficina.", false);
+    // Validação campos vazios
+    campos.forEach(campo => {
+        if (!campo.value.trim()) erro(campo, "Campo obrigatório");
+    });
+
+    const dataInicio = dataInicioCampo.value.trim();
+    const dataFim = dataFimCampo.value.trim();
+    const horaInicio = horaInicioCampo.value.trim();
+    const horaFim = horaFimCampo.value.trim();
+    const professorId = parseInt(professor.value);
+
+    // Validação de datas
+    if (dataInicio && dataFim) {
+        const hoje = new Date(); hoje.setHours(0,0,0,0);
+        const [di, mi, ai] = dataInicio.split("/").map(Number);
+        const [df, mf, af] = dataFim.split("/").map(Number);
+        const inicio = new Date(ai, mi - 1, di);
+        const fim = new Date(af, mf - 1, df);
+
+        if (inicio < hoje) erro(dataInicioCampo, "A data inicial não pode ser anterior à data atual");
+        if (fim < inicio) erro(dataFimCampo, "A data final deve ser igual ou posterior à inicial");
+    }
+
+    // Validação de horas (formato + ordem)
+    const horaRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if (!horaRegex.test(horaInicio)) erro(horaInicioCampo, "Use o formato 24h (HH:MM)");
+    if (!horaRegex.test(horaFim)) erro(horaFimCampo, "Use o formato 24h (HH:MM)");
+
+    if (horaRegex.test(horaInicio) && horaRegex.test(horaFim)) {
+        const [hi, mi] = horaInicio.split(":").map(Number);
+        const [hf, mf] = horaFim.split(":").map(Number);
+        const inicioHora = hi * 60 + mi;
+        const fimHora = hf * 60 + mf;
+        if (fimHora <= inicioHora) erro(horaFimCampo, "Hora final deve ser maior que a inicial");
+    }
+
+    if (!valido) return;
+
+    //Verificação de conflito antes de atualizar (mesmo do cadastrar)
+    fetch(`http://localhost:8080/apis/oficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
+        .then(resp => resp.json())
+        .then(conflito => {
+            if (conflito.existe) {
+                erro(professor, "O professor já possui oficina nesse horário!");
+                mostrarMensagem("Conflito detectado: professor já está ocupado.", false);
+                return;
+            }
+
+            // Se não há conflito → atualizar
+            const params = new URLSearchParams({
+                id: id,
+                Nome: nome.value.trim(),
+                Hora_Inicio: horaInicio,
+                Hora_Fim: horaFim,
+                Data_Inicio: converterDataBrasilParaISO(dataInicio),
+                Data_Fim: converterDataBrasilParaISO(dataFim),
+                Professor: professorId,
+                Ativo: ativo
+            });
+
+            fetch(`http://localhost:8080/apis/oficina?${params.toString()}`, { method: "PUT" })
+                .then(resp => {
+                    if (!resp.ok) throw new Error();
+                    mostrarMensagem("Alteração realizada com sucesso!", true);
+                    document.getElementById("formulario-editar-oficina").classList.add("d-none");
+                    carregarTodasOficinas();
+                })
+                .catch(() => mostrarMensagem("Erro ao atualizar oficina!", false));
         });
 }
 
@@ -480,50 +520,11 @@ function mostrarMensagem(texto, sucesso) {
     }
 }
 
-function formatarDataParaBR(dataISO) {
-    if (!dataISO) return "";
-    const data = new Date(dataISO);
-    if (isNaN(data)) return "";
-    const dia = String(data.getDate()).padStart(2,"0");
-    const mes = String(data.getMonth()+1).padStart(2,"0");
-    const ano = data.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-}
-
 function converterDataBrasilParaISO(dataBr) {
     const [dia, mes, ano] = dataBr.split("/");
     return `${ano}-${mes}-${dia}`;
 }
 
-
-function carregarProfessores() {
-    // Faz uma requisição GET ao endpoint do back-end
-    fetch("/api/professores")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao carregar professores. Código: " + response.status);
-            }
-            return response.json();
-        })
-        .then(professores => {
-            const select = document.getElementById("professor-id");
-
-            // Limpa as opções anteriores (caso o script rode mais de uma vez)
-            select.innerHTML = '<option value="">Selecione o professor</option>';
-
-            // Cria uma <option> para cada professor retornado do backend
-            professores.forEach(prof => {
-                const option = document.createElement("option");
-                option.value = prof.id;      // o ID é o value (vai pro back no submit)
-                option.textContent = prof.nome; // o nome aparece pro usuário
-                select.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error("Erro ao buscar professores:", error);
-            alert("Não foi possível carregar a lista de professores.");
-        });
-}
 
 
 // BUSCA DE OFICINA POR ID
@@ -589,4 +590,13 @@ document.addEventListener('DOMContentLoaded', () => {
         tabelaContainer.classList.add('d-none');
         carregarTodasOficinas(); // chama sua função padrão para listar todas
     });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const filtroStatus = document.getElementById("filtro-status");
+    const filtroNome = document.getElementById("filtro-nome");
+
+    if (filtroStatus) filtroStatus.addEventListener("change", aplicarFiltros);
+    if (filtroNome) filtroNome.addEventListener("keyup", aplicarFiltros);
 });

@@ -18,3 +18,17 @@
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+.input-group-text {
+    background-color: #ffffff;
+    border-right: none;
+}
+
+.input-group .form-control {
+    border-left: none;
+    box-shadow: none !important;
+}
+
+.input-group i {
+    color: #6c757d;
+}
