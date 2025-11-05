@@ -1,6 +1,14 @@
 package com.example.proj_bga.model;
 
+import com.example.proj_bga.dao.AssociaAlunoOficinaDAO;
+import com.example.proj_bga.util.Conexao;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class AssociaAlunoOficina {
+
+    @Autowired
+    private AssociaAlunoOficinaDAO dao;
+
     private int alu_id;
     private int ofc_id;
 
@@ -26,5 +34,13 @@ public class AssociaAlunoOficina {
 
     public void setOfc_id(int ofc_id) {
         this.ofc_id = ofc_id;
+    }
+
+    public AssociaAlunoOficina gravaAlunoOficina(AssociaAlunoOficina associaAlunoOficina, Conexao conexao) {
+        return dao.gravar(associaAlunoOficina, conexao);
+    }
+
+    public boolean excluiAlunoOficina(AssociaAlunoOficina associaAlunoOficina,  Conexao conexao) {
+        return dao.excluir(associaAlunoOficina, conexao);
     }
 }
