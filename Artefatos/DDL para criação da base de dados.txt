@@ -3,550 +3,540 @@
 
 -- Remoção de comentários irrelevantes para PostgreSQL e tipos de dados não suportados
 
-CREATE TABLE ALUNO
-    (
-     alu_id               INTEGER  NOT NULL ,
-     alu_dt_entrada       DATE ,
-     alu_foto             VARCHAR (100) , -- VARCHAR2 alterado para VARCHAR
-     alu_mae              VARCHAR (75) ,
-     alu_pai              VARCHAR (75) ,
-     alu_responsavel_pais CHAR (1) ,
-     alu_conhecimento     CHAR (1) ,
-     alu_pais_convivem    CHAR (1) ,
-     alu_pensao           CHAR (1) ,
-     pes_id               INTEGER  NOT NULL
-    )
+CREATE TABLE ALUNO 
+    ( 
+     alu_id               INTEGER  NOT NULL , 
+     alu_dt_entrada       DATE , 
+     alu_foto             VARCHAR (100) , 
+     alu_mae              VARCHAR (75) , 
+     alu_pai              VARCHAR (75) , 
+     alu_responsavel_pais CHAR (1) , 
+     alu_conhecimento     CHAR (1) , 
+     alu_pais_convivem    CHAR (1) , 
+     alu_pensao           CHAR (1) , 
+     pes_id               INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE ALUNO
+ALTER TABLE ALUNO 
     ADD CONSTRAINT ALUNO_PK PRIMARY KEY ( alu_id ) ;
 
---
-
-CREATE TABLE CATEGORIA_USUARIO
-    (
-     ctsr_id  INTEGER  NOT NULL ,
-     ctsr_desc VARCHAR (20)
-    )
+CREATE TABLE CATEGORIA_USUARIO 
+    ( 
+     ctsr_id   INTEGER  NOT NULL , 
+     ctsr_desc VARCHAR (20) 
+    ) 
 ;
 
-ALTER TABLE CATEGORIA_USUARIO
+ALTER TABLE CATEGORIA_USUARIO 
     ADD CONSTRAINT CATEGORIA_USUARIO_PK PRIMARY KEY ( ctsr_id ) ;
 
---
-
-CREATE TABLE CIDADE
-    (
-     cid_id   INTEGER  NOT NULL ,
-     cid_nome VARCHAR (75) ,
-     est_id   INTEGER  NOT NULL
-    )
+CREATE TABLE CIDADE 
+    ( 
+     cid_id   INTEGER  NOT NULL , 
+     cid_nome VARCHAR (75) , 
+     est_id   INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE CIDADE
+ALTER TABLE CIDADE 
     ADD CONSTRAINT CIDADE_PK PRIMARY KEY ( cid_id ) ;
 
---
-
-CREATE TABLE DIAS
-    (
-     dia_id          INTEGER  NOT NULL ,
-     dia_descricao VARCHAR (20)
-    )
+CREATE TABLE DIAS 
+    ( 
+     dia_id        INTEGER  NOT NULL , 
+     dia_descricao VARCHAR (20) 
+    ) 
 ;
 
-ALTER TABLE DIAS
+ALTER TABLE DIAS 
     ADD CONSTRAINT DIAS_PK PRIMARY KEY ( dia_id ) ;
 
---
-
-CREATE TABLE DIAS_MARCADOS_OFICINAS
-    (
-     dmf_id  INTEGER  NOT NULL ,
-     dmf_dia DATE , -- Mantido como DATE, pois é uma data marcada
-     ofc_id  INTEGER  NOT NULL
-    )
+CREATE TABLE DIAS_MARCADOS_OFICINAS 
+    ( 
+     dmf_id  INTEGER  NOT NULL , 
+     dmf_dia DATE , 
+     ofc_id  INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE DIAS_MARCADOS_OFICINAS
+ALTER TABLE DIAS_MARCADOS_OFICINAS 
     ADD CONSTRAINT DIAS_MARCADOS_OFICINAS_PK PRIMARY KEY ( dmf_id ) ;
 
---
-
-CREATE TABLE ENDERECO
-    (
-     end_id          INTEGER  NOT NULL ,
-     end_logradouro  VARCHAR (150) ,
-     end_numero      VARCHAR (20) ,
-     end_cep         VARCHAR (8) ,
-     end_complemento VARCHAR (50) ,
-     end_bairro      VARCHAR (75) ,
-     cid_id          INTEGER  NOT NULL
-    )
+CREATE TABLE ENDERECO 
+    ( 
+     end_id          INTEGER  NOT NULL , 
+     end_logradouro  VARCHAR (150) , 
+     end_numero      VARCHAR (20) , 
+     end_cep         VARCHAR (8) , 
+     end_complemento VARCHAR (50) , 
+     end_bairro      VARCHAR (75) , 
+     cid_id          INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE ENDERECO
+ALTER TABLE ENDERECO 
     ADD CONSTRAINT ENDERECO_PK PRIMARY KEY ( end_id ) ;
 
---
-
-CREATE TABLE ESPECIALIDADES
-    (
-     esp_id              INTEGER  NOT NULL ,
-     esp_descricao       VARCHAR (100) ,
-     PROFESSOR_prof_id INTEGER  NOT NULL
-    )
+CREATE TABLE ESPECIALIDADES 
+    ( 
+     esp_id            INTEGER  NOT NULL , 
+     esp_descricao     VARCHAR (100) , 
+     PROFESSOR_prof_id INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE ESPECIALIDADES
+ALTER TABLE ESPECIALIDADES 
     ADD CONSTRAINT ESPECIALIDADES_PK PRIMARY KEY ( esp_id ) ;
 
---
-
-CREATE TABLE ESTADO
-    (
-     est_id   INTEGER  NOT NULL ,
-     est_uf_1 VARCHAR (2)  NOT NULL ,
-     est_nome VARCHAR (30)
-    )
+CREATE TABLE ESTADO 
+    ( 
+     est_id   INTEGER  NOT NULL , 
+     est_uf_1 VARCHAR (2)  NOT NULL , 
+     est_nome VARCHAR (30) 
+    ) 
 ;
 
-ALTER TABLE ESTADO
+ALTER TABLE ESTADO 
     ADD CONSTRAINT ESTADO_PK PRIMARY KEY ( est_id ) ;
 
---
-
-CREATE TABLE OFICINA
-    (
-     ofc_id           INTEGER  NOT NULL ,
-     ofc_nome         VARCHAR (75) ,
-     ofc_hora_inicio  TIME , -- Alterado de DATE para TIME
-     ofc_hora_termino TIME , -- Alterado de DATE para TIME
-     ofc_dt_inicial   DATE ,
-     ofc_dt_final     DATE ,
-     prof_id          INTEGER  NOT NULL ,
-     ofc_ativo        CHAR (1)
-    )
+CREATE TABLE OFERTAR_OFICINA 
+    ( 
+     ofc_id           INTEGER  NOT NULL , 
+     ofc_hora_inicio  DATE , 
+     ofc_hora_termino DATE , 
+     ofc_dt_inicial   DATE , 
+     ofc_dt_final     DATE , 
+     prof_id          INTEGER  NOT NULL , 
+     ofc_ativo        CHAR (1) , 
+     ofc_pk           INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE OFICINA
+ALTER TABLE OFERTAR_OFICINA 
+    ADD CONSTRAINT OFICINA_PKv3 PRIMARY KEY ( ofc_id ) ;
+
+CREATE TABLE OFICINA 
+    ( 
+     ofc_id        INTEGER  NOT NULL , 
+     ofc_descricao VARCHAR (70) 
+    ) 
+;
+
+ALTER TABLE OFICINA 
     ADD CONSTRAINT OFICINA_PK PRIMARY KEY ( ofc_id ) ;
 
---
-
-CREATE TABLE PASSEIO
-    (
-     pas_id          INTEGER  NOT NULL ,
-     pas_data        DATE ,
-     pas_hora_inicio TIME , -- Alterado de DATE para TIME
-     pas_hora_final  TIME , -- Alterado de DATE para TIME
-     pas_chamada_feita CHAR (1) ,
-     pde_id          INTEGER  NOT NULL
-    )
+CREATE TABLE PASSEIO 
+    ( 
+     pas_id            INTEGER  NOT NULL , 
+     pas_data          DATE , 
+     pas_hora_inicio   DATE , 
+     pas_hora_final    DATE , 
+     pas_chamada_feita CHAR (1) , 
+     pde_id            INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE PASSEIO
+ALTER TABLE PASSEIO 
     ADD CONSTRAINT PASSEIO_PK PRIMARY KEY ( pas_id ) ;
 
---
-
-CREATE TABLE PASSEIO_DESCRICAO
-    (
-     pde_id          INTEGER  NOT NULL ,
-     pde_descricao VARCHAR (75)
-    )
+CREATE TABLE PASSEIO_DESCRICAO 
+    ( 
+     pde_id        INTEGER  NOT NULL , 
+     pde_descricao VARCHAR (75) 
+    ) 
 ;
 
-ALTER TABLE PASSEIO_DESCRICAO
+ALTER TABLE PASSEIO_DESCRICAO 
     ADD CONSTRAINT PASSEIO_DESCRICAO_PK PRIMARY KEY ( pde_id ) ;
 
---
-
-CREATE TABLE PESSOA
-    (
-     pes_id          INTEGER  NOT NULL ,
-     pes_nome        VARCHAR (75) ,
-     pes_cpf         VARCHAR (11) ,
-     pes_dt_nascimento DATE ,
-     pes_rg          VARCHAR (9) ,
-     pes_ativo       CHAR (1) ,
-     end_id          INTEGER  NOT NULL
-    )
+CREATE TABLE PESSOA 
+    ( 
+     pes_id            INTEGER  NOT NULL , 
+     pes_nome          VARCHAR (75) , 
+     pes_cpf           VARCHAR (11) , 
+     pes_dt_nascimento DATE , 
+     pes_rg            VARCHAR (9) , 
+     pes_ativo         CHAR (1) , 
+     end_id            INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE PESSOA
+ALTER TABLE PESSOA 
     ADD CONSTRAINT PESSOA_PK PRIMARY KEY ( pes_id ) ;
 
---
-
-CREATE TABLE PRESENCA_OFICINA
-    (
-     pso_id INTEGER  NOT NULL ,
-     alu_id INTEGER  NOT NULL ,
-     ofc_id INTEGER  NOT NULL
-    )
+CREATE TABLE PRESENCA_OFICINA 
+    ( 
+     pso_id INTEGER  NOT NULL , 
+     alu_id INTEGER  NOT NULL , 
+     ofc_id INTEGER  NOT NULL , 
+     dmf_id INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE PRESENCA_OFICINA
-    ADD CONSTRAINT PRESENCA_OFICINA_PK PRIMARY KEY ( alu_id, ofc_id, pso_id ) ;
+ALTER TABLE PRESENCA_OFICINA 
+    ADD CONSTRAINT PRESENCA_OFICINA_PK PRIMARY KEY ( alu_id, ofc_id, pso_id, dmf_id ) ;
 
---
-
-CREATE TABLE PRESENCA_PASSEIO
-    (
-     psp_id         INTEGER  NOT NULL ,
-     ALUNO_alu_id   INTEGER  NOT NULL ,
-     PASSEIO_pas_id INTEGER  NOT NULL ,
-     pp_id          INTEGER
-    )
+CREATE TABLE PRESENCA_PASSEIO 
+    ( 
+     psp_id         INTEGER  NOT NULL , 
+     ALUNO_alu_id   INTEGER  NOT NULL , 
+     PASSEIO_pas_id INTEGER  NOT NULL , 
+     pp_id          INTEGER 
+    ) 
 ;
 
-ALTER TABLE PRESENCA_PASSEIO
+ALTER TABLE PRESENCA_PASSEIO 
     ADD CONSTRAINT PRESENCA_PASSEIO_PK PRIMARY KEY ( ALUNO_alu_id, PASSEIO_pas_id, psp_id ) ;
 
---
-
-CREATE TABLE PROFESSOR
-    (
-     prof_id        INTEGER  NOT NULL ,
-     prof_matricula VARCHAR (10) ,
-     pes_id         INTEGER  NOT NULL
-    )
+CREATE TABLE PROFESSOR 
+    ( 
+     prof_id        INTEGER  NOT NULL , 
+     prof_matricula VARCHAR (10) , 
+     pes_id         INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE PROFESSOR
+ALTER TABLE PROFESSOR 
     ADD CONSTRAINT PROFESSOR_PK PRIMARY KEY ( prof_id ) ;
 
---
-
-CREATE TABLE R_ALUNO_OFICINA
-    (
-     alu_id INTEGER  NOT NULL ,
-     ofc_id INTEGER  NOT NULL
-    )
+CREATE TABLE R_ALUNO_OFICINA 
+    ( 
+     alu_id INTEGER  NOT NULL , 
+     ofc_id INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_OFICINA
+ALTER TABLE R_ALUNO_OFICINA 
     ADD CONSTRAINT R_ALUNO_OFICINA_PK PRIMARY KEY ( alu_id, ofc_id ) ;
 
---
-
-CREATE TABLE R_ALUNO_PASSEIO
-    (
-     pas_id INTEGER  NOT NULL ,
-     alu_id INTEGER  NOT NULL
-    )
+CREATE TABLE R_ALUNO_PASSEIO 
+    ( 
+     pas_id INTEGER  NOT NULL , 
+     alu_id INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_PASSEIO
+ALTER TABLE R_ALUNO_PASSEIO 
     ADD CONSTRAINT R_ALUNO_PASSEIO_PK PRIMARY KEY ( pas_id, alu_id ) ;
 
---
-
-CREATE TABLE R_DIAS_OFICINA
-    (
-     ofc_id INTEGER  NOT NULL ,
-     dia_id INTEGER  NOT NULL
-    )
+CREATE TABLE R_DIAS_OFICINA 
+    ( 
+     ofc_id INTEGER  NOT NULL , 
+     dia_id INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE R_DIAS_OFICINA
+ALTER TABLE R_DIAS_OFICINA 
     ADD CONSTRAINT R_DIAS_OFICINA_PK PRIMARY KEY ( ofc_id, dia_id ) ;
 
---
-
-CREATE TABLE R_PROFESSOR_PASSEIO
-    (
-     prof_id INTEGER  NOT NULL ,
-     pas_id  INTEGER  NOT NULL
-    )
+CREATE TABLE R_PROFESSOR_PASSEIO 
+    ( 
+     prof_id INTEGER  NOT NULL , 
+     pas_id  INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE R_PROFESSOR_PASSEIO
+ALTER TABLE R_PROFESSOR_PASSEIO 
     ADD CONSTRAINT R_PROFESSOR_PASSEIO_PK PRIMARY KEY ( pas_id, prof_id ) ;
 
---
-
-CREATE TABLE TELEFONE
-    (
-     tel_id   INTEGER  NOT NULL ,
-     tel_numero VARCHAR (11) ,
-     pes_id   INTEGER  NOT NULL
-    )
+CREATE TABLE TELEFONE 
+    ( 
+     tel_id     INTEGER  NOT NULL , 
+     tel_numero VARCHAR (11) , 
+     pes_id     INTEGER  NOT NULL 
+    ) 
 ;
 
-ALTER TABLE TELEFONE
+ALTER TABLE TELEFONE 
     ADD CONSTRAINT TELEFONE_PK PRIMARY KEY ( tel_id ) ;
 
---
-
-CREATE TABLE USUARIO
-    (
-     usr_id    INTEGER  NOT NULL ,
-     usr_login VARCHAR (40) ,
-     usr_senha VARCHAR (40) ,
-     ctsr_id   INTEGER  NOT NULL ,
-     usr_ativo CHAR (1)
-    )
+CREATE TABLE USUARIO 
+    ( 
+     usr_id    INTEGER  NOT NULL , 
+     usr_login VARCHAR (40) , 
+     usr_senha VARCHAR (40) , 
+     ctsr_id   INTEGER  NOT NULL , 
+     usr_ativo CHAR (1) 
+    ) 
 ;
 
-ALTER TABLE USUARIO
+ALTER TABLE USUARIO 
     ADD CONSTRAINT USUARIO_PK PRIMARY KEY ( usr_id ) ;
 
---
--- Definições de Chaves Estrangeiras
-
-ALTER TABLE ALUNO
-    ADD CONSTRAINT ALUNO_PESSOA_FK FOREIGN KEY
-    (
+ALTER TABLE ALUNO 
+    ADD CONSTRAINT ALUNO_PESSOA_FK FOREIGN KEY 
+    ( 
      pes_id
-    )
-    REFERENCES PESSOA
-    (
+    ) 
+    REFERENCES PESSOA 
+    ( 
      pes_id
-    )
+    ) 
 ;
 
-ALTER TABLE CIDADE
-    ADD CONSTRAINT CIDADE_ESTADO_FK FOREIGN KEY
-    (
+ALTER TABLE CIDADE 
+    ADD CONSTRAINT CIDADE_ESTADO_FK FOREIGN KEY 
+    ( 
      est_id
-    )
-    REFERENCES ESTADO
-    (
+    ) 
+    REFERENCES ESTADO 
+    ( 
      est_id
-    )
+    ) 
 ;
 
-ALTER TABLE DIAS_MARCADOS_OFICINAS
-    ADD CONSTRAINT DIAS_MARC_OFC_FK FOREIGN KEY
-    (
+ALTER TABLE DIAS_MARCADOS_OFICINAS 
+    ADD CONSTRAINT DIAS_MARC_OFC_FK FOREIGN KEY 
+    ( 
      ofc_id
-    )
-    REFERENCES OFICINA
-    (
+    ) 
+    REFERENCES OFERTAR_OFICINA 
+    ( 
      ofc_id
-    )
+    ) 
 ;
 
-ALTER TABLE ENDERECO
-    ADD CONSTRAINT ENDERECO_CIDADE_FK FOREIGN KEY
-    (
-     cid_id
-    )
-    REFERENCES CIDADE
-    (
-     cid_id
-    )
+ALTER TABLE PRESENCA_OFICINA 
+    ADD CONSTRAINT dmf_id FOREIGN KEY 
+    ( 
+     dmf_id
+    ) 
+    REFERENCES DIAS_MARCADOS_OFICINAS 
+    ( 
+     dmf_id
+    ) 
 ;
 
-ALTER TABLE ESPECIALIDADES
-    ADD CONSTRAINT ESPECIALI_PROF_FK FOREIGN KEY
-    (
+ALTER TABLE ENDERECO 
+    ADD CONSTRAINT ENDERECO_CIDADE_FK FOREIGN KEY 
+    ( 
+     cid_id
+    ) 
+    REFERENCES CIDADE 
+    ( 
+     cid_id
+    ) 
+;
+
+ALTER TABLE ESPECIALIDADES 
+    ADD CONSTRAINT ESPECIALI_PROF_FK FOREIGN KEY 
+    ( 
      PROFESSOR_prof_id
-    )
-    REFERENCES PROFESSOR
-    (
+    ) 
+    REFERENCES PROFESSOR 
+    ( 
      prof_id
-    )
+    ) 
 ;
 
-ALTER TABLE OFICINA
-    ADD CONSTRAINT OFICINA_PROFESSOR_FK FOREIGN KEY
-    (
-     prof_id
-    )
-    REFERENCES PROFESSOR
-    (
-     prof_id
-    )
-;
-
-ALTER TABLE PASSEIO
-    ADD CONSTRAINT PASSEIO_PASSEIO_DESCRICAO_FK FOREIGN KEY
-    (
-     pde_id
-    )
-    REFERENCES PASSEIO_DESCRICAO
-    (
-     pde_id
-    )
-;
-
-ALTER TABLE PESSOA
-    ADD CONSTRAINT PESSOA_ENDERECO_FK FOREIGN KEY
-    (
-     end_id
-    )
-    REFERENCES ENDERECO
-    (
-     end_id
-    )
-;
-
-ALTER TABLE PRESENCA_OFICINA
-    ADD CONSTRAINT PRESENCA_OFICINA_ALUNO_FK FOREIGN KEY
-    (
-     alu_id
-    )
-    REFERENCES ALUNO
-    (
-     alu_id
-    )
-;
-
-ALTER TABLE PRESENCA_OFICINA
-    ADD CONSTRAINT PRESENCA_OFICINA_OFICINA_FK FOREIGN KEY
-    (
+ALTER TABLE OFERTAR_OFICINA 
+    ADD CONSTRAINT ofc_pk FOREIGN KEY 
+    ( 
+     ofc_pk
+    ) 
+    REFERENCES OFICINA 
+    ( 
      ofc_id
-    )
-    REFERENCES OFICINA
-    (
-     ofc_id
-    )
+    ) 
 ;
 
-ALTER TABLE PRESENCA_PASSEIO
-    ADD CONSTRAINT PRESENCA_PAS_ALUNO_FK FOREIGN KEY
-    (
+ALTER TABLE OFERTAR_OFICINA 
+    ADD CONSTRAINT OFICINA_PROFESSOR_FK FOREIGN KEY 
+    ( 
+     prof_id
+    ) 
+    REFERENCES PROFESSOR 
+    ( 
+     prof_id
+    ) 
+;
+
+ALTER TABLE PASSEIO 
+    ADD CONSTRAINT PASSEIO_PASSEIO_DESCRICAO_FK FOREIGN KEY 
+    ( 
+     pde_id
+    ) 
+    REFERENCES PASSEIO_DESCRICAO 
+    ( 
+     pde_id
+    ) 
+;
+
+ALTER TABLE PESSOA 
+    ADD CONSTRAINT PESSOA_ENDERECO_FK FOREIGN KEY 
+    ( 
+     end_id
+    ) 
+    REFERENCES ENDERECO 
+    ( 
+     end_id
+    ) 
+;
+
+ALTER TABLE PRESENCA_OFICINA 
+    ADD CONSTRAINT PRESENCA_OFICINA_ALUNO_FK FOREIGN KEY 
+    ( 
+     alu_id
+    ) 
+    REFERENCES ALUNO 
+    ( 
+     alu_id
+    ) 
+;
+
+ALTER TABLE PRESENCA_OFICINA 
+    ADD CONSTRAINT PRESENCA_OFICINA_OFICINA_FK FOREIGN KEY 
+    ( 
+     ofc_id
+    ) 
+    REFERENCES OFERTAR_OFICINA 
+    ( 
+     ofc_id
+    ) 
+;
+
+ALTER TABLE PRESENCA_PASSEIO 
+    ADD CONSTRAINT PRESENCA_PAS_ALUNO_FK FOREIGN KEY 
+    ( 
      ALUNO_alu_id
-    )
-    REFERENCES ALUNO
-    (
+    ) 
+    REFERENCES ALUNO 
+    ( 
      alu_id
-    )
+    ) 
 ;
 
-ALTER TABLE PRESENCA_PASSEIO
-    ADD CONSTRAINT PRESENCA_PAS_FK FOREIGN KEY
-    (
+ALTER TABLE PRESENCA_PASSEIO 
+    ADD CONSTRAINT PRESENCA_PAS_FK FOREIGN KEY 
+    ( 
      PASSEIO_pas_id
-    )
-    REFERENCES PASSEIO
-    (
+    ) 
+    REFERENCES PASSEIO 
+    ( 
      pas_id
-    )
+    ) 
 ;
 
-ALTER TABLE PROFESSOR
-    ADD CONSTRAINT PROFESSOR_PESSOA_FK FOREIGN KEY
-    (
+ALTER TABLE PROFESSOR 
+    ADD CONSTRAINT PROFESSOR_PESSOA_FK FOREIGN KEY 
+    ( 
      pes_id
-    )
-    REFERENCES PESSOA
-    (
+    ) 
+    REFERENCES PESSOA 
+    ( 
      pes_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_OFICINA
-    ADD CONSTRAINT R_ALUNO_OFICINA_ALUNO_FK FOREIGN KEY
-    (
+ALTER TABLE R_ALUNO_OFICINA 
+    ADD CONSTRAINT R_ALUNO_OFICINA_ALUNO_FK FOREIGN KEY 
+    ( 
      alu_id
-    )
-    REFERENCES ALUNO
-    (
+    ) 
+    REFERENCES ALUNO 
+    ( 
      alu_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_OFICINA
-    ADD CONSTRAINT R_ALUNO_OFICINA_OFICINA_FK FOREIGN KEY
-    (
+ALTER TABLE R_ALUNO_OFICINA 
+    ADD CONSTRAINT R_ALUNO_OFICINA_OFICINA_FK FOREIGN KEY 
+    ( 
      ofc_id
-    )
-    REFERENCES OFICINA
-    (
+    ) 
+    REFERENCES OFERTAR_OFICINA 
+    ( 
      ofc_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_PASSEIO
-    ADD CONSTRAINT R_ALUNO_PASSEIO_FK FOREIGN KEY
-    (
+ALTER TABLE R_ALUNO_PASSEIO 
+    ADD CONSTRAINT R_ALUNO_PASSEIO_FK FOREIGN KEY 
+    ( 
      pas_id
-    )
-    REFERENCES PASSEIO
-    (
+    ) 
+    REFERENCES PASSEIO 
+    ( 
      pas_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_ALUNO_PASSEIO
-    ADD CONSTRAINT R_ALUNO_PASSEIO_FKv1 FOREIGN KEY
-    (
+ALTER TABLE R_ALUNO_PASSEIO 
+    ADD CONSTRAINT R_ALUNO_PASSEIO_FKv1 FOREIGN KEY 
+    ( 
      alu_id
-    )
-    REFERENCES ALUNO
-    (
+    ) 
+    REFERENCES ALUNO 
+    ( 
      alu_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_DIAS_OFICINA
-    ADD CONSTRAINT R_DIAS_OFICINA_DIAS_FK FOREIGN KEY
-    (
+ALTER TABLE R_DIAS_OFICINA 
+    ADD CONSTRAINT R_DIAS_OFICINA_DIAS_FK FOREIGN KEY 
+    ( 
      dia_id
-    )
-    REFERENCES DIAS
-    (
+    ) 
+    REFERENCES DIAS 
+    ( 
      dia_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_DIAS_OFICINA
-    ADD CONSTRAINT R_DIAS_OFICINA_OFICINA_FK FOREIGN KEY
-    (
+ALTER TABLE R_DIAS_OFICINA 
+    ADD CONSTRAINT R_DIAS_OFICINA_OFICINA_FK FOREIGN KEY 
+    ( 
      ofc_id
-    )
-    REFERENCES OFICINA
-    (
+    ) 
+    REFERENCES OFERTAR_OFICINA 
+    ( 
      ofc_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_PROFESSOR_PASSEIO
-    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FK FOREIGN KEY
-    (
+ALTER TABLE R_PROFESSOR_PASSEIO 
+    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FK FOREIGN KEY 
+    ( 
      pas_id
-    )
-    REFERENCES PASSEIO
-    (
+    ) 
+    REFERENCES PASSEIO 
+    ( 
      pas_id
-    )
+    ) 
 ;
 
-ALTER TABLE R_PROFESSOR_PASSEIO
-    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FKv1 FOREIGN KEY
-    (
+ALTER TABLE R_PROFESSOR_PASSEIO 
+    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FKv1 FOREIGN KEY 
+    ( 
      prof_id
-    )
-    REFERENCES PROFESSOR
-    (
+    ) 
+    REFERENCES PROFESSOR 
+    ( 
      prof_id
-    )
+    ) 
 ;
 
-ALTER TABLE TELEFONE
-    ADD CONSTRAINT TELEFONE_PESSOA_FK FOREIGN KEY
-    (
+ALTER TABLE TELEFONE 
+    ADD CONSTRAINT TELEFONE_PESSOA_FK FOREIGN KEY 
+    ( 
      pes_id
-    )
-    REFERENCES PESSOA
-    (
+    ) 
+    REFERENCES PESSOA 
+    ( 
      pes_id
-    )
+    ) 
 ;
 
-ALTER TABLE USUARIO
-    ADD CONSTRAINT USUARIO_CATEGORIA_FK FOREIGN KEY
-    (
+ALTER TABLE USUARIO 
+    ADD CONSTRAINT USUARIO_CATEGORIA_FK FOREIGN KEY 
+    ( 
      ctsr_id
-    )
-    REFERENCES CATEGORIA_USUARIO
-    (
+    ) 
+    REFERENCES CATEGORIA_USUARIO 
+    ( 
      ctsr_id
-    )
+    ) 
 ;
 
 -- DDL para ATUALIZAR as tabelas existentes no PostgreSQL,
@@ -613,6 +603,10 @@ ALTER TABLE TELEFONE
 ALTER TABLE USUARIO
     ALTER COLUMN usr_id ADD GENERATED BY DEFAULT AS IDENTITY;
 
+-- 16. Tabela OFERTAR_OFICINA
+ALTER TABLE OFERTAR_OFICINA
+    ALTER COLUMN ofc_id ADD GENERATED BY DEFAULT AS IDENTITY;
+
 
 -- AVISO: Se você inseriu dados na tabela *antes* de executar estes comandos,
 -- você deve reajustar o contador (sequence) para garantir que não haja
@@ -654,5 +648,6 @@ SELECT reset_identity_sequence('pessoa', 'pes_id');
 SELECT reset_identity_sequence('professor', 'prof_id');
 SELECT reset_identity_sequence('telefone', 'tel_id');
 SELECT reset_identity_sequence('usuario', 'usr_id');
+SELECT reset_identity_sequence('ofertar_oficina', 'ofc_id');
 
 -- DROP FUNCTION reset_identity_sequence(text, text); -- Opcional: remover a função após o uso
