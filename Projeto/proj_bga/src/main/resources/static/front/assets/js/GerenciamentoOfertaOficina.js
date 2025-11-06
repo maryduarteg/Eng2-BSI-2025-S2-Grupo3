@@ -118,8 +118,37 @@ function carregarProfessores() {
 // Chamar função após DOM carregado
 document.addEventListener('DOMContentLoaded', () => {
     carregarProfessores();
+    carregarOficinasTabelaSuper(); //para as oficinas mães da tabela atual
 });
 
+function carregarOficinasTabelaSuper()
+{
+    const selects = [
+        document.getElementById("nome-select"),   // cadastro
+        document.getElementById("editar-nome")    // edição
+    ];
+
+    fetch("http://localhost:8080/apis/oficina")
+        .then(resp => resp.json())
+        .then(listaOficinas => {
+            selects.forEach(select => {
+                if (!select) return;
+                // Limpa opções antigas e adiciona placeholder
+                select.innerHTML = '';
+
+                listaOficinas.forEach(ofc => {
+                    if(ofc.ativo != 'N')
+                    {
+                        const option = document.createElement("option");
+                        option.value = ofc.id;      // id do professor vindo do backend
+                        option.textContent = ofc.descricao; // nome do professor vindo do backend
+                        select.appendChild(option);
+                    }
+                });
+            });
+        })
+        .catch(err => console.error("Erro ao carregar oficinas:", err));
+}
 
 
 function cadastrarOficina(event) {
@@ -203,7 +232,7 @@ function cadastrarOficina(event) {
 
     // Monta objeto para envio
     const oficina = {
-        nome: form.nome.value.trim(),
+        ofc_fk: form.nome.value,
         professor: professorId,
         dataInicio: converterDataBrasilParaISO(form.dataInicio.value),
         dataFim: converterDataBrasilParaISO(form.dataFim.value),

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class Oficina {
     @Autowired
@@ -17,14 +18,6 @@ public class Oficina {
     private char ativo;
 
     public Oficina() {}
-
-    public char getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(char ativo) {
-        this.ativo = ativo;
-    }
 
     public Oficina(int id, String descricao, char ativo) {
         this.id = id;
@@ -38,6 +31,14 @@ public class Oficina {
 
     public void setId(int id) {
 
+    }
+
+    public char getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(char ativo) {
+        this.ativo = ativo;
     }
 
     public String getDescricao() {

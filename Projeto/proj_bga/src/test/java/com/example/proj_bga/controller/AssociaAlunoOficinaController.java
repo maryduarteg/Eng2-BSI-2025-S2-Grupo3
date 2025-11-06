@@ -4,17 +4,18 @@ import com.example.proj_bga.model.AssociaAlunoOficina;
 import com.example.proj_bga.model.DiasOficina;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Service
 public class AssociaAlunoOficinaController {
 
     @Autowired
     private AssociaAlunoOficina associaAlunoOficinaModel;
 
     //associar alunos à oficinas
-    public Map<String, DiasOficina> addAlunoOficina(int alu_id, int ofc_id) {
+    public Map<String, Object> addAlunoOficina(int alu_id, int ofc_id) {
         Conexao conexao = new Conexao();
 
         if(alu_id == 0 || ofc_id == 0)
@@ -29,6 +30,6 @@ public class AssociaAlunoOficinaController {
             json.put("ofcId", associaAlunoOficina.getOfc_id());
             return json;
         }
-
+        return Map.of("erro", "Houve um erro!!");
     }
 }

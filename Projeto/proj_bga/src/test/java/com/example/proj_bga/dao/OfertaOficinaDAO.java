@@ -16,7 +16,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
     public OfertaOficina gravar(OfertaOficina ofertaOficina, Conexao conexao) {
         String sql = String.format("""
                 INSERT INTO ofertaOficina (
-                    ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_fk
+                    ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_pk
                 ) VALUES ('%s', '%s', '%s', '%s', %d, '%s', %d)
                 RETURNING ofc_id
                 """,

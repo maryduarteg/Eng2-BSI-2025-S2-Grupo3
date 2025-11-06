@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.openmbean.OpenMBeanConstructorInfo;
 import java.util.Map;
 
 @RestController
@@ -25,7 +26,7 @@ public class AssociaAlunoOficinaView {
 
     @PostMapping
     public ResponseEntity<Object> AddAlunoOficina(@RequestBody AssociaAlunoOficina ass) {
-        Map<String, DiasOficina> json = associaController.addAlunoOficina(ass.getAlu_id(), ass.getOfc_id());
+        Map<String, Object> json = associaController.addAlunoOficina(ass.getAlu_id(), ass.getOfc_id());
         if(json.get("erro") == null){
             return ResponseEntity.ok(new Mensagem("Oficina cadastrada com sucesso!!"));
         }

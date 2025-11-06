@@ -345,15 +345,9 @@
                 <form id="formOficina" class="needs-validation" novalidate>
                     <div class="row">
 
-                        <!-- Nome da Oficina -->
-                        <div class="col-md-6 mb-3">
-                            <label for="nome-oficina" class="form-label">Nome da Oficina <span class="text-danger">*</span></label>
-                            <input type="text" id="nome-oficina" name="nome" class="form-control" required>
-                        </div>
-
                         <div class="col-md-6 mb-3">
                             <label for="nome-select" class="form-label">Oficina<span class="text-danger">*</span></label>
-                            <select id="nome-select" name="professorId" class="form-control" required>
+                            <select id="nome-select" name="nome" class="form-control" required>
                                 <option value="">Selecione uma oficina</option>
                             </select>
                         </div>
@@ -419,8 +413,10 @@
                     <div class="row">
                         <!-- Nome da Oficina -->
                         <div class="col-md-6 mb-3">
-                            <label for="editar-nome" class="form-label">Nome da Oficina <span class="text-danger">*</span></label>
-                            <input type="text" id="editar-nome" class="form-control" required>
+                            <label for="editar-nome" class="form-label">Oficina<span class="text-danger">*</span></label>
+                            <select id="editar-nome" class="form-control" required>
+                                <option value="">Selecione uma oficina</option>
+                            </select>
                         </div>
 
                         <!-- Professor -->

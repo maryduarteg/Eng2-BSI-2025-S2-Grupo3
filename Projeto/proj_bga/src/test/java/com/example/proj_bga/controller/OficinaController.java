@@ -21,7 +21,7 @@ public class OficinaController {
             return Map.of("erro", "Dados inválidos para cadastro!!");
         }
 
-        Oficina novo =  new Oficina(0,descricao,'S');
+        Oficina novo =  new Oficina(0,descricao, 'S');
 
         Oficina gravada = OficinaModel.gravarOficina(novo, conexao);
         if(gravada != null){
