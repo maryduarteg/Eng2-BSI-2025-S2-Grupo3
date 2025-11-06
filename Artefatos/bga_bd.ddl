@@ -13,9 +13,9 @@ CREATE TABLE ALUNO
     ( 
      alu_id               INTEGER  NOT NULL , 
      alu_dt_entrada       DATE , 
-     alu_foto             VARCHAR2 (100) , 
-     alu_mae              VARCHAR2 (75) , 
-     alu_pai              VARCHAR2 (75) , 
+     alu_foto             VARCHAR (100) , 
+     alu_mae              VARCHAR (75) , 
+     alu_pai              VARCHAR (75) , 
      alu_responsavel_pais CHAR (1) , 
      alu_conhecimento     CHAR (1) , 
      alu_pais_convivem    CHAR (1) , 
@@ -30,7 +30,7 @@ ALTER TABLE ALUNO
 CREATE TABLE CATEGORIA_USUARIO 
     ( 
      ctsr_id   INTEGER  NOT NULL , 
-     ctsr_desc VARCHAR2 (20) 
+     ctsr_desc VARCHAR (20) 
     ) 
 ;
 
@@ -40,7 +40,7 @@ ALTER TABLE CATEGORIA_USUARIO
 CREATE TABLE CIDADE 
     ( 
      cid_id   INTEGER  NOT NULL , 
-     cid_nome VARCHAR2 (75) , 
+     cid_nome VARCHAR (75) , 
      est_id   INTEGER  NOT NULL 
     ) 
 ;
@@ -51,7 +51,7 @@ ALTER TABLE CIDADE
 CREATE TABLE DIAS 
     ( 
      dia_id        INTEGER  NOT NULL , 
-     dia_descricao VARCHAR2 (20) 
+     dia_descricao VARCHAR (20) 
     ) 
 ;
 
@@ -72,11 +72,11 @@ ALTER TABLE DIAS_MARCADOS_OFICINAS
 CREATE TABLE ENDERECO 
     ( 
      end_id          INTEGER  NOT NULL , 
-     end_logradouro  VARCHAR2 (150) , 
-     end_numero      VARCHAR2 (20) , 
-     end_cep         VARCHAR2 (8) , 
-     end_complemento VARCHAR2 (50) , 
-     end_bairro      VARCHAR2 (75) , 
+     end_logradouro  VARCHAR (150) , 
+     end_numero      VARCHAR (20) , 
+     end_cep         VARCHAR (8) , 
+     end_complemento VARCHAR (50) , 
+     end_bairro      VARCHAR (75) , 
      cid_id          INTEGER  NOT NULL 
     ) 
 ;
@@ -87,7 +87,7 @@ ALTER TABLE ENDERECO
 CREATE TABLE ESPECIALIDADES 
     ( 
      esp_id            INTEGER  NOT NULL , 
-     esp_descricao     VARCHAR2 (100) , 
+     esp_descricao     VARCHAR (100) , 
      PROFESSOR_prof_id INTEGER  NOT NULL 
     ) 
 ;
@@ -98,8 +98,8 @@ ALTER TABLE ESPECIALIDADES
 CREATE TABLE ESTADO 
     ( 
      est_id   INTEGER  NOT NULL , 
-     est_uf_1 VARCHAR2 (2)  NOT NULL , 
-     est_nome VARCHAR2 (30) 
+     est_uf_1 VARCHAR (2)  NOT NULL , 
+     est_nome VARCHAR (30) 
     ) 
 ;
 
@@ -109,7 +109,7 @@ ALTER TABLE ESTADO
 CREATE TABLE OFICINA 
     ( 
      ofc_id           INTEGER  NOT NULL , 
-     ofc_nome         VARCHAR2 (75) , 
+     ofc_nome         VARCHAR (75) , 
      ofc_hora_inicio  DATE , 
      ofc_hora_termino DATE , 
      prof_id          INTEGER  NOT NULL 
@@ -136,7 +136,7 @@ ALTER TABLE PASSEIO
 CREATE TABLE PASSEIO_DESCRICAO 
     ( 
      pde_id        INTEGER  NOT NULL , 
-     pde_descricao VARCHAR2 (75) 
+     pde_descricao VARCHAR (75) 
     ) 
 ;
 
@@ -146,10 +146,10 @@ ALTER TABLE PASSEIO_DESCRICAO
 CREATE TABLE PESSOA 
     ( 
      pes_id            INTEGER  NOT NULL , 
-     pes_nome          VARCHAR2 (75) , 
-     pes_cpf           VARCHAR2 (11) , 
+     pes_nome          VARCHAR (75) , 
+     pes_cpf           VARCHAR (11) , 
      pes_dt_nascimento DATE , 
-     pes_rg            VARCHAR2 (9) , 
+     pes_rg            VARCHAR (9) , 
      end_id            INTEGER  NOT NULL 
     ) 
 ;
@@ -183,7 +183,7 @@ ALTER TABLE PRESENCA_PASSEIO
 CREATE TABLE PROFESSOR 
     ( 
      prof_id        INTEGER  NOT NULL , 
-     prof_matricula VARCHAR2 (10) , 
+     prof_matricula VARCHAR (10) , 
      pes_id         INTEGER  NOT NULL 
     ) 
 ;
@@ -234,7 +234,7 @@ ALTER TABLE R_PROFESSOR_PASSEIO
 CREATE TABLE TELEFONE 
     ( 
      tel_id     INTEGER  NOT NULL , 
-     tel_numero VARCHAR2 (11) , 
+     tel_numero VARCHAR (11) , 
      pes_id     INTEGER  NOT NULL 
     ) 
 ;
@@ -245,8 +245,8 @@ ALTER TABLE TELEFONE
 CREATE TABLE USUARIO 
     ( 
      usr_id    INTEGER  NOT NULL , 
-     usr_login VARCHAR2 (40) , 
-     usr_senha VARCHAR2 (40) , 
+     usr_login VARCHAR (40) , 
+     usr_senha VARCHAR (40) , 
      ctsr_id   INTEGER  NOT NULL 
     ) 
 ;

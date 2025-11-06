@@ -21,33 +21,29 @@ public class OficinaController {
             return Map.of("erro", "Dados inválidos para cadastro!!");
         }
 
-        // status padrão ao criar
-        String status = "A";
-
-        Oficina novo =  new Oficina(0, descricao, status);
+        Oficina novo =  new Oficina(0,descricao);
 
         Oficina gravada = OficinaModel.gravarOficina(novo, conexao);
         if(gravada != null){
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", novo.getId());
             json.put("descricao", novo.getDescricao());
-            json.put("status", novo.getStatus());
             return json;
         }
-
         String erroReal = "Erro desconhecido ao cadastrar oficina.";
         try {
             erroReal = conexao.getMensagemErro();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.err.println("Falha ao obter mensagem de erro do DB: " + e.getMessage());
+
         }
         return Map.of("erro", erroReal);
     }
 
-
-    public Map<String, Object> updateOficina(int id, String descricao, String status) {
+    public Map<String, Object> updateOficina(int id, String descricao) {
         Conexao conexao = SingletonDB.conectar();
-        if(descricao == null || status == null ) {
+        if(descricao == null ) {
             return Map.of("erro", "Dados inválidos!!");
         }
 
@@ -58,21 +54,19 @@ public class OficinaController {
 
         encontrada.setId(id);
         encontrada.setDescricao(descricao);
-        encontrada.setStatus(status);
+
 
         Oficina atualizada = OficinaModel.alterarOficina(encontrada, conexao);
 
-        if(atualizada != null) {
+        if(atualizada != null) { // Atualização ocorreu com sucesso
             return Map.of(
                     "idOficina", atualizada.getId(),
-                    "descricao", atualizada.getDescricao(),
-                    "status", atualizada.getStatus()
+                    "descricao", atualizada.getDescricao()
             );
         } else {
             return Map.of("erro", "Erro ao atualizar Oficina");
         }
     }
-
 
     public Map<String, Object> getOficinaPorId(int id, Conexao conexao) {
         Oficina o = OficinaModel.consultarOficinasID(id,conexao); // pega a oficina do DAO
@@ -84,7 +78,6 @@ public class OficinaController {
         Map<String, Object> json = new HashMap<>();
         json.put("idOficina", o.getId());
         json.put("descricao", o.getDescricao());
-        json.put("status", o.getStatus());
 
         return json;
     }
@@ -102,7 +95,6 @@ public class OficinaController {
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", o.getId());
             json.put("descricao", o.getDescricao());
-            json.put("status", o.getStatus());
 
             resultado.add(json);
         }

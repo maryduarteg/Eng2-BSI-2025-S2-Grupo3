@@ -1,6 +1,8 @@
 package com.example.proj_bga.model;
 
 import com.example.proj_bga.dao.UsuarioDAO;
+import com.example.proj_bga.util.Conexao;
+import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -66,7 +68,8 @@ public class Usuario {
     }
 
     public boolean logar(String login, String senha){
-        Usuario usuario = dao.getUsuario(login);
+        Conexao conexao = SingletonDB.conectar();
+        Usuario usuario = dao.getUsuario(login,  conexao);
         if(usuario == null)
             return false;
 

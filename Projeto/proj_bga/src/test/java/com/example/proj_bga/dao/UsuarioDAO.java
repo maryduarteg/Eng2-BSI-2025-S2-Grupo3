@@ -1,6 +1,7 @@
 package com.example.proj_bga.dao;
 
 import com.example.proj_bga.model.Usuario;
+import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +12,8 @@ import java.util.List;
 @Repository
 public class UsuarioDAO implements IDAO<Usuario>{
     @Override
-    public Usuario gravar(Usuario usuario) {
-        String sql = String.format("""
+    public Usuario gravar(Usuario usuario, Conexao conexao) {
+      /*  String sql = String.format("""
         INSERT INTO usuario (usr_login, usr_senha, ctsr_id, usr_ativo)
         VALUES ('%s', '%s', '%d', '%d')
         RETURNING usr_id
@@ -35,32 +36,32 @@ public class UsuarioDAO implements IDAO<Usuario>{
         } catch (SQLException e) {
             System.out.println("Erro ao gravar Usuário: " + e.getMessage());
         }
-
+*/
         return null;
     }
 
     @Override
-    public Object alterar(Usuario entidade) {
+    public Object alterar(Usuario entidade, Conexao conexao) {
         return null;
     }
 
     @Override
-    public boolean excluir(Usuario entidade) {
+    public boolean excluir(Usuario entidade, Conexao conexao) {
         return false;
     }
 
     @Override
-    public List<Usuario> get(String filtro) {
+    public List<Usuario> get(String filtro, Conexao conexao) {
         return List.of();
     }
 
     @Override
-    public Usuario get(int id) {
+    public Usuario get(int id, Conexao conexao) {
         return null;
     }
 
-    public Usuario getUsuario(String login) {
-        String sql = "SELECT * FROM usuario WHERE usr_login = '" + login + "'";
+    public Usuario getUsuario(String login, Conexao conexao) {
+       /* String sql = "SELECT * FROM usuario WHERE usr_login = '" + login + "'";
         System.out.println(sql);
         ResultSet resultado = SingletonDB.getConexao().consultar(sql);
 
@@ -84,7 +85,7 @@ public class UsuarioDAO implements IDAO<Usuario>{
             return null;
         } catch (SQLException e) {
             System.out.println("Erro ao buscar Oficina por ID: " + e.getMessage());
-        }
+        }*/
         return null;
     }
 }
