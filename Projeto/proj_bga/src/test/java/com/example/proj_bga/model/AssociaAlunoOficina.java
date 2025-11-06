@@ -5,6 +5,8 @@ import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AssociaAlunoOficina {
 
@@ -17,6 +19,10 @@ public class AssociaAlunoOficina {
     public AssociaAlunoOficina(int alu_id, int ofc_id) {
         this.alu_id = alu_id;
         this.ofc_id = ofc_id;
+    }
+
+    public AssociaAlunoOficina(int alu_id) {
+        this.alu_id = alu_id;
     }
 
     public AssociaAlunoOficina() {
@@ -44,5 +50,13 @@ public class AssociaAlunoOficina {
 
     public boolean excluiAlunoOficina(AssociaAlunoOficina associaAlunoOficina,  Conexao conexao) {
         return dao.excluir(associaAlunoOficina, conexao);
+    }
+
+    public List<AssociaAlunoOficina> consultarAlunosOficinas(String filtro, Conexao conexao) {
+        return dao.get(filtro, conexao);
+    }
+
+    public AssociaAlunoOficina consultaAlunosOficinasID(int alu_id, Conexao conexao) {
+        return dao.get(alu_id, conexao);
     }
 }
