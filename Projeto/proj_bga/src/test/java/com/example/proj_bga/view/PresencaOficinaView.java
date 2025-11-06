@@ -1,39 +1,44 @@
 package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.PresencaOficinaController;
+import com.example.proj_bga.model.PresencaOficina;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("apis/presenca/oficina")
 public class PresencaOficinaView {
 
     @Autowired
-    private PresencaOficinaController controller;
+    private PresencaOficinaController controllerOficinaPresenca;
 
-    // Registrar falta
     @PostMapping
-    public ResponseEntity<Object> registrarFalta(@RequestParam int idAluno,
-                                                 @RequestParam int idOficina,
-                                                 @RequestParam int idDia) {
-        if (controller.registrarFalta(idAluno, idOficina, idDia) != null) {
+    public ResponseEntity<Object> registrarFalta(@RequestBody PresencaOficina dto) {
+        if (controllerOficinaPresenca.registrarFalta(dto.getIdAluno(), dto.getIdDia()) != null)
             return ResponseEntity.ok(new Mensagem("Falta registrada com sucesso!"));
-        }
         return ResponseEntity.badRequest().body(new Mensagem("Erro ao registrar falta"));
     }
 
-    // Listar faltas por oficina e dia
-    @GetMapping
-    public ResponseEntity<Object> listarFaltas(@RequestParam int idOficina,
-                                               @RequestParam int idDia) {
-        List<?> lista = controller.listarFaltas(idOficina, idDia);
-        if (lista != null && !lista.isEmpty())
-            return ResponseEntity.ok(lista);
-        return ResponseEntity.badRequest().body(new Mensagem("Nenhuma falta registrada"));
+    @GetMapping("/datas")
+    public ResponseEntity<Object> listarDatas() {
+        return ResponseEntity.ok(controllerOficinaPresenca.listarDatas());
     }
+
+    @GetMapping("/alunos/{dmf_id}")
+    public ResponseEntity<Object> listarAlunos(@PathVariable int dmf_id) {
+        return ResponseEntity.ok(controllerOficinaPresenca.listarAlunos(dmf_id));
+    }
+
+    @GetMapping("/chamada-feita/{dmf_id}")
+    public ResponseEntity<Object> chamadaFeita(@PathVariable int dmf_id) {
+        boolean feita = controllerOficinaPresenca.chamadaFeita(dmf_id);
+        return ResponseEntity.ok(Map.of("chamadaFeita", feita));
+    }
+
+
 }

@@ -81,4 +81,18 @@ public class Conexao {
         }
         return max;
     }
+
+    public int consultarValor(String sql) {
+        int valor = -1;
+        try {
+            ResultSet rs = consultar(sql);
+            if (rs != null && rs.next()) {
+                valor = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            erro = "Erro ao consultar valor: " + e.getMessage();
+        }
+        return valor;
+    }
+
 }

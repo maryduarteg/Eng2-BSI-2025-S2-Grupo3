@@ -48,4 +48,9 @@ public class PresencaOficina {
     public List<PresencaOficina> consultarPorOficinaEDia(int idOficina, int idDia, Conexao conexao) {
         return dao.getPorOficinaEDia(idOficina, idDia, conexao);
     }
+
+    public Integer buscarOficinaPorDia(int idDia, Conexao conexao) {
+        return dao.buscarOficinaPorDia(idDia, conexao);
+    }
+
 }
