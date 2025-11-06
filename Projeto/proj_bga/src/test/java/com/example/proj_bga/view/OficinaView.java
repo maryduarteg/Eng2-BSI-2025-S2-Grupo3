@@ -65,10 +65,10 @@ public class OficinaView {
     @PutMapping
     public ResponseEntity<Object> updateOficinas(
             @RequestParam("id") int id,
-            @RequestParam("descricao") String descricao
+            @RequestParam("descricao") String descricao, @RequestParam("Status") String status
             ) {
 
-        Map<String, Object> json = oficinaController.updateOficina(id, descricao);
+        Map<String, Object> json = oficinaController.updateOficina(id, descricao, status);
 
         if (json.get("erro") == null) {
             return ResponseEntity.ok(new Mensagem(
