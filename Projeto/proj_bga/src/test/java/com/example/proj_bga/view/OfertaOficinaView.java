@@ -18,7 +18,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("apis/ofertaoficina")
+@RequestMapping("apis/ofertaOficina")
 public class OfertaOficinaView {
 
     @Autowired

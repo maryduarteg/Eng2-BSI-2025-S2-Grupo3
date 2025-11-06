@@ -71,6 +71,8 @@ public class OficinaDAO implements IDAO<Oficina>{
             while (rs.next()) {
                 Oficina a = new Oficina();
                 a.setId(rs.getInt("ofc_id"));
+                System.out.println(rs.getInt("ofc_id"));
+                System.out.println(a.getId());
                 a.setDescricao(rs.getString("ofc_descricao"));
                 a.setAtivo(rs.getString("ofc_ativo").charAt(0));
                 lista.add(a);

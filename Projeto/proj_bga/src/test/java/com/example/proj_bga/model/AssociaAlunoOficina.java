@@ -3,7 +3,9 @@ package com.example.proj_bga.model;
 import com.example.proj_bga.dao.AssociaAlunoOficinaDAO;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AssociaAlunoOficina {
 
     @Autowired

@@ -96,13 +96,13 @@ function carregarProfessores() {
         document.getElementById("editar-professor")    // edição
     ];
 
-    fetch("http://localhost:8080/apis/ofertaoficina/professores")
+    fetch("http://localhost:8080/apis/ofertaOficina/professores")
         .then(resp => resp.json())
         .then(listaProfessores => {
             selects.forEach(select => {
                 if (!select) return;
                 // Limpa opções antigas e adiciona placeholder
-                select.innerHTML = '<option value="">Selecione um professor</option>';
+                select.innerHTML = '';
 
                 listaProfessores.forEach(prof => {
                     const option = document.createElement("option");
@@ -140,7 +140,7 @@ function carregarOficinasTabelaSuper()
                     if(ofc.ativo != 'N')
                     {
                         const option = document.createElement("option");
-                        option.value = ofc.id;      // id do professor vindo do backend
+                        option.value = ofc.idOficina;      // id do professor vindo do backend
                         option.textContent = ofc.descricao; // nome do professor vindo do backend
                         select.appendChild(option);
                     }
@@ -242,7 +242,7 @@ function cadastrarOficina(event) {
     };
 
     // Verifica conflito de horários no backend antes de cadastrar
-    fetch(`http://localhost:8080/apis/ofertaoficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
+    fetch(`http://localhost:8080/apis/ofertaOficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
         .then(resp => resp.json())
         .then(conflito => {
             if (conflito.existe) {
@@ -250,7 +250,8 @@ function cadastrarOficina(event) {
                 mostrarMensagem("Conflito detectado: professor já ocupado nesse horário.", false);
             } else {
                 // Se não há conflito, cadastrar
-                fetch("http://localhost:8080/apis/ofertaoficina", {
+
+                fetch("http://localhost:8080/apis/ofertaOficina", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(oficina)
@@ -324,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para carregar todas as oficinas
 function carregarTodasOficinas() {
-    fetch("http://localhost:8080/apis/ofertaoficina")
+    fetch("http://localhost:8080/apis/ofertaOficina")
         .then(resp => resp.json())
         .then(data => {
             todasOficinas = data; // ← salva a lista completa
@@ -392,7 +393,7 @@ function ativarBotoesExcluir() {
             const id = botao.dataset.id;
             if (!id || !confirm("Deseja realmente inativar esta oficina?")) return;
 
-            fetch(`http://localhost:8080/apis/ofertaoficina/inativar/${id}`, { method: "PUT" })
+            fetch(`http://localhost:8080/apis/ofertaOficina/inativar/${id}`, { method: "PUT" })
                 .then(resp => {
                     if (!resp.ok) throw new Error("Erro ao inativar oficina");
                     botao.closest("tr").cells[7].textContent = "Inativa";
@@ -411,7 +412,7 @@ function ativarBotoesEditar() {
     document.querySelectorAll(".btn-editar").forEach(botao => {
         botao.addEventListener("click", () => {
             const id = botao.dataset.id;
-            fetch(`http://localhost:8080/apis/ofertaoficina/${id}`)
+            fetch(`http://localhost:8080/apis/ofertaOficina/${id}`)
                 .then(resp => resp.json())
                 .then(oficina => {
                     document.getElementById("editar-id").value = oficina.idOficina;
@@ -442,7 +443,7 @@ function salvarEdicao() {
     let valido = true;
 
     const id = document.getElementById("editar-id").value;
-    const nome = document.getElementById("editar-nome");
+    const nome = document.getElementById("editar-nome").value;
     const dataInicioCampo = document.getElementById("editar-data-inicio");
     const dataFimCampo = document.getElementById("editar-data-fim");
     const horaInicioCampo = document.getElementById("editar-hora-inicio");
@@ -450,7 +451,7 @@ function salvarEdicao() {
     const professor = document.getElementById("editar-professor");
     const ativo = document.getElementById("editar-ativo").value;
 
-    const campos = [nome, dataInicioCampo, dataFimCampo, horaInicioCampo, horaFimCampo, professor];
+    const campos = [dataInicioCampo, dataFimCampo, horaInicioCampo, horaFimCampo, professor];
 
     // Remove erros existentes
     campos.forEach(campo => {
@@ -508,7 +509,7 @@ function salvarEdicao() {
     if (!valido) return;
 
     //Verificação de conflito antes de atualizar (mesmo do cadastrar)
-    fetch(`http://localhost:8080/apis/ofertaoficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
+    fetch(`http://localhost:8080/apis/ofertaOficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
         .then(resp => resp.json())
         .then(conflito => {
             if (conflito.existe) {
@@ -520,16 +521,16 @@ function salvarEdicao() {
             // Se não há conflito → atualizar
             const params = new URLSearchParams({
                 id: id,
-                Nome: nome.value.trim(),
                 Hora_Inicio: horaInicio,
                 Hora_Fim: horaFim,
                 Data_Inicio: converterDataBrasilParaISO(dataInicio),
                 Data_Fim: converterDataBrasilParaISO(dataFim),
                 Professor: professorId,
-                Ativo: ativo
+                Ativo: ativo,
+                ofc_pk: nome.value
             });
 
-            fetch(`http://localhost:8080/apis/ofertaoficina?${params.toString()}`, { method: "PUT" })
+            fetch(`http://localhost:8080/apis/ofertaOficina?${params.toString()}`, { method: "PUT" })
                 .then(resp => {
                     if (!resp.ok) throw new Error();
                     mostrarMensagem("Alteração realizada com sucesso!", true);
@@ -573,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Faz a requisição para buscar a oficina por ID
-        fetch(`http://localhost:8080/apis/ofertaoficina/${id}`) // ajuste a URL conforme sua API
+        fetch(`http://localhost:8080/apis/ofertaOficina/${id}`) // ajuste a URL conforme sua API
             .then(response => {
                 if (!response.ok) throw new Error('Oficina não encontrada');
                 return response.json();

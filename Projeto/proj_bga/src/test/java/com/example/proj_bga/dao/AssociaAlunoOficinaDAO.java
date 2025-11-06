@@ -2,10 +2,11 @@ package com.example.proj_bga.dao;
 
 import com.example.proj_bga.model.AssociaAlunoOficina;
 import com.example.proj_bga.util.Conexao;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.util.List;
-
+@Repository
 public class AssociaAlunoOficinaDAO implements IDAO<AssociaAlunoOficina> {
 
     @Override

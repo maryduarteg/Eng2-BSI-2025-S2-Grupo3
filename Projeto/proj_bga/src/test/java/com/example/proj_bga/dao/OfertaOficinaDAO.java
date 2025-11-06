@@ -15,7 +15,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
     @Override
     public OfertaOficina gravar(OfertaOficina ofertaOficina, Conexao conexao) {
         String sql = String.format("""
-                INSERT INTO ofertaOficina (
+                INSERT INTO ofertar_oficina (
                     ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_pk
                 ) VALUES ('%s', '%s', '%s', '%s', %d, '%s', %d)
                 RETURNING ofc_id
@@ -48,7 +48,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
     @Override
     public OfertaOficina alterar(OfertaOficina ofertaOficina, Conexao conexao) {
         String sql = """
-                UPDATE ofertaOficina
+                UPDATE ofertar_oficina
                 SET ofc_hora_inicio = '#2',
                     ofc_hora_termino = '#3',
                     ofc_dt_inicial = '#4',
@@ -84,7 +84,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
 
     public boolean inativarOficina(int id, Conexao conexao) {
         String sql = """
-                UPDATE ofertaOficina
+                UPDATE ofertar_oficina
                 SET ofc_ativo = 'I'
                 WHERE ofc_id = #1;
                 """;
@@ -102,7 +102,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
     public OfertaOficina get(int id, Conexao conexao) {
         if (id <= 0) return null;
 
-        String sql = "SELECT * FROM ofertaOficina WHERE ofc_id = " + id;
+        String sql = "SELECT * FROM ofertar_oficina WHERE ofc_id = " + id;
         ResultSet resultado = conexao.consultar(sql);
 
         try {
@@ -131,7 +131,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
     @Override
     public List<OfertaOficina> get(String filtro, Conexao conexao) {
         List<OfertaOficina> ofertaOficinas = new ArrayList<>();
-        String sql = "SELECT * FROM ofertaOficina";
+        String sql = "SELECT * FROM ofertar_oficina";
 
         if (filtro != null && !filtro.isEmpty()) {
             sql += " WHERE " + filtro;
@@ -171,7 +171,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
         String sql = """ 
                 SELECT ofc_hora_inicio, 
                 ofc_hora_termino, ofc_dt_inicial,
-                 ofc_dt_final FROM ofertaOficina WHERE prof_id = %d 
+                 ofc_dt_final FROM ofertar_oficina WHERE prof_id = %d 
                  AND ofc_ativo = 'S' 
                  AND (
                   (ofc_dt_inicial <= '%s' 

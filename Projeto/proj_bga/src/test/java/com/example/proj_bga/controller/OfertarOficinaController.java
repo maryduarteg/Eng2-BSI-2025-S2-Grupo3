@@ -35,6 +35,7 @@ public class OfertarOficinaController {
             json.put("data_fim", novo.getDataFim());
             json.put("pde_id", novo.getProfessor());
             json.put("ativo", novo.getAtivo());
+            json.put("ofc_fk", novo.getOfc_fk());
             return json;
         }
         String erroReal = "Erro desconhecido ao cadastrar oferta de oficina.";
@@ -53,6 +54,7 @@ public class OfertarOficinaController {
         Conexao conexao = new Conexao();
         List<OfertaOficina> ofertaOficina = ofertaOficinaModel.consultarOficinas("", conexao);
         if(ofertaOficina == null){
+            System.out.println("Deu errrroooo aquiii");
             return null;
     }
 
@@ -67,6 +69,7 @@ public class OfertarOficinaController {
             json.put("data_fim", o.getDataFim());
             json.put("pde_id", o.getProfessor());
             json.put("ativo", o.getAtivo());
+            json.put("ofc_fk", o.getOfc_fk());
             resultado.add(json);
         }
         return resultado;
