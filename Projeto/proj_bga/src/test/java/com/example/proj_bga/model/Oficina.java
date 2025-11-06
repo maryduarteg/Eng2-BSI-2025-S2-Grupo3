@@ -4,9 +4,10 @@ package com.example.proj_bga.model;
 import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class Oficina {
     @Autowired
     private OficinaDAO dao;

@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EBC251D8-37DB-6865-A6E7-D2945A194DDB" containerWithKeyObject="528487E4-0189-FC74-866C-721E69A83955" localFKIndex="09AE0BDC-F766-864D-6066-45311469AEFE" name="dmf_id">
+<createdBy>Mary</createdBy>
+<createdTime>2025-11-05 03:47:54 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>DIAS_MARCADOS_OFICINAS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>C75149CB-A6CA-EFD6-6A7A-928CFF7EEC26</referredTableID>
+<keyObject>913D6BBD-FF14-D7A2-70C4-E28FD0F625F9</keyObject>
+<referredKeyID>913D6BBD-FF14-D7A2-70C4-E28FD0F625F9</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>dmf_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
