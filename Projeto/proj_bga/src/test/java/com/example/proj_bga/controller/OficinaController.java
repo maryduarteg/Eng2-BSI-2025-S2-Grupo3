@@ -21,13 +21,14 @@ public class OficinaController {
             return Map.of("erro", "Dados inválidos para cadastro!!");
         }
 
-        Oficina novo =  new Oficina(0,descricao);
+        Oficina novo =  new Oficina(0,descricao,'S');
 
         Oficina gravada = OficinaModel.gravarOficina(novo, conexao);
         if(gravada != null){
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", novo.getId());
             json.put("descricao", novo.getDescricao());
+            json.put("ativo", novo.getAtivo());
             return json;
         }
         String erroReal = "Erro desconhecido ao cadastrar oficina.";
@@ -41,7 +42,7 @@ public class OficinaController {
         return Map.of("erro", erroReal);
     }
 
-    public Map<String, Object> updateOficina(int id, String descricao) {
+    public Map<String, Object> updateOficina(int id, String descricao, char ativo) {
         Conexao conexao = SingletonDB.conectar();
         if(descricao == null ) {
             return Map.of("erro", "Dados inválidos!!");
@@ -54,6 +55,7 @@ public class OficinaController {
 
         encontrada.setId(id);
         encontrada.setDescricao(descricao);
+        encontrada.setAtivo(ativo);
 
 
         Oficina atualizada = OficinaModel.alterarOficina(encontrada, conexao);
@@ -61,7 +63,8 @@ public class OficinaController {
         if(atualizada != null) { // Atualização ocorreu com sucesso
             return Map.of(
                     "idOficina", atualizada.getId(),
-                    "descricao", atualizada.getDescricao()
+                    "descricao", atualizada.getDescricao(),
+                    "ativo", atualizada.getAtivo()
             );
         } else {
             return Map.of("erro", "Erro ao atualizar Oficina");
@@ -78,6 +81,7 @@ public class OficinaController {
         Map<String, Object> json = new HashMap<>();
         json.put("idOficina", o.getId());
         json.put("descricao", o.getDescricao());
+        json.put("ativo", o.getAtivo());
 
         return json;
     }
@@ -95,6 +99,7 @@ public class OficinaController {
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", o.getId());
             json.put("descricao", o.getDescricao());
+            json.put("ativo", o.getAtivo());
 
             resultado.add(json);
         }

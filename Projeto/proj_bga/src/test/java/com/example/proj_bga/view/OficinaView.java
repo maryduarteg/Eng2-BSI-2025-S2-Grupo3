@@ -16,7 +16,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@Service
+
+@CrossOrigin("*")
+@RestController
+@RequestMapping("apis/oficina")
 public class OficinaView {
 
     @Autowired
@@ -63,22 +66,19 @@ public class OficinaView {
 
 
     @PutMapping
-    public ResponseEntity<Object> updateOficinas(
-            @RequestParam("id") int id,
-            @RequestParam("descricao") String descricao
-            ) {
+    public ResponseEntity<Object> updateOficinas(@RequestBody Oficina dto) {
+        Map<String, Object> json = oficinaController.updateOficina(
+                dto.getId(),
+                dto.getDescricao(),
+                dto.getAtivo()
+        );
 
-        Map<String, Object> json = oficinaController.updateOficina(id, descricao);
-
-        if (json.get("erro") == null) {
-            return ResponseEntity.ok(new Mensagem(
-                    json.containsKey("mensagem")
-                            ? json.get("mensagem").toString()
-                            : "Oficina atualizada com sucesso!"
-            ));
+        if(json.get("erro") == null) {
+            return ResponseEntity.ok(new Mensagem("Oficina atualizada com sucesso!"));
         } else {
             return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
         }
     }
+
 
 }

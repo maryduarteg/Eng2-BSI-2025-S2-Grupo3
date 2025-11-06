@@ -32,3 +32,7 @@
 .input-group i {
     color: #6c757d;
 }
+
+.is-invalid {
+    border: 2px solid red !important;
+}

@@ -4,21 +4,32 @@ package com.example.proj_bga.model;
 import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.util.Conexao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class Oficina {
     @Autowired
     private OficinaDAO dao;
 
     private int id;
     private String descricao;
+    private char ativo;
 
     public Oficina() {}
 
-    public Oficina(int id, String descricao) {
+    public char getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(char ativo) {
+        this.ativo = ativo;
+    }
+
+    public Oficina(int id, String descricao, char ativo) {
         this.id = id;
         this.descricao = descricao;
+        this.ativo = ativo;
     }
 
     public int getId() {
