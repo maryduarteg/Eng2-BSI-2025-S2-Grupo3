@@ -14,12 +14,22 @@ public class Oficina {
 
     private int id;
     private String descricao;
+    private char ativo;
 
     public Oficina() {}
 
-    public Oficina(int id, String descricao) {
+    public char getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(char ativo) {
+        this.ativo = ativo;
+    }
+
+    public Oficina(int id, String descricao, char ativo) {
         this.id = id;
         this.descricao = descricao;
+        this.ativo = ativo;
     }
 
     public int getId() {

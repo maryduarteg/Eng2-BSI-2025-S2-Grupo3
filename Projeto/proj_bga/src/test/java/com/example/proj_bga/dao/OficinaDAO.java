@@ -15,8 +15,8 @@ public class OficinaDAO implements IDAO<Oficina>{
     public Object gravar(Oficina entidade, Conexao conexao) {
         String sql = """
                 INSERT INTO oficina(
-                	ofc_descricao)
-                	VALUES ('#1');
+                	ofc_descricao, ofc_ativo)
+                	VALUES ('#1', 'S');
                 """;
         sql = sql.replace("#1", entidade.getDescricao());
 
@@ -36,12 +36,13 @@ public class OficinaDAO implements IDAO<Oficina>{
         Oficina retorno = null;
         String sql = """
              UPDATE oficina
-             SET ofc_descricao='#1'
-             WHERE ofc_id=#2;
+             SET ofc_descricao='#1', ofc_ativo = '#2'
+             WHERE ofc_id=#3;
              """;
 
         sql = sql.replace("#1",entidade.getDescricao());
-        sql = sql.replace("#2", ""+entidade.getId());
+        sql = sql.replace("#2",""+entidade.getAtivo());
+        sql = sql.replace("#3", ""+entidade.getId());
 
 
         try {
@@ -71,6 +72,7 @@ public class OficinaDAO implements IDAO<Oficina>{
                 Oficina a = new Oficina();
                 a.setId(rs.getInt("ofc_id"));
                 a.setDescricao(rs.getString("ofc_descricao"));
+                a.setAtivo(rs.getString("ofc_ativo").charAt(0));
                 lista.add(a);
             }
             return lista;
@@ -96,6 +98,7 @@ public class OficinaDAO implements IDAO<Oficina>{
                 a = new Oficina();
                 a.setId(rs.getInt("ofc_id"));
                 a.setDescricao(rs.getString("ofc_descricao"));
+                a.setAtivo(rs.getString("ofc_ativo").charAt(0));
             }
         } catch(Exception e) {
             System.out.println("Erro ao obter Oficina: " + e.getMessage());
