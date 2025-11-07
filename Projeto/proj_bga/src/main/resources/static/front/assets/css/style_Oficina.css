@@ -7,6 +7,17 @@
     margin-top: 10px;
 }
 
+.filtro-nome
+{
+    display: flex;
+    flex-direction: row;
+}
+
+#btn-buscar-nome
+{
+    margin-left: 6px;
+}
+
 .mensagem.sucesso {
     background-color: #d4edda;
     color: #155724;

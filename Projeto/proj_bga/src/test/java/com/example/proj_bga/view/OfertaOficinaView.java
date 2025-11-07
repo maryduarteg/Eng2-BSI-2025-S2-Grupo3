@@ -79,8 +79,6 @@ public class OfertaOficinaView {
         }
     }
 
-
-
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Object> deleteOficina(@PathVariable("id") int id) {
 //        Map<String, Object> json = oficinaController.deletarOficina(id);

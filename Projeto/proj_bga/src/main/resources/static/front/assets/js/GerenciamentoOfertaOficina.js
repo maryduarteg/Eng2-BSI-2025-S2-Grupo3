@@ -562,11 +562,13 @@ function converterDataBrasilParaISO(dataBr) {
 // BUSCA DE OFICINA POR ID
 document.addEventListener('DOMContentLoaded', () => {
     const btnBuscar = document.getElementById('btn-buscar-oficina');
+    const btnBuscarNome = document.getElementById("btn-buscar-nome");
     const btnLimpar = document.getElementById('btn-limpar-busca');
     const inputBusca = document.getElementById('input-busca-id');
     const tabela = document.getElementById('tabela-oficina-container');
     const tabelaContainer = document.getElementById('tabela-container');
     const mensagemTabela = document.getElementById('mensagem-tabela');
+    const inputNomeBusca = document.getElementById("filtro-nome");
 
     btnBuscar.addEventListener('click', () => {
         const id = inputBusca.value.trim();
@@ -621,6 +623,61 @@ document.addEventListener('DOMContentLoaded', () => {
         mensagemTabela.textContent = 'Carregando oficinas...';
         tabelaContainer.classList.add('d-none');
         carregarTodasOficinas(); // chama sua função padrão para listar todas
+    });
+
+    //Buscar oficina por contém parte da "palavra
+    btnBuscarNome.addEventListener('click', () => {
+
+        const ctd = inputNomeBusca.value.trim();
+        if (!ctd) {
+            alert('Informe o que deseja buscar.');
+            return;
+        }
+
+        fetch(`http://localhost:8080/apis/ofertaOficina`) // ajuste a URL conforme sua API
+            .then(response => {
+                if (!response.ok) throw new Error('Oficina não encontrada');
+                return response.json();
+            })
+            .then(listaOficina => {
+                tabelaContainer.classList.remove('d-none');
+                listaOficina.forEach(ofc => {
+                    let nome = ofc.nome;
+                    if(nome.includes(ctd))
+                    {
+                        tabela.innerHTML += `
+                            <tr>
+                                <td>${oficina.idOficina}</td>
+                                <td>${oficina.nome}</td>
+                                <td>${oficina.data_inicio}</td>
+                                <td>${oficina.data_fim}</td>
+                                <td>${oficina.hora_inicio}</td>
+                                <td>${oficina.hora_termino}</td>
+                                <td>${oficina.pde_id}</td>
+                                <td>${oficina.ativo}</td>
+                                                    <td>
+                                <button class="btn btn-sm btn-outline-info btn-editar" data-id="${oficina.idOficina}" title="Editar Oficina">
+                                       <i class="fas fa-edit"></i>
+                                </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger btn-excluir" data-id="${oficina.idOficina}" title="Inativar Oficina">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                });
+                mensagemTabela.textContent = '';
+                ativarBotoesExcluir();
+                ativarBotoesEditar();
+            })
+            .catch(err => {
+                tabela.innerHTML = '';
+                mensagemTabela.textContent = 'Oficina não encontrada.';
+            });
+
     });
 });
 
