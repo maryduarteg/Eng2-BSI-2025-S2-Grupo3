@@ -28,6 +28,18 @@ public class PessoaView {
                     .body(List.of(Map.of("mensagem", "Nenhuma pessoa encontrada!!")));
         }
     }
+    @RequestMapping("alunos")
+    @GetMapping
+    public ResponseEntity<List<Map<String, Object>>> getAlunos() {
+        List<Map<String, Object>> lista = pessoaController.getAlunos();
+
+        if (lista != null && !lista.isEmpty()) {
+            return ResponseEntity.ok(lista);
+        } else {
+            return ResponseEntity.badRequest()
+                    .body(List.of(Map.of("mensagem", "Nenhuma pessoa encontrada!!")));
+        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getPessoaID(@PathVariable("id") int id) {

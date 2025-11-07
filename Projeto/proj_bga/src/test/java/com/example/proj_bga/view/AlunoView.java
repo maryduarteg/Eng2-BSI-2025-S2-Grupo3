@@ -79,7 +79,8 @@ public class AlunoView {
 
     @GetMapping
     public ResponseEntity<Object> get() {
-        List<Map<String, Object>> lista = alunoController.getAlunos("");
+        List<Map<String, Object>> lista = alunoController.getAlunos(
+                "WHERE PES_ID NOT IN (SELECT PES_ID FROM PROFESSOR)");
 
         if (lista != null && !lista.isEmpty()) {
             return ResponseEntity.ok(lista); // HTTP 200 com lista

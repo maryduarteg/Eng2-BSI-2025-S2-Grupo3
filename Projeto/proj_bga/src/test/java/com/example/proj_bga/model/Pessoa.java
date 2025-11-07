@@ -160,4 +160,14 @@ public class Pessoa {
         lista = dao.get("",conexao);
         return lista;
     }
+
+    public List<Pessoa> getAlunos(Conexao conexao)
+    {
+        List<Pessoa> lista = null;
+        lista = dao.get("WHERE PES_ID NOT IN " +
+                "(SELECT PES_ID FROM PROFESSOR) " +
+                "AND PES_ID NOT IN (SELECT PES_ID FROM ALUNO) " +
+                "ORDER BY PES_NOME",conexao);
+        return lista;
+    }
 }

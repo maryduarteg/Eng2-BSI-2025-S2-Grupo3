@@ -1,6 +1,7 @@
 package com.example.proj_bga.controller;
 
 import com.example.proj_bga.model.Aluno;
+import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
@@ -43,6 +44,12 @@ public class AlunoController {
             json.put("pais_convivem", gravado.getPais_convivem());
             json.put("pensao", gravado.getPensao());
             json.put("pes_id", gravado.getPes_id());
+
+            Pessoa p = pessoaModel.getId(gravado.getPes_id(),conexao);
+            if(p == null)
+                json.put("nome", "----");
+            else
+                json.put("nome", p.getNome());
             return json;
         } else {
             return Map.of("erro", "Erro ao cadastrar o aluno");
@@ -74,6 +81,11 @@ public class AlunoController {
                 json.put("ativo", "-");
             else
                 json.put("ativo", pessoa.getAtivo());
+            Pessoa p = pessoaModel.getId(e.getPes_id(),conexao);
+            if(p == null)
+                json.put("nome", "----");
+            else
+                json.put("nome", p.getNome());
 
             resultado.add(json);
         }

@@ -32,6 +32,22 @@ public class PessoaController {
         return resultado;
     }
 
+    public List<Map<String, Object>> getAlunos() {
+        Conexao conexao = SingletonDB.conectar();
+        List<Pessoa> pessoas = pessoaModel.getAlunos(conexao);
+        if(pessoas == null)
+            return null;
+
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        for(Pessoa e: pessoas){
+            Map<String, Object> json = new HashMap<>();
+            json.put("id", e.getId());
+            json.put("nome", e.getNome());
+            resultado.add(json);
+        }
+        return resultado;
+    }
+
     public Map<String, Object> getByID(int id) {
         Conexao conexao = SingletonDB.conectar();
 

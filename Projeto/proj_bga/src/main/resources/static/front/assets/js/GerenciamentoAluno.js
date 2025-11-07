@@ -7,9 +7,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     //adiciona uma lista com as pessoas
     const selectPessoa = document.getElementById('pessoa');
-    const selectEditarPessoa = document.getElementById('editarPessoa');
 
-    fetch("http://localhost:8080/apis/pessoa")
+    fetch("http://localhost:8080/apis/pessoa/alunos")
         .then(resp => {
             if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
             return resp.json();
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             //console.log("Resposta da API:", listaPessoa);
 
             // Garante que o select existe e limpa o conteúdo
-            selectPessoa.innerHTML = '';
 
             if (!listaPessoa || listaPessoa.length === 0) {
                 //console.log("Nenhuma pessoa cadastrada.");
@@ -27,11 +25,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             // Preenche o select
             listaPessoa.forEach(pessoa => {
-                const option = document.createElement('option');
-                option.value = pessoa.id ?? "-";
-                option.textContent = pessoa.nome ?? "-";
-                selectPessoa.appendChild(option);
-                selectEditarPessoa.appendChild(option);
+                const option1 = document.createElement('option');
+                option1.value = pessoa.id ?? "-";
+                option1.textContent = pessoa.nome ?? "-";
+
+                selectPessoa.appendChild(option1);
                 //console.log("Adicionando:", pessoa.nome);
             });
         })
@@ -127,10 +125,11 @@ btnCadastrar.addEventListener("click",function(e)
     })
         .then(resp => {
             console.log("Status:", resp.status);
+            alert("Alunos cadastrado com sucesso");
             return resp.text();
         })
-        .then(text => console.log("Resposta:", text))
-        .catch(err => console.error("Erro:", err));
+        .then(text => {console.log("Resposta:", text); })
+        .catch(err => {console.error("Erro:", err); alert("Erro ao cadastrar aluno")});
 });
 
 // Máscaras para datas e horas
@@ -197,6 +196,10 @@ function carregarTodosAlunos()
                 let tdId = document.createElement("td");
                 tdId.innerHTML = aluno.id ?? "-";
                 linha.appendChild(tdId);
+
+                let tdNome = document.createElement("td");
+                tdNome.innerHTML = aluno.nome ?? "-";
+                linha.appendChild(tdNome);
 
                 let tdEntrada = document.createElement("td");
                 tdEntrada.innerHTML = formatarDataParaBR(aluno.dt_entrada) ?? "-";
@@ -311,10 +314,11 @@ function ativarDesativarRegistro(id) {
             })
                 .then(resp => {
                     console.log("Status:", resp.status);
+                    alert("Aluno inativado com sucesso");
                     return resp.text();
                 })
                 .then(text => console.log("Resposta:", text))
-                .catch(err => console.error("Erro:", err));
+                .catch(err => {console.error("Erro:", err); alert("Erro ao inativar aluno");});
         })
         .catch(err => console.error(err));
 }
@@ -347,7 +351,9 @@ function carregarEdicao(id)
             document.getElementById("editarConhecimento").value = aluno[0].conhecimento;
             document.getElementById("editarPaisconvivem").value = aluno[0].pais_convivem;
             document.getElementById("editarPensao").value = aluno[0].pensao;
-            document.getElementById("editarPessoa").value = aluno[0].pes_id;
+            document.getElementById("editarPessoa").value = aluno[0].nome;
+            document.getElementById("editarPessoa").dataset.id = aluno[0].pes_id;
+
             document.getElementById("editarAtivo").value = aluno[0].ativo;
 
         })
@@ -391,7 +397,7 @@ btnAtualizar.addEventListener("click",function()
         conhecimento: document.getElementById("editarConhecimento").value,
         pais_convivem: document.getElementById("editarPaisconvivem").value,
         pensao: document.getElementById("editarPensao").value,
-        pes_id: document.getElementById("editarPessoa").value
+        pes_id: document.getElementById("editarPessoa").dataset.id
     };
 
     console.log("JSON enviado:", aluno);
@@ -403,8 +409,9 @@ btnAtualizar.addEventListener("click",function()
     })
         .then(resp => {
             console.log("Status:", resp.status);
+            alert("Aluno atualizado com sucesso");
             return resp.text();
         })
         .then(text => console.log("Resposta:", text))
-        .catch(err => console.error("Erro:", err));
+        .catch(err => {alert("Aluno atualizado com sucesso"); alert("Erro ao atualizar aluno");});
 });

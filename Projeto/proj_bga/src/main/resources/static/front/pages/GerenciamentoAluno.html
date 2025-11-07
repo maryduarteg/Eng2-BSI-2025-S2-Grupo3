@@ -329,20 +329,6 @@
             <!-- End of Topbar -->
 
             <!-- gerenciamento das ofertaOficinas começa aqui -->
-            <!-- Busca por ID -->
-            <div id="busca-id-container" class="d-flex justify-content-center mt-4 mb-4">
-                <input
-                        type="number"
-                        id="input-busca-id"
-                        class="form-control w-25"
-                        placeholder="Digite o ID da oficina"
-                        min="1"
-                        step="1"
-                >
-                <button type="button" id="btn-buscar-oficina" class="btn btn-info mx-2">Buscar Oficina</button>
-                <button type="button" id="btn-limpar-busca" class="btn btn-secondary">Limpar</button>
-            </div>
-
 
             <div class="container-fluid">
                 <br>
@@ -515,9 +501,9 @@
                         <!-- Pessoa -->
                         <div class="col-md-2 mb-3">
                             <label for="editarPessoa" class="form-label">Pessoa<span class="required">*</span></label>
-                            <select id = "editarPessoa" name = "editarPessoa">
-                                <option value=""></option>
-                            </select>
+                            <input id = "editarPessoa" name = "editarPessoa" disabled >
+
+                            </input>
                         </div>
 
                         <!-- Status -->
@@ -544,7 +530,26 @@
 
             <!-- Tabela de Alunos -->
             <div id="tabela-container" class="d-none text-center">
-                <h2></h2>
+                <div class = "filtros">
+                    <!-- Filtro por status -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Status do Aluno</label>
+                        <select id="filtro-status" class="form-control">
+                            <option value="">Todas</option>
+                            <option value="S">Ativas</option>
+                            <option value="N">Inativas</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtro por nome -->
+                    <div class="col-md-4 " >
+                        <label class="form-label fw-bold">Buscar por Nome:</label>
+                        <div class="filtro-nome">
+                            <input type="text" id="filtro-nome" class="form-control" placeholder="Digite o nome do aluno...">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-12 mx-auto">
                         <table class="table table-striped table-hover">
@@ -552,6 +557,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th>ID</th>
+                                <th>Nome</th>
                                 <th>Data de entrada</th>
                                 <th>Mãe</th>
                                 <th>Pai</th>
