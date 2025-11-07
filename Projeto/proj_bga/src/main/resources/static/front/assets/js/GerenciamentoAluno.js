@@ -34,7 +34,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
             });
         })
         .catch(err => console.error("Erro capturado:", err));
+
+        const filtroStatus = document.getElementById("filtro-status");
+
+    filtroStatus.addEventListener("change", function() {
+        if(filtroStatus.value != "")
+            carregarAlunosFiltroStatus(filtroStatus.value);
+        else
+            carregarTodosAlunos(filtroStatus.value);
+
+    });
+
+        const filtroNome = document.getElementById("filtro-nome");
+
+        filtroNome.addEventListener("keyup", function() {
+            carregarAlunosFiltroNome(filtroNome.value);
+        });
     }
+
+
 );
 
 function toggleFormulario() {
@@ -252,10 +270,194 @@ function carregarTodosAlunos()
             });
         })
         .catch(err => console.error("Erro capturado:", err));
+}
+function carregarAlunosFiltroStatus(status)
+{
+    const tabela = document.getElementById("tabela-container");
 
+    tabela.classList.remove("d-none");
+    let msg = document.getElementById("mensagem-tabela");
+    msg.classList.remove("d-none");
 
+    fetch("http://localhost:8080/apis/aluno")
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(listaAluno => {
+            //console.log("Resposta da API:", listaAluno);
+
+            if (!listaAluno || listaAluno.length === 0) {
+                //console.log("Nenhum aluno cadastrado.");
+                return;
+            }
+            const tablebody = document.getElementById("tabela-aluno-container");
+            tablebody.innerHTML = "";
+            // Preenche a tabela
+            listaAluno.forEach(aluno => {
+                if(aluno.ativo == status)
+                {
+                    let linha = document.createElement("tr");
+
+                    let tdFoto = document.createElement("td");
+                    tdFoto.innerHTML = aluno.foto ?? "-";
+                    linha.appendChild(tdFoto);
+
+                    let tdId = document.createElement("td");
+                    tdId.innerHTML = aluno.id ?? "-";
+                    linha.appendChild(tdId);
+
+                    let tdNome = document.createElement("td");
+                    tdNome.innerHTML = aluno.nome ?? "-";
+                    linha.appendChild(tdNome);
+
+                    let tdEntrada = document.createElement("td");
+                    tdEntrada.innerHTML = formatarDataParaBR(aluno.dt_entrada) ?? "-";
+                    linha.appendChild(tdEntrada);
+
+                    let tdMae = document.createElement("td");
+                    tdMae.innerHTML = aluno.mae ?? "-";
+                    linha.appendChild(tdMae);
+
+                    let tdPai = document.createElement("td");
+                    tdPai.innerHTML = aluno.pai ?? "-";
+                    linha.appendChild(tdPai);
+
+                    let tdResponsavel = document.createElement("td");
+                    tdResponsavel.innerHTML = aluno.responsavel_pais ?? "-";
+                    linha.appendChild(tdResponsavel);
+
+                    let tdAtivo = document.createElement("td");
+                    tdAtivo.innerHTML = aluno.ativo ?? "-";
+                    linha.appendChild(tdAtivo);
+
+                    // Botões
+                    let tdAlterar = document.createElement("td");
+                    tdAlterar.appendChild(createBotaoEditar(aluno.id, aluno.ativo));
+                    let tdAtivDes = document.createElement("td");
+                    tdAtivDes.appendChild(createBotaoAtivDes(aluno.pes_id, aluno.ativo));
+
+                    linha.appendChild(tdAlterar);
+                    linha.appendChild(tdAtivDes);
+                    tablebody.appendChild(linha);
+                    //console.log("Adicionando:", aluno.id)
+                    msg.classList.add("d-none");
+
+                    let botoesEditar = document.getElementsByClassName("btn-editar");
+                    let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
+
+                    Array.from(botoesEditar).forEach(e => {
+                        e.addEventListener("click", function() {
+                            if (e.dataset.status === 'N')
+                                console.log("Este registro está desativado. Não pode ser alterado");
+                            else
+                                carregarEdicao(e.dataset.id);
+
+                        });
+                    });
+
+                    Array.from(botoesAtivDes).forEach(e => {
+                        e.addEventListener("click", () => ativarDesativarRegistro(e.dataset.id));
+                    });
+                }
+            });
+        })
+        .catch(err => console.error("Erro capturado:", err));
 }
 
+function carregarAlunosFiltroNome(nome)
+{
+    const tabela = document.getElementById("tabela-container");
+
+    tabela.classList.remove("d-none");
+    let msg = document.getElementById("mensagem-tabela");
+    msg.classList.remove("d-none");
+
+    fetch("http://localhost:8080/apis/aluno")
+        .then(resp => {
+            if (!resp.ok) throw new Error(`Erro HTTP: ${resp.status}`);
+            return resp.json();
+        })
+        .then(listaAluno => {
+            //console.log("Resposta da API:", listaAluno);
+
+            if (!listaAluno || listaAluno.length === 0) {
+                //console.log("Nenhum aluno cadastrado.");
+                return;
+            }
+            const tablebody = document.getElementById("tabela-aluno-container");
+            tablebody.innerHTML = "";
+            // Preenche a tabela
+            listaAluno.forEach(aluno => {
+                if (aluno.nome.toUpperCase().includes(nome.toUpperCase()))
+                {
+                    let linha = document.createElement("tr");
+
+                    let tdFoto = document.createElement("td");
+                    tdFoto.innerHTML = aluno.foto ?? "-";
+                    linha.appendChild(tdFoto);
+
+                    let tdId = document.createElement("td");
+                    tdId.innerHTML = aluno.id ?? "-";
+                    linha.appendChild(tdId);
+
+                    let tdNome = document.createElement("td");
+                    tdNome.innerHTML = aluno.nome ?? "-";
+                    linha.appendChild(tdNome);
+
+                    let tdEntrada = document.createElement("td");
+                    tdEntrada.innerHTML = formatarDataParaBR(aluno.dt_entrada) ?? "-";
+                    linha.appendChild(tdEntrada);
+
+                    let tdMae = document.createElement("td");
+                    tdMae.innerHTML = aluno.mae ?? "-";
+                    linha.appendChild(tdMae);
+
+                    let tdPai = document.createElement("td");
+                    tdPai.innerHTML = aluno.pai ?? "-";
+                    linha.appendChild(tdPai);
+
+                    let tdResponsavel = document.createElement("td");
+                    tdResponsavel.innerHTML = aluno.responsavel_pais ?? "-";
+                    linha.appendChild(tdResponsavel);
+
+                    let tdAtivo = document.createElement("td");
+                    tdAtivo.innerHTML = aluno.ativo ?? "-";
+                    linha.appendChild(tdAtivo);
+
+                    // Botões
+                    let tdAlterar = document.createElement("td");
+                    tdAlterar.appendChild(createBotaoEditar(aluno.id, aluno.ativo));
+                    let tdAtivDes = document.createElement("td");
+                    tdAtivDes.appendChild(createBotaoAtivDes(aluno.pes_id, aluno.ativo));
+
+                    linha.appendChild(tdAlterar);
+                    linha.appendChild(tdAtivDes);
+                    tablebody.appendChild(linha);
+                    //console.log("Adicionando:", aluno.id)
+                    msg.classList.add("d-none");
+
+                    let botoesEditar = document.getElementsByClassName("btn-editar");
+                    let botoesAtivDes = document.getElementsByClassName("btn-ativdes");
+
+                    Array.from(botoesEditar).forEach(e => {
+                        e.addEventListener("click", function() {
+                            if (e.dataset.status === 'N')
+                                console.log("Este registro está desativado. Não pode ser alterado");
+                            else
+                                carregarEdicao(e.dataset.id);
+
+                        });
+                    });
+
+                    Array.from(botoesAtivDes).forEach(e => {
+                        e.addEventListener("click", () => ativarDesativarRegistro(e.dataset.id));
+                    });
+                }
+            });
+        })
+        .catch(err => console.error("Erro capturado:", err));
+}
 function createBotaoEditar(id, status)
 {
     let botao = document.createElement("button");
