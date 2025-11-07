@@ -232,7 +232,7 @@ function cadastrarOficina(event) {
 
     // Monta objeto para envio
     const oficina = {
-        ofc_fk: form.nome.value,
+        ofc_fk: parseInt(form.nome.value),
         professor: professorId,
         dataInicio: converterDataBrasilParaISO(form.dataInicio.value),
         dataFim: converterDataBrasilParaISO(form.dataFim.value),
@@ -240,6 +240,7 @@ function cadastrarOficina(event) {
         horaTermino: form.horaFim.value,
         ativo: "S"
     };
+
 
     // Verifica conflito de horários no backend antes de cadastrar
     fetch(`http://localhost:8080/apis/ofertaOficina/verificar-conflito?professorId=${professorId}&dataInicio=${oficina.dataInicio}&dataFim=${oficina.dataFim}&horaInicio=${oficina.horaInicio}&horaFim=${oficina.horaTermino}`)
@@ -415,8 +416,9 @@ function ativarBotoesEditar() {
             fetch(`http://localhost:8080/apis/ofertaOficina/${id}`)
                 .then(resp => resp.json())
                 .then(oficina => {
+                    console.log(oficina);
                     document.getElementById("editar-id").value = oficina.idOficina;
-                    document.getElementById("editar-nome").value = oficina.nome;
+                    document.getElementById("editar-nome").value = oficina.ofc_fk;
                     document.getElementById("editar-data-inicio").value = formatarDataParaBR(oficina.data_inicio);
                     document.getElementById("editar-data-fim").value = formatarDataParaBR(oficina.data_fim);
                     document.getElementById("editar-hora-inicio").value = oficina.hora_inicio?.slice(0,5) || "";
@@ -426,7 +428,7 @@ function ativarBotoesEditar() {
 
                     document.getElementById("formulario-editar-oficina").classList.remove("d-none");
 
-                    // ✅ Máscaras aplicadas ao abrir o formulário de edição
+                    //Máscaras aplicadas ao abrir o formulário de edição
                     document.getElementById("editar-data-inicio").addEventListener("keyup", e => aplicarMascaraData(e.target));
                     document.getElementById("editar-data-fim").addEventListener("keyup", e => aplicarMascaraData(e.target));
                     document.getElementById("editar-hora-inicio").addEventListener("keyup", e => aplicarMascaraHora(e.target));
@@ -527,7 +529,7 @@ function salvarEdicao() {
                 Data_Fim: converterDataBrasilParaISO(dataFim),
                 Professor: professorId,
                 Ativo: ativo,
-                ofc_pk: nome.value
+                ofc_pk: parseInt(nome)
             });
 
             fetch(`http://localhost:8080/apis/ofertaOficina?${params.toString()}`, { method: "PUT" })

@@ -1,6 +1,8 @@
 package com.example.proj_bga.controller;
 
+import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.model.OfertaOficina;
+import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,7 @@ public class OfertarOficinaController {
     //Exibir Oficina
     public List<Map<String, Object>> getOficina(){
         Conexao conexao = new Conexao();
+        OficinaDAO oficinaDAO = new OficinaDAO();
         List<OfertaOficina> ofertaOficina = ofertaOficinaModel.consultarOficinas("", conexao);
         if(ofertaOficina == null){
             System.out.println("Deu errrroooo aquiii");
@@ -70,6 +73,12 @@ public class OfertarOficinaController {
             json.put("pde_id", o.getProfessor());
             json.put("ativo", o.getAtivo());
             json.put("ofc_fk", o.getOfc_fk());
+
+            Oficina oficina = oficinaDAO.get(o.getOfc_fk(),conexao);
+            if(oficina == null)
+                json.put("nome", "----");
+            else
+                json.put("nome", oficina.getDescricao());
             resultado.add(json);
         }
         return resultado;
@@ -78,7 +87,7 @@ public class OfertarOficinaController {
     // Exibir uma única Oficina por ID
     public Map<String, Object> getOficinaPorId(int id, Conexao conexao) {
         OfertaOficina o = ofertaOficinaModel.consultarOficinasID(id,conexao); // pega a oficina do DAO
-
+        OficinaDAO oficinaDAO = new OficinaDAO();
         if (o == null) {
             return null; // ou pode lançar exceção / retornar Map com "erro"
         }
@@ -92,6 +101,11 @@ public class OfertarOficinaController {
         json.put("pde_id", o.getProfessor());
         json.put("ativo", o.getAtivo());
         json.put("ofc_fk", o.getOfc_fk());
+        Oficina oficina = oficinaDAO.get(o.getOfc_fk(),conexao);
+        if(oficina == null)
+            json.put("nome", "----");
+        else
+            json.put("nome", oficina.getDescricao());
 
         return json;
     }
@@ -171,7 +185,7 @@ public class OfertarOficinaController {
                         "dataFim", atualizada.getDataFim(),
                         "professor", atualizada.getProfessor(),
                         "ativo", atualizada.getAtivo(),
-                        "ofc_fk", atualizada.getOfc_fk()
+                        "ofc_pk", atualizada.getOfc_fk()
                 );
             } else {
                 return Map.of("erro", "Erro ao atualizar Oferta de Oficina");

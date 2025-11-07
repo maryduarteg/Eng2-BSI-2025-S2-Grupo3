@@ -14,22 +14,40 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
 
     @Override
     public OfertaOficina gravar(OfertaOficina ofertaOficina, Conexao conexao) {
+        java.text.SimpleDateFormat sdfDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+        // Cria cópias ajustadas das datas (adicionando +1 dia)
+        java.util.Calendar calInicio = java.util.Calendar.getInstance();
+        calInicio.setTime(ofertaOficina.getDataInicio());
+        calInicio.add(java.util.Calendar.DATE, 1);
+
+        java.util.Calendar calFim = java.util.Calendar.getInstance();
+        calFim.setTime(ofertaOficina.getDataFim());
+        calFim.add(java.util.Calendar.DATE, 1);
+
+        // Formata as datas ajustadas
+        String dataInicioFormatada = sdfDate.format(calInicio.getTime());
+        String dataFimFormatada = sdfDate.format(calFim.getTime());
+
         String sql = String.format("""
-                INSERT INTO ofertar_oficina (
-                    ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_pk
-                ) VALUES ('%s', '%s', '%s', '%s', %d, '%s', %d)
-                RETURNING ofc_id
-                """,
-                ofertaOficina.getHoraInicio().toString(),
-                ofertaOficina.getHoraTermino().toString(),
-                new java.sql.Date(ofertaOficina.getDataInicio().getTime()),
-                new java.sql.Date(ofertaOficina.getDataFim().getTime()),
+            INSERT INTO ofertar_oficina (
+                ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_pk
+            ) VALUES ('%s', '%s', '%s', '%s', %d, '%s', %d)
+            RETURNING ofc_id
+            """,
+                ofertaOficina.getHoraInicio(),
+                ofertaOficina.getHoraTermino(),
+                dataInicioFormatada,
+                dataFimFormatada,
                 ofertaOficina.getProfessor(),
                 ofertaOficina.getAtivo(),
                 ofertaOficina.getOfc_fk()
         );
 
         ResultSet resultado = conexao.consultar(sql);
+        System.out.println(ofertaOficina.toString());
+        System.out.println("Data original início: " + ofertaOficina.getDataInicio());
+        System.out.println("Data gravada início (ajustada): " + dataInicioFormatada);
 
         try {
             if (resultado != null && resultado.next()) {
@@ -44,6 +62,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
 
         return null;
     }
+
 
     @Override
     public OfertaOficina alterar(OfertaOficina ofertaOficina, Conexao conexao) {
@@ -117,7 +136,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
                 ofertaOficina.setDataFim(resultado.getDate("ofc_dt_final"));
                 ofertaOficina.setProfessor(resultado.getInt("prof_id"));
                 ofertaOficina.setAtivo(resultado.getString("ofc_ativo").charAt(0));
-                ofertaOficina.setProfessor(resultado.getInt("ofc_pk"));
+                ofertaOficina.setOfc_fk(resultado.getInt("ofc_pk"));
 
                 return ofertaOficina;
             }
@@ -151,7 +170,7 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
                 ofertaOficina.setDataFim(resultado.getDate("ofc_dt_final"));
                 ofertaOficina.setProfessor(resultado.getInt("prof_id"));
                 ofertaOficina.setAtivo(resultado.getString("ofc_ativo").charAt(0));
-                ofertaOficina.setProfessor(resultado.getInt("ofc_pk"));
+                ofertaOficina.setOfc_fk(resultado.getInt("ofc_pk"));
 
                 ofertaOficinas.add(ofertaOficina);
             }
@@ -202,9 +221,9 @@ public class OfertaOficinaDAO implements IDAO<OfertaOficina> {
         List<Map<String, Object>> lista = new ArrayList<>();
 
         String sql = """
-        SELECT pe.pes_id AS id, pe.pes_nome AS nome
+        SELECT p.prof_id AS id, pe.pes_nome AS nome
         FROM professor p
-        JOIN pessoa pe ON pe.pes_id = p.pes_id
+        INNER JOIN pessoa pe ON pe.pes_id = p.pes_id
         ORDER BY pe.pes_nome;
     """;
 

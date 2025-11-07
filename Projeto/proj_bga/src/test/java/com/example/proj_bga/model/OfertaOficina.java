@@ -145,4 +145,18 @@ public class OfertaOficina {
         return dao.listarProfessores(conexao);
     }
 
+    @Override
+    public String toString() {
+        return "OfertaOficina{" +
+                "dao=" + dao +
+                ", id=" + id +
+                ", horaInicio=" + horaInicio +
+                ", horaFim=" + horaFim +
+                ", dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                ", professor=" + professor +
+                ", ativo=" + ativo +
+                ", ofc_fk=" + ofc_fk +
+                '}';
+    }
 }
