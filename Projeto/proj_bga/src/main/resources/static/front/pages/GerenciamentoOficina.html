@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BGA</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style_Oficina.css">
+</head>
+
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar Brand e itens omitidos para simplificação -->
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar omitido -->
+
+            <!-- Gerenciamento de Oficinas -->
+            <div class="container-fluid">
+                <br>
+                <h2 class="text-center">Gerenciamento de Oficinas</h2><br><br>
+                <div class="d-flex justify-content-center" id="btn-group-master">
+                    <button type="button" class="btn btn-success mx-4" id="btn-mostrar-form" data-target-id="formulario-cadastro">Cadastrar Oficina</button>
+                    <button type="button" class="btn btn-warning mx-4" id="btn-gerenciar-oficina" data-target-id="tabela-container">Gerenciar Oficinas</button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <!-- Formulário de Cadastro -->
+            <div id="formulario-cadastro" class="card p-4 mt-4 d-none" style="font-size: large;">
+                <h2 class="text-center mb-4">Cadastro de Nova Oficina</h2>
+                <form id="formOficina" novalidate>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-md-6 col-12">
+                            <label for="ofc-descricao-input" class="form-label required-label">
+                                Descrição da Oficina <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="ofc-descricao-input" name="descricao" maxlength="50"
+                                   placeholder="Digite aqui a descrição da oficina"
+                                   class="form-control" required>
+                            <div class="invalid-feedback">Descrição é obrigatória</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                    </div>
+                </form>
+
+                <div id="mensagem-oficina" class="mt-3"></div>
+            </div>
+
+            <!-- Formulário de Edição de Oficina -->
+            <div id="formulario-editar-oficina" class="card p-4 mt-4 d-none" style="font-size: large;">
+                <h2 class="text-center mb-4">Editar Oficinas</h2>
+
+                <form id="formEdicaoOficina" novalidate>
+                    <input type="hidden" id="editar-id">
+
+                    <div class="row">
+                        <!-- Nome da Oficina -->
+                        <div class="col-md-6 mb-3">
+                            <label for="editar-nome" class="form-label">Descrição da Oficina <span class="text-danger">*</span></label>
+                            <input type="text" id="editar-nome" class="form-control" required>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-md-4 mb-3">
+                            <label for="editar-ativo" class="form-label">Status <span class="text-danger">*</span></label>
+                            <select id="editar-ativo" class="form-select" required>
+                                <option value="A">Ativa</option>
+                                <option value="I">Inativa</option>
+                            </select>
+                        </div>
+
+                        <!-- Botão -->
+                        <div class="col-12 mt-3">
+                            <button type="button" id="btn-salvar-edicao" class="btn btn-primary w-100">Salvar Alterações</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div id="mensagem-edicao" class="mt-3 text-center"></div>
+            </div>
+
+
+
+            <!-- End Formulário -->
+
+            <!-- Tabela de Oficinas -->
+            <div id="tabela-container" class="d-none container mt-4">
+
+                <!-- Filtros -->
+                <div class="mb-3">
+                    <input type="text" id="filtro-nome" placeholder="Procurar por nome" class="form-control mb-2">
+                    <select id="filtro-status" class="form-select">
+                        <option value="T">Todas</option>
+                        <option value="S">Ativas</option>
+                        <option value="I">Inativas</option>
+                    </select>
+                </div>
+
+                <!-- Aqui a tabela será inserida pelo JS -->
+                <div id="tabela-oficinas"></div>
+
+            </div>
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer omitido -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scripts -->
+<script src="../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../assets/js/sb-admin-2.min.js"></script>
+<script src="../assets/js/GerenciamentoOficina.js"></script>
+
+</body>
+</html>

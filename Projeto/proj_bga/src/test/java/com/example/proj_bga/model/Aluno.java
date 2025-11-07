@@ -154,5 +154,6 @@ public class Aluno {
     }
 
     public Aluno update(Aluno aluno, Conexao conexao) {return dao.alterar(aluno, conexao);}
+
     public boolean consultarAtivo(int id, Conexao conexao){return dao.verificarAtivoExistente(id, conexao);}
 }
