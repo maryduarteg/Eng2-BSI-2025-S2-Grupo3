@@ -1,628 +1,32 @@
--- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-11-06 00:08:42 BRT
---   site:      Oracle Database 11g
---   tipo:      Oracle Database 11g
-
-
-
--- predefined type, no DDL - MDSYS.SDO_GEOMETRY
-
--- predefined type, no DDL - XMLTYPE
-
-CREATE TABLE ALUNO 
-    ( 
-     alu_id               INTEGER  NOT NULL , 
-     alu_dt_entrada       DATE , 
-     alu_foto             VARCHAR (100) , 
-     alu_mae              VARCHAR (75) , 
-     alu_pai              VARCHAR (75) , 
-     alu_responsavel_pais CHAR (1) , 
-     alu_conhecimento     CHAR (1) , 
-     alu_pais_convivem    CHAR (1) , 
-     alu_pensao           CHAR (1) , 
-     pes_id               INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE ALUNO 
-    ADD CONSTRAINT ALUNO_PK PRIMARY KEY ( alu_id ) ;
-
-CREATE TABLE CATEGORIA_USUARIO 
-    ( 
-     ctsr_id   INTEGER  NOT NULL , 
-     ctsr_desc VARCHAR (20) 
-    ) 
-;
-
-ALTER TABLE CATEGORIA_USUARIO 
-    ADD CONSTRAINT CATEGORIA_USUARIO_PK PRIMARY KEY ( ctsr_id ) ;
-
-CREATE TABLE CIDADE 
-    ( 
-     cid_id   INTEGER  NOT NULL , 
-     cid_nome VARCHAR (75) , 
-     est_id   INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE CIDADE 
-    ADD CONSTRAINT CIDADE_PK PRIMARY KEY ( cid_id ) ;
-
-CREATE TABLE DIAS 
-    ( 
-     dia_id        INTEGER  NOT NULL , 
-     dia_descricao VARCHAR (20) 
-    ) 
-;
-
-ALTER TABLE DIAS 
-    ADD CONSTRAINT DIAS_PK PRIMARY KEY ( dia_id ) ;
-
-CREATE TABLE DIAS_MARCADOS_OFICINAS 
-    ( 
-     dmf_id  INTEGER  NOT NULL , 
-     dmf_dia DATE , 
-     ofc_id  INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE DIAS_MARCADOS_OFICINAS 
-    ADD CONSTRAINT DIAS_MARCADOS_OFICINAS_PK PRIMARY KEY ( dmf_id ) ;
-
-CREATE TABLE ENDERECO 
-    ( 
-     end_id          INTEGER  NOT NULL , 
-     end_logradouro  VARCHAR (150) , 
-     end_numero      VARCHAR (20) , 
-     end_cep         VARCHAR (8) , 
-     end_complemento VARCHAR (50) , 
-     end_bairro      VARCHAR (75) , 
-     cid_id          INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE ENDERECO 
-    ADD CONSTRAINT ENDERECO_PK PRIMARY KEY ( end_id ) ;
-
-CREATE TABLE ESPECIALIDADES 
-    ( 
-     esp_id            INTEGER  NOT NULL , 
-     esp_descricao     VARCHAR (100) , 
-     PROFESSOR_prof_id INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE ESPECIALIDADES 
-    ADD CONSTRAINT ESPECIALIDADES_PK PRIMARY KEY ( esp_id ) ;
-
-CREATE TABLE ESTADO 
-    ( 
-     est_id   INTEGER  NOT NULL , 
-     est_uf_1 VARCHAR (2)  NOT NULL , 
-     est_nome VARCHAR (30) 
-    ) 
-;
-
-ALTER TABLE ESTADO 
-    ADD CONSTRAINT ESTADO_PK PRIMARY KEY ( est_id ) ;
-
-CREATE TABLE OFERTAR_OFICINA 
-    ( 
-     ofc_id           INTEGER  NOT NULL , 
-     ofc_hora_inicio  TIME , 
-     ofc_hora_termino TIME , 
-     ofc_dt_inicial   DATE , 
-     ofc_dt_final     DATE , 
-     prof_id          INTEGER  NOT NULL , 
-     ofc_ativo        CHAR (1) , 
-     ofc_pk           INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE OFERTAR_OFICINA 
-    ADD CONSTRAINT OFICINA_PKv3 PRIMARY KEY ( ofc_id ) ;
-
-CREATE TABLE OFICINA 
-    ( 
-     ofc_id        INTEGER  NOT NULL , 
-     ofc_descricao VARCHAR (70) , 
-     ofc_ativo     CHAR (1) 
-    ) 
-;
-
-ALTER TABLE OFICINA 
-    ADD CONSTRAINT OFICINA_PK PRIMARY KEY ( ofc_id ) ;
-
-CREATE TABLE PASSEIO 
-    ( 
-     pas_id            INTEGER  NOT NULL , 
-     pas_data          DATE , 
-     pas_hora_inicio   TIME , 
-     pas_hora_final    TIME , 
-     pas_chamada_feita CHAR (1) , 
-     pde_id            INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE PASSEIO 
-    ADD CONSTRAINT PASSEIO_PK PRIMARY KEY ( pas_id ) ;
-
-CREATE TABLE PASSEIO_DESCRICAO 
-    ( 
-     pde_id        INTEGER  NOT NULL , 
-     pde_descricao VARCHAR (75) 
-    ) 
-;
-
-ALTER TABLE PASSEIO_DESCRICAO 
-    ADD CONSTRAINT PASSEIO_DESCRICAO_PK PRIMARY KEY ( pde_id ) ;
-
-CREATE TABLE PESSOA 
-    ( 
-     pes_id            INTEGER  NOT NULL , 
-     pes_nome          VARCHAR (75) , 
-     pes_cpf           VARCHAR (11) , 
-     pes_dt_nascimento DATE , 
-     pes_rg            VARCHAR (9) , 
-     pes_ativo         CHAR (1) , 
-     end_id            INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE PESSOA 
-    ADD CONSTRAINT PESSOA_PK PRIMARY KEY ( pes_id ) ;
-
-CREATE TABLE PRESENCA_OFICINA 
-    ( 
-     pso_id INTEGER  NOT NULL , 
-     alu_id INTEGER  NOT NULL , 
-     ofc_id INTEGER  NOT NULL , 
-     dmf_id INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE PRESENCA_OFICINA 
-    ADD CONSTRAINT PRESENCA_OFICINA_PK PRIMARY KEY ( alu_id, ofc_id, pso_id, dmf_id ) ;
-
-CREATE TABLE PRESENCA_PASSEIO 
-    ( 
-     psp_id         INTEGER  NOT NULL , 
-     ALUNO_alu_id   INTEGER  NOT NULL , 
-     PASSEIO_pas_id INTEGER  NOT NULL , 
-     pp_id          INTEGER 
-    ) 
-;
-
-ALTER TABLE PRESENCA_PASSEIO 
-    ADD CONSTRAINT PRESENCA_PASSEIO_PK PRIMARY KEY ( ALUNO_alu_id, PASSEIO_pas_id, psp_id ) ;
-
-CREATE TABLE PROFESSOR 
-    ( 
-     prof_id        INTEGER  NOT NULL , 
-     prof_matricula VARCHAR (10) , 
-     pes_id         INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE PROFESSOR 
-    ADD CONSTRAINT PROFESSOR_PK PRIMARY KEY ( prof_id ) ;
-
-CREATE TABLE R_ALUNO_OFICINA 
-    ( 
-     alu_id INTEGER  NOT NULL , 
-     ofc_id INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE R_ALUNO_OFICINA 
-    ADD CONSTRAINT R_ALUNO_OFICINA_PK PRIMARY KEY ( alu_id, ofc_id ) ;
-
-CREATE TABLE R_ALUNO_PASSEIO 
-    ( 
-     pas_id INTEGER  NOT NULL , 
-     alu_id INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE R_ALUNO_PASSEIO 
-    ADD CONSTRAINT R_ALUNO_PASSEIO_PK PRIMARY KEY ( pas_id, alu_id ) ;
-
-CREATE TABLE R_DIAS_OFICINA 
-    ( 
-     ofc_id INTEGER  NOT NULL , 
-     dia_id INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE R_DIAS_OFICINA 
-    ADD CONSTRAINT R_DIAS_OFICINA_PK PRIMARY KEY ( ofc_id, dia_id ) ;
-
-CREATE TABLE R_PROFESSOR_PASSEIO 
-    ( 
-     prof_id INTEGER  NOT NULL , 
-     pas_id  INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE R_PROFESSOR_PASSEIO 
-    ADD CONSTRAINT R_PROFESSOR_PASSEIO_PK PRIMARY KEY ( pas_id, prof_id ) ;
-
-CREATE TABLE TELEFONE 
-    ( 
-     tel_id     INTEGER  NOT NULL , 
-     tel_numero VARCHAR (11) , 
-     pes_id     INTEGER  NOT NULL 
-    ) 
-;
-
-ALTER TABLE TELEFONE 
-    ADD CONSTRAINT TELEFONE_PK PRIMARY KEY ( tel_id ) ;
-
-CREATE TABLE USUARIO 
-    ( 
-     usr_id    INTEGER  NOT NULL , 
-     usr_login VARCHAR (40) , 
-     usr_senha VARCHAR (40) , 
-     ctsr_id   INTEGER  NOT NULL , 
-     usr_ativo CHAR (1) 
-    ) 
-;
-
-ALTER TABLE USUARIO 
-    ADD CONSTRAINT USUARIO_PK PRIMARY KEY ( usr_id ) ;
-
-ALTER TABLE ALUNO 
-    ADD CONSTRAINT ALUNO_PESSOA_FK FOREIGN KEY 
-    ( 
-     pes_id
-    ) 
-    REFERENCES PESSOA 
-    ( 
-     pes_id
-    ) 
-;
-
-ALTER TABLE CIDADE 
-    ADD CONSTRAINT CIDADE_ESTADO_FK FOREIGN KEY 
-    ( 
-     est_id
-    ) 
-    REFERENCES ESTADO 
-    ( 
-     est_id
-    ) 
-;
-
-ALTER TABLE DIAS_MARCADOS_OFICINAS 
-    ADD CONSTRAINT DIAS_MARC_OFC_FK FOREIGN KEY 
-    ( 
-     ofc_id
-    ) 
-    REFERENCES OFERTAR_OFICINA 
-    ( 
-     ofc_id
-    ) 
-;
-
-ALTER TABLE PRESENCA_OFICINA 
-    ADD CONSTRAINT dmf_id FOREIGN KEY 
-    ( 
-     dmf_id
-    ) 
-    REFERENCES DIAS_MARCADOS_OFICINAS 
-    ( 
-     dmf_id
-    ) 
-;
-
-ALTER TABLE ENDERECO 
-    ADD CONSTRAINT ENDERECO_CIDADE_FK FOREIGN KEY 
-    ( 
-     cid_id
-    ) 
-    REFERENCES CIDADE 
-    ( 
-     cid_id
-    ) 
-;
-
-ALTER TABLE ESPECIALIDADES 
-    ADD CONSTRAINT ESPECIALI_PROF_FK FOREIGN KEY 
-    ( 
-     PROFESSOR_prof_id
-    ) 
-    REFERENCES PROFESSOR 
-    ( 
-     prof_id
-    ) 
-;
-
-ALTER TABLE OFERTAR_OFICINA 
-    ADD CONSTRAINT ofc_pk FOREIGN KEY 
-    ( 
-     ofc_pk
-    ) 
-    REFERENCES OFICINA 
-    ( 
-     ofc_id
-    ) 
-;
-
-ALTER TABLE OFERTAR_OFICINA 
-    ADD CONSTRAINT OFICINA_PROFESSOR_FK FOREIGN KEY 
-    ( 
-     prof_id
-    ) 
-    REFERENCES PROFESSOR 
-    ( 
-     prof_id
-    ) 
-;
-
-ALTER TABLE PASSEIO 
-    ADD CONSTRAINT PASSEIO_PASSEIO_DESCRICAO_FK FOREIGN KEY 
-    ( 
-     pde_id
-    ) 
-    REFERENCES PASSEIO_DESCRICAO 
-    ( 
-     pde_id
-    ) 
-;
-
-ALTER TABLE PESSOA 
-    ADD CONSTRAINT PESSOA_ENDERECO_FK FOREIGN KEY 
-    ( 
-     end_id
-    ) 
-    REFERENCES ENDERECO 
-    ( 
-     end_id
-    ) 
-;
-
-ALTER TABLE PRESENCA_OFICINA 
-    ADD CONSTRAINT PRESENCA_OFICINA_ALUNO_FK FOREIGN KEY 
-    ( 
-     alu_id
-    ) 
-    REFERENCES ALUNO 
-    ( 
-     alu_id
-    ) 
-;
-
-ALTER TABLE PRESENCA_OFICINA 
-    ADD CONSTRAINT PRESENCA_OFICINA_OFICINA_FK FOREIGN KEY 
-    ( 
-     ofc_id
-    ) 
-    REFERENCES OFERTAR_OFICINA 
-    ( 
-     ofc_id
-    ) 
-;
-
-ALTER TABLE PRESENCA_PASSEIO 
-    ADD CONSTRAINT PRESENCA_PAS_ALUNO_FK FOREIGN KEY 
-    ( 
-     ALUNO_alu_id
-    ) 
-    REFERENCES ALUNO 
-    ( 
-     alu_id
-    ) 
-;
-
-ALTER TABLE PRESENCA_PASSEIO 
-    ADD CONSTRAINT PRESENCA_PAS_FK FOREIGN KEY 
-    ( 
-     PASSEIO_pas_id
-    ) 
-    REFERENCES PASSEIO 
-    ( 
-     pas_id
-    ) 
-;
-
-ALTER TABLE PROFESSOR 
-    ADD CONSTRAINT PROFESSOR_PESSOA_FK FOREIGN KEY 
-    ( 
-     pes_id
-    ) 
-    REFERENCES PESSOA 
-    ( 
-     pes_id
-    ) 
-;
-
-ALTER TABLE R_ALUNO_OFICINA 
-    ADD CONSTRAINT R_ALUNO_OFICINA_ALUNO_FK FOREIGN KEY 
-    ( 
-     alu_id
-    ) 
-    REFERENCES ALUNO 
-    ( 
-     alu_id
-    ) 
-;
-
-ALTER TABLE R_ALUNO_OFICINA 
-    ADD CONSTRAINT R_ALUNO_OFICINA_OFICINA_FK FOREIGN KEY 
-    ( 
-     ofc_id
-    ) 
-    REFERENCES OFERTAR_OFICINA 
-    ( 
-     ofc_id
-    ) 
-;
-
-ALTER TABLE R_ALUNO_PASSEIO 
-    ADD CONSTRAINT R_ALUNO_PASSEIO_FK FOREIGN KEY 
-    ( 
-     pas_id
-    ) 
-    REFERENCES PASSEIO 
-    ( 
-     pas_id
-    ) 
-;
-
-ALTER TABLE R_ALUNO_PASSEIO 
-    ADD CONSTRAINT R_ALUNO_PASSEIO_FKv1 FOREIGN KEY 
-    ( 
-     alu_id
-    ) 
-    REFERENCES ALUNO 
-    ( 
-     alu_id
-    ) 
-;
-
-ALTER TABLE R_DIAS_OFICINA 
-    ADD CONSTRAINT R_DIAS_OFICINA_DIAS_FK FOREIGN KEY 
-    ( 
-     dia_id
-    ) 
-    REFERENCES DIAS 
-    ( 
-     dia_id
-    ) 
-;
-
-ALTER TABLE R_DIAS_OFICINA 
-    ADD CONSTRAINT R_DIAS_OFICINA_OFICINA_FK FOREIGN KEY 
-    ( 
-     ofc_id
-    ) 
-    REFERENCES OFERTAR_OFICINA 
-    ( 
-     ofc_id
-    ) 
-;
-
-ALTER TABLE R_PROFESSOR_PASSEIO 
-    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FK FOREIGN KEY 
-    ( 
-     pas_id
-    ) 
-    REFERENCES PASSEIO 
-    ( 
-     pas_id
-    ) 
-;
-
-ALTER TABLE R_PROFESSOR_PASSEIO 
-    ADD CONSTRAINT R_PROFESSOR_PASSEIO_FKv1 FOREIGN KEY 
-    ( 
-     prof_id
-    ) 
-    REFERENCES PROFESSOR 
-    ( 
-     prof_id
-    ) 
-;
-
-ALTER TABLE TELEFONE 
-    ADD CONSTRAINT TELEFONE_PESSOA_FK FOREIGN KEY 
-    ( 
-     pes_id
-    ) 
-    REFERENCES PESSOA 
-    ( 
-     pes_id
-    ) 
-;
-
-ALTER TABLE USUARIO 
-    ADD CONSTRAINT USUARIO_CATEGORIA_FK FOREIGN KEY 
-    ( 
-     ctsr_id
-    ) 
-    REFERENCES CATEGORIA_USUARIO 
-    ( 
-     ctsr_id
-    ) 
-;
-
--- DDL para ATUALIZAR as tabelas existentes no PostgreSQL,
--- adicionando a funcionalidade de auto-incremento (IDENTITY)
--- para as chaves primárias simples.
-
--- 1. Tabela ALUNO
-ALTER TABLE ALUNO
-    ALTER COLUMN alu_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 2. Tabela CATEGORIA_USUARIO
-ALTER TABLE CATEGORIA_USUARIO
-    ALTER COLUMN ctsr_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 3. Tabela CIDADE
-ALTER TABLE CIDADE
-    ALTER COLUMN cid_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 4. Tabela DIAS
-ALTER TABLE DIAS
-    ALTER COLUMN dia_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 5. Tabela DIAS_MARCADOS_OFICINAS
-ALTER TABLE DIAS_MARCADOS_OFICINAS
-    ALTER COLUMN dmf_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 6. Tabela ENDERECO
-ALTER TABLE ENDERECO
-    ALTER COLUMN end_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 7. Tabela ESPECIALIDADES
-ALTER TABLE ESPECIALIDADES
-    ALTER COLUMN esp_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 8. Tabela ESTADO
-ALTER TABLE ESTADO
-    ALTER COLUMN est_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 9. Tabela OFICINA
-ALTER TABLE OFICINA
-    ALTER COLUMN ofc_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 10. Tabela PASSEIO
-ALTER TABLE PASSEIO
-    ALTER COLUMN pas_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 11. Tabela PASSEIO_DESCRICAO
-ALTER TABLE PASSEIO_DESCRICAO
-    ALTER COLUMN pde_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 12. Tabela PESSOA
-ALTER TABLE PESSOA
-    ALTER COLUMN pes_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 13. Tabela PROFESSOR
-ALTER TABLE PROFESSOR
-    ALTER COLUMN prof_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 14. Tabela TELEFONE
-ALTER TABLE TELEFONE
-    ALTER COLUMN tel_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 15. Tabela USUARIO
-ALTER TABLE USUARIO
-    ALTER COLUMN usr_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- 16. Tabela USUARIO
-ALTER TABLE OFERTAR_OFICINA
-    ALTER COLUMN ofc_id ADD GENERATED BY DEFAULT AS IDENTITY;
-
--- AVISO: Se você inseriu dados na tabela *antes* de executar estes comandos,
--- você deve reajustar o contador (sequence) para garantir que não haja
--- duplicidade ao tentar inserir novos registros.
-
--- COMANDOS OPCIONAIS PARA AJUSTAR O CONTADOR (RECOMENDADO SE JÁ HOUVER DADOS):
-
--- Função auxiliar que faz o ajuste (só precisa ser criada uma vez)
-CREATE OR REPLACE FUNCTION reset_identity_sequence(table_name text, column_name text)
-RETURNS void AS $$
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.10
+-- Dumped by pg_dump version 18.0
+
+-- Started on 2025-11-09 22:57:58
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+-- SET transaction_timeout = 0; -- Removido por incompatibilidade com versões anteriores
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 253 (class 1255 OID 17633)
+-- Name: reset_identity_sequence(text, text); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.reset_identity_sequence(table_name text, column_name text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
 DECLARE
     seq_name text;
     max_id bigint;
@@ -636,69 +40,1420 @@ BEGIN
     -- Define o próximo valor da sequence para o maior ID + 1
     EXECUTE format('SELECT setval(%L, %s, true)', seq_name, max_id);
 END
-$$ LANGUAGE plpgsql;
-
--- Executando a função de ajuste para cada tabela (se necessário)
-SELECT reset_identity_sequence('aluno', 'alu_id');
-SELECT reset_identity_sequence('categoria_usuario', 'ctsr_id');
-SELECT reset_identity_sequence('cidade', 'cid_id');
-SELECT reset_identity_sequence('dias', 'dia_id');
-SELECT reset_identity_sequence('dias_marcados_oficinas', 'dmf_id');
-SELECT reset_identity_sequence('endereco', 'end_id');
-SELECT reset_identity_sequence('especialidades', 'esp_id');
-SELECT reset_identity_sequence('estado', 'est_id');
-SELECT reset_identity_sequence('oficina', 'ofc_id');
-SELECT reset_identity_sequence('passeio', 'pas_id');
-SELECT reset_identity_sequence('passeio_descricao', 'pde_id');
-SELECT reset_identity_sequence('pessoa', 'pes_id');
-SELECT reset_identity_sequence('professor', 'prof_id');
-SELECT reset_identity_sequence('telefone', 'tel_id');
-SELECT reset_identity_sequence('usuario', 'usr_id');
-SELECT reset_identity_sequence('ofertar_oficina', 'ofc_id');
-
--- DROP FUNCTION reset_identity_sequence(text, text); -- Opcional:: remover a função após o uso
+$$;
 
 
+ALTER FUNCTION public.reset_identity_sequence(table_name text, column_name text) OWNER TO postgres;
 
--- Relatório do Resumo do Oracle SQL Developer Data Modeler: 
--- 
--- CREATE TABLE                            22
--- CREATE INDEX                             0
--- ALTER TABLE                             47
--- CREATE VIEW                              0
--- ALTER VIEW                               0
--- CREATE PACKAGE                           0
--- CREATE PACKAGE BODY                      0
--- CREATE PROCEDURE                         0
--- CREATE FUNCTION                          0
--- CREATE TRIGGER                           0
--- ALTER TRIGGER                            0
--- CREATE COLLECTION TYPE                   0
--- CREATE STRUCTURED TYPE                   0
--- CREATE STRUCTURED TYPE BODY              0
--- CREATE CLUSTER                           0
--- CREATE CONTEXT                           0
--- CREATE DATABASE                          0
--- CREATE DIMENSION                         0
--- CREATE DIRECTORY                         0
--- CREATE DISK GROUP                        0
--- CREATE ROLE                              0
--- CREATE ROLLBACK SEGMENT                  0
--- CREATE SEQUENCE                          0
--- CREATE MATERIALIZED VIEW                 0
--- CREATE MATERIALIZED VIEW LOG             0
--- CREATE SYNONYM                           0
--- CREATE TABLESPACE                        0
--- CREATE USER                              0
--- 
--- DROP TABLESPACE                          0
--- DROP DATABASE                            0
--- 
--- REDACTION POLICY                         0
--- 
--- ORDS DROP SCHEMA                         0
--- ORDS ENABLE SCHEMA                       0
--- ORDS ENABLE OBJECT                       0
--- 
--- ERRORS                                   0
--- WARNINGS                                 0
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 215 (class 1259 OID 17382)
+-- Name: aluno; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.aluno (
+    alu_id integer NOT NULL,
+    alu_dt_entrada date,
+    alu_foto character varying(100),
+    alu_mae character varying(75),
+    alu_pai character varying(75),
+    alu_responsavel_pais character(1),
+    alu_conhecimento character(1),
+    alu_pais_convivem character(1),
+    alu_pensao character(1),
+    pes_id integer NOT NULL
+);
+
+
+ALTER TABLE public.aluno OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 17617)
+-- Name: aluno_alu_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.aluno ALTER COLUMN alu_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.aluno_alu_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 216 (class 1259 OID 17387)
+-- Name: categoria_usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categoria_usuario (
+    ctsr_id integer NOT NULL,
+    ctsr_desc character varying(20)
+);
+
+
+ALTER TABLE public.categoria_usuario OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 17618)
+-- Name: categoria_usuario_ctsr_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.categoria_usuario ALTER COLUMN ctsr_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.categoria_usuario_ctsr_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 217 (class 1259 OID 17392)
+-- Name: cidade; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cidade (
+    cid_id integer NOT NULL,
+    cid_nome character varying(75),
+    est_id integer NOT NULL
+);
+
+
+ALTER TABLE public.cidade OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 17619)
+-- Name: cidade_cid_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.cidade ALTER COLUMN cid_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.cidade_cid_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 218 (class 1259 OID 17397)
+-- Name: dias; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dias (
+    dia_id integer NOT NULL,
+    dia_descricao character varying(20)
+);
+
+
+ALTER TABLE public.dias OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 17620)
+-- Name: dias_dia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.dias ALTER COLUMN dia_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.dias_dia_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 219 (class 1259 OID 17402)
+-- Name: dias_marcados_oficinas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dias_marcados_oficinas (
+    dmf_id integer NOT NULL,
+    dmf_dia date,
+    ofc_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dias_marcados_oficinas OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 17621)
+-- Name: dias_marcados_oficinas_dmf_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.dias_marcados_oficinas ALTER COLUMN dmf_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.dias_marcados_oficinas_dmf_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 220 (class 1259 OID 17407)
+-- Name: endereco; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.endereco (
+    end_id integer NOT NULL,
+    end_logradouro character varying(150),
+    end_numero character varying(20),
+    end_cep character varying(8),
+    end_complemento character varying(50),
+    end_bairro character varying(75),
+    cid_id integer NOT NULL
+);
+
+
+ALTER TABLE public.endereco OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 17622)
+-- Name: endereco_end_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.endereco ALTER COLUMN end_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.endereco_end_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 221 (class 1259 OID 17412)
+-- Name: especialidades; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.especialidades (
+    esp_id integer NOT NULL,
+    esp_descricao character varying(100),
+    professor_prof_id integer NOT NULL
+);
+
+
+ALTER TABLE public.especialidades OWNER TO postgres;
+
+--
+-- TOC entry 243 (class 1259 OID 17623)
+-- Name: especialidades_esp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.especialidades ALTER COLUMN esp_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.especialidades_esp_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 222 (class 1259 OID 17417)
+-- Name: estado; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estado (
+    est_id integer NOT NULL,
+    est_uf_1 character varying(2) NOT NULL,
+    est_nome character varying(30)
+);
+
+
+ALTER TABLE public.estado OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 17624)
+-- Name: estado_est_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.estado ALTER COLUMN est_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.estado_est_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 223 (class 1259 OID 17422)
+-- Name: ofertar_oficina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ofertar_oficina (
+    ofc_id integer NOT NULL,
+    ofc_hora_inicio time without time zone,
+    ofc_hora_termino time without time zone,
+    ofc_dt_inicial date,
+    ofc_dt_final date,
+    prof_id integer NOT NULL,
+    ofc_ativo character(1),
+    ofc_pk integer NOT NULL
+);
+
+
+ALTER TABLE public.ofertar_oficina OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 17632)
+-- Name: ofertar_oficina_ofc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.ofertar_oficina ALTER COLUMN ofc_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.ofertar_oficina_ofc_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 224 (class 1259 OID 17427)
+-- Name: oficina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.oficina (
+    ofc_id integer NOT NULL,
+    ofc_descricao character varying(70),
+    ofc_ativo character(1)
+);
+
+
+ALTER TABLE public.oficina OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 17625)
+-- Name: oficina_ofc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.oficina ALTER COLUMN ofc_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.oficina_ofc_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 225 (class 1259 OID 17432)
+-- Name: passeio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.passeio (
+    pas_id integer NOT NULL,
+    pas_data date,
+    pas_hora_inicio time without time zone,
+    pas_hora_final time without time zone,
+    pas_chamada_feita character(1),
+    pde_id integer NOT NULL
+);
+
+
+ALTER TABLE public.passeio OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 17437)
+-- Name: passeio_descricao; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.passeio_descricao (
+    pde_id integer NOT NULL,
+    pde_descricao character varying(75)
+);
+
+
+ALTER TABLE public.passeio_descricao OWNER TO postgres;
+
+--
+-- TOC entry 247 (class 1259 OID 17627)
+-- Name: passeio_descricao_pde_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.passeio_descricao ALTER COLUMN pde_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.passeio_descricao_pde_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 246 (class 1259 OID 17626)
+-- Name: passeio_pas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.passeio ALTER COLUMN pas_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.passeio_pas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 227 (class 1259 OID 17442)
+-- Name: pessoa; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pessoa (
+    pes_id integer NOT NULL,
+    pes_nome character varying(75),
+    pes_cpf character varying(11),
+    pes_dt_nascimento date,
+    pes_rg character varying(9),
+    pes_ativo character(1),
+    end_id integer NOT NULL
+);
+
+
+ALTER TABLE public.pessoa OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 17628)
+-- Name: pessoa_pes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.pessoa ALTER COLUMN pes_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.pessoa_pes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 228 (class 1259 OID 17447)
+-- Name: presenca_oficina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.presenca_oficina (
+    pso_id integer NOT NULL,
+    alu_id integer NOT NULL,
+    ofc_id integer NOT NULL,
+    dmf_id integer NOT NULL
+);
+
+
+ALTER TABLE public.presenca_oficina OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 17452)
+-- Name: presenca_passeio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.presenca_passeio (
+    psp_id integer NOT NULL,
+    aluno_alu_id integer NOT NULL,
+    passeio_pas_id integer NOT NULL,
+    pp_id integer
+);
+
+
+ALTER TABLE public.presenca_passeio OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 17457)
+-- Name: professor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.professor (
+    prof_id integer NOT NULL,
+    prof_matricula character varying(10),
+    pes_id integer NOT NULL
+);
+
+
+ALTER TABLE public.professor OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 17629)
+-- Name: professor_prof_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.professor ALTER COLUMN prof_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.professor_prof_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 231 (class 1259 OID 17462)
+-- Name: r_aluno_oficina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.r_aluno_oficina (
+    alu_id integer NOT NULL,
+    ofc_id integer NOT NULL
+);
+
+
+ALTER TABLE public.r_aluno_oficina OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 17467)
+-- Name: r_aluno_passeio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.r_aluno_passeio (
+    pas_id integer NOT NULL,
+    alu_id integer NOT NULL
+);
+
+
+ALTER TABLE public.r_aluno_passeio OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 17472)
+-- Name: r_dias_oficina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.r_dias_oficina (
+    ofc_id integer NOT NULL,
+    dia_id integer NOT NULL
+);
+
+
+ALTER TABLE public.r_dias_oficina OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 17477)
+-- Name: r_professor_passeio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.r_professor_passeio (
+    prof_id integer NOT NULL,
+    pas_id integer NOT NULL
+);
+
+
+ALTER TABLE public.r_professor_passeio OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 17482)
+-- Name: telefone; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.telefone (
+    tel_id integer NOT NULL,
+    tel_numero character varying(11),
+    pes_id integer NOT NULL
+);
+
+
+ALTER TABLE public.telefone OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 17630)
+-- Name: telefone_tel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.telefone ALTER COLUMN tel_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.telefone_tel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 236 (class 1259 OID 17487)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    usr_id integer NOT NULL,
+    usr_login character varying(40),
+    usr_senha character varying(40),
+    ctsr_id integer NOT NULL,
+    usr_ativo character(1)
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 251 (class 1259 OID 17631)
+-- Name: usuario_usr_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.usuario ALTER COLUMN usr_id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.usuario_usr_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 5047 (class 0 OID 17382)
+-- Dependencies: 215
+-- Data for Name: aluno; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.aluno (alu_id, alu_dt_entrada, alu_foto, alu_mae, alu_pai, alu_responsavel_pais, alu_conhecimento, alu_pais_convivem, alu_pensao, pes_id) VALUES
+(2, '2025-10-19', 'foto_perfil123.jpg', 'Mary Duarte ', 'Vitor Damas', 'N', 'S', 'S', 'N', 2),
+(3, '2025-11-07', 'foto12.png', 'Sandra', 'Adriano', 'N', 'N', 'S', 'N', 10),
+(4, '2025-11-07', 'foto12.png', 'Sandra', 'Adriano', 'N', 'N', 'S', 'N', 11);
+
+
+--
+-- TOC entry 5048 (class 0 OID 17387)
+-- Dependencies: 216
+-- Data for Name: categoria_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5049 (class 0 OID 17392)
+-- Dependencies: 217
+-- Data for Name: cidade; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.cidade (cid_id, cid_nome, est_id) VALUES
+(3, 'Narandiba', 2);
+
+
+--
+-- TOC entry 5050 (class 0 OID 17397)
+-- Dependencies: 218
+-- Data for Name: dias; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.dias (dia_id, dia_descricao) VALUES
+(2, 'Segunda-feira'),
+(3, 'Terça-feira'),
+(4, 'Quarta-feira'),
+(5, 'Quinta-feira'),
+(6, 'Sexta-feira'),
+(7, 'Sábado');
+
+
+--
+-- TOC entry 5051 (class 0 OID 17402)
+-- Dependencies: 219
+-- Data for Name: dias_marcados_oficinas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.dias_marcados_oficinas (dmf_id, dmf_dia, ofc_id) VALUES
+(2, '2025-11-12', 3),
+(3, '2025-11-19', 3),
+(4, '2025-11-26', 3),
+(5, '2025-12-03', 3),
+(6, '2025-11-07', 3),
+(7, '2025-11-14', 3),
+(8, '2025-11-21', 3),
+(9, '2025-11-28', 3),
+(10, '2025-12-05', 3),
+(11, '2025-12-02', 16),
+(12, '2025-12-09', 16),
+(13, '2025-12-16', 16),
+(14, '2025-12-23', 16),
+(15, '2025-12-30', 16),
+(16, '2025-12-04', 16),
+(17, '2025-12-11', 16),
+(18, '2025-12-18', 16),
+(19, '2025-12-25', 16);
+
+
+--
+-- TOC entry 5052 (class 0 OID 17407)
+-- Dependencies: 220
+-- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.endereco (end_id, end_logradouro, end_numero, end_cep, end_complemento, end_bairro, cid_id) VALUES
+(2, '', '1029', '19220000', '', 'Vila Cabral', 3);
+
+
+--
+-- TOC entry 5053 (class 0 OID 17412)
+-- Dependencies: 221
+-- Data for Name: especialidades; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5054 (class 0 OID 17417)
+-- Dependencies: 222
+-- Data for Name: estado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.estado (est_id, est_uf_1, est_nome) VALUES
+(2, 'SP', 'São Paulo');
+
+
+--
+-- TOC entry 5055 (class 0 OID 17422)
+-- Dependencies: 223
+-- Data for Name: ofertar_oficina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.ofertar_oficina (ofc_id, ofc_hora_inicio, ofc_hora_termino, ofc_dt_inicial, ofc_dt_final, prof_id, ofc_ativo, ofc_pk) VALUES
+(3, '13:30:00', '15:00:00', '2025-11-06', '2025-12-09', 2, 'S', 5),
+(13, '08:00:00', '10:00:00', '2025-11-30', '2025-12-05', 2, 'S', 2),
+(14, '14:00:00', '16:30:00', '2025-11-09', '2025-11-30', 3, 'S', 5),
+(15, '18:00:00', '20:00:00', '2025-12-18', '2025-12-28', 3, 'S', 3),
+(16, '08:00:00', '10:00:00', '2025-11-30', '2025-12-31', 3, 'S', 2),
+(17, '18:00:00', '20:00:00', '2026-01-01', '2026-01-15', 3, 'S', 5);
+
+
+--
+-- TOC entry 5056 (class 0 OID 17427)
+-- Dependencies: 224
+-- Data for Name: oficina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.oficina (ofc_id, ofc_descricao, ofc_ativo) VALUES
+(2, 'Ballet', 'S'),
+(3, 'Pintura', 'S'),
+(4, 'Literatura', 'S'),
+(5, 'Yoga', 'S'),
+(6, 'Matemática I', 'S');
+
+
+--
+-- TOC entry 5057 (class 0 OID 17432)
+-- Dependencies: 225
+-- Data for Name: passeio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5058 (class 0 OID 17437)
+-- Dependencies: 226
+-- Data for Name: passeio_descricao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5059 (class 0 OID 17442)
+-- Dependencies: 227
+-- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.pessoa (pes_id, pes_nome, pes_cpf, pes_dt_nascimento, pes_rg, pes_ativo, end_id) VALUES
+(3, 'Maria Amália Duarte', '50548945878', '1907-04-25', '54785694', 'S', 2),
+(4, 'Levi Duarte Gonçalves', '50548945878', '2023-01-17', '54785694', 'S', 2),
+(5, 'Fia Damas', '50548945878', '2024-07-17', '54785694', 'S', 2),
+(6, 'Vitor Damas', '50548945878', '2005-01-31', '54785694', 'S', 2),
+(7, 'Sandra Duarte', '45123678945', '1981-03-14', '451236547', 'S', 2),
+(8, 'Adriano Gonçalves', '45123678945', '1981-03-14', '451236547', 'S', 2),
+(9, 'Gabriel Duarte', '45123678945', '1981-03-14', '451236547', 'S', 2),
+(10, 'Mia Damas', '45123678945', '1981-03-14', '451236547', 'S', 2),
+(11, 'Ivy Duarte', '45123678945', '1981-03-14', '451236547', 'S', 2),
+(2, 'Charlote Duarte', '54123698745', '2023-01-07', '785414569', 'N', 2);
+
+
+--
+-- TOC entry 5060 (class 0 OID 17447)
+-- Dependencies: 228
+-- Data for Name: presenca_oficina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5061 (class 0 OID 17452)
+-- Dependencies: 229
+-- Data for Name: presenca_passeio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5062 (class 0 OID 17457)
+-- Dependencies: 230
+-- Data for Name: professor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.professor (prof_id, prof_matricula, pes_id) VALUES
+(2, '123', 3),
+(3, '456', 5);
+
+
+--
+-- TOC entry 5063 (class 0 OID 17462)
+-- Dependencies: 231
+-- Data for Name: r_aluno_oficina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5064 (class 0 OID 17467)
+-- Dependencies: 232
+-- Data for Name: r_aluno_passeio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5065 (class 0 OID 17472)
+-- Dependencies: 233
+-- Data for Name: r_dias_oficina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5066 (class 0 OID 17477)
+-- Dependencies: 234
+-- Data for Name: r_professor_passeio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5067 (class 0 OID 17482)
+-- Dependencies: 235
+-- Data for Name: telefone; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5068 (class 0 OID 17487)
+-- Dependencies: 236
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5090 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: aluno_alu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.aluno_alu_id_seq', 4, true);
+
+
+--
+-- TOC entry 5091 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: categoria_usuario_ctsr_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categoria_usuario_ctsr_id_seq', 1, true);
+
+
+--
+-- TOC entry 5092 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: cidade_cid_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cidade_cid_id_seq', 1, true);
+
+
+--
+-- TOC entry 5093 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: dias_dia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dias_dia_id_seq', 1, true);
+
+
+--
+-- TOC entry 5094 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: dias_marcados_oficinas_dmf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dias_marcados_oficinas_dmf_id_seq', 19, true);
+
+
+--
+-- TOC entry 5095 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: endereco_end_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.endereco_end_id_seq', 1, true);
+
+
+--
+-- TOC entry 5096 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: especialidades_esp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.especialidades_esp_id_seq', 1, true);
+
+
+--
+-- TOC entry 5097 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: estado_est_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.estado_est_id_seq', 1, true);
+
+
+--
+-- TOC entry 5098 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: ofertar_oficina_ofc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ofertar_oficina_ofc_id_seq', 17, true);
+
+
+--
+-- TOC entry 5099 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: oficina_ofc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.oficina_ofc_id_seq', 6, true);
+
+
+--
+-- TOC entry 5100 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: passeio_descricao_pde_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.passeio_descricao_pde_id_seq', 1, true);
+
+
+--
+-- TOC entry 5101 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: passeio_pas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.passeio_pas_id_seq', 1, true);
+
+
+--
+-- TOC entry 5102 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: pessoa_pes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pessoa_pes_id_seq', 11, true);
+
+
+--
+-- TOC entry 5103 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: professor_prof_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.professor_prof_id_seq', 3, true);
+
+
+--
+-- TOC entry 5104 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: telefone_tel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.telefone_tel_id_seq', 1, true);
+
+
+--
+-- TOC entry 5105 (class 0 OID 0)
+-- Dependencies: 251
+-- Name: usuario_usr_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuario_usr_id_seq', 1, true);
+
+
+--
+-- TOC entry 4836 (class 2606 OID 17386)
+-- Name: aluno aluno_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.aluno
+    ADD CONSTRAINT aluno_pk PRIMARY KEY (alu_id);
+
+
+--
+-- TOC entry 4838 (class 2606 OID 17391)
+-- Name: categoria_usuario categoria_usuario_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria_usuario
+    ADD CONSTRAINT categoria_usuario_pk PRIMARY KEY (ctsr_id);
+
+
+--
+-- TOC entry 4840 (class 2606 OID 17396)
+-- Name: cidade cidade_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidade
+    ADD CONSTRAINT cidade_pk PRIMARY KEY (cid_id);
+
+
+--
+-- TOC entry 4844 (class 2606 OID 17406)
+-- Name: dias_marcados_oficinas dias_marcados_oficinas_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dias_marcados_oficinas
+    ADD CONSTRAINT dias_marcados_oficinas_pk PRIMARY KEY (dmf_id);
+
+
+--
+-- TOC entry 4842 (class 2606 OID 17401)
+-- Name: dias dias_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dias
+    ADD CONSTRAINT dias_pk PRIMARY KEY (dia_id);
+
+
+--
+-- TOC entry 4846 (class 2606 OID 17411)
+-- Name: endereco endereco_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.endereco
+    ADD CONSTRAINT endereco_pk PRIMARY KEY (end_id);
+
+
+--
+-- TOC entry 4848 (class 2606 OID 17416)
+-- Name: especialidades especialidades_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.especialidades
+    ADD CONSTRAINT especialidades_pk PRIMARY KEY (esp_id);
+
+
+--
+-- TOC entry 4850 (class 2606 OID 17421)
+-- Name: estado estado_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado
+    ADD CONSTRAINT estado_pk PRIMARY KEY (est_id);
+
+
+--
+-- TOC entry 4854 (class 2606 OID 17431)
+-- Name: oficina oficina_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.oficina
+    ADD CONSTRAINT oficina_pk PRIMARY KEY (ofc_id);
+
+
+--
+-- TOC entry 4852 (class 2606 OID 17426)
+-- Name: ofertar_oficina oficina_pkv3; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ofertar_oficina
+    ADD CONSTRAINT oficina_pkv3 PRIMARY KEY (ofc_id);
+
+
+--
+-- TOC entry 4858 (class 2606 OID 17441)
+-- Name: passeio_descricao passeio_descricao_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.passeio_descricao
+    ADD CONSTRAINT passeio_descricao_pk PRIMARY KEY (pde_id);
+
+
+--
+-- TOC entry 4856 (class 2606 OID 17436)
+-- Name: passeio passeio_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.passeio
+    ADD CONSTRAINT passeio_pk PRIMARY KEY (pas_id);
+
+
+--
+-- TOC entry 4860 (class 2606 OID 17446)
+-- Name: pessoa pessoa_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pessoa
+    ADD CONSTRAINT pessoa_pk PRIMARY KEY (pes_id);
+
+
+--
+-- TOC entry 4862 (class 2606 OID 17451)
+-- Name: presenca_oficina presenca_oficina_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_oficina
+    ADD CONSTRAINT presenca_oficina_pk PRIMARY KEY (alu_id, ofc_id, pso_id, dmf_id);
+
+
+--
+-- TOC entry 4864 (class 2606 OID 17456)
+-- Name: presenca_passeio presenca_passeio_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_passeio
+    ADD CONSTRAINT presenca_passeio_pk PRIMARY KEY (aluno_alu_id, passeio_pas_id, psp_id);
+
+
+--
+-- TOC entry 4866 (class 2606 OID 17461)
+-- Name: professor professor_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT professor_pk PRIMARY KEY (prof_id);
+
+
+--
+-- TOC entry 4868 (class 2606 OID 17466)
+-- Name: r_aluno_oficina r_aluno_oficina_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_aluno_oficina
+    ADD CONSTRAINT r_aluno_oficina_pk PRIMARY KEY (alu_id, ofc_id);
+
+
+--
+-- TOC entry 4870 (class 2606 OID 17471)
+-- Name: r_aluno_passeio r_aluno_passeio_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_aluno_passeio
+    ADD CONSTRAINT r_aluno_passeio_pk PRIMARY KEY (pas_id, alu_id);
+
+
+--
+-- TOC entry 4872 (class 2606 OID 17476)
+-- Name: r_dias_oficina r_dias_oficina_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_dias_oficina
+    ADD CONSTRAINT r_dias_oficina_pk PRIMARY KEY (ofc_id, dia_id);
+
+
+--
+-- TOC entry 4874 (class 2606 OID 17481)
+-- Name: r_professor_passeio r_professor_passeio_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_professor_passeio
+    ADD CONSTRAINT r_professor_passeio_pk PRIMARY KEY (pas_id, prof_id);
+
+
+--
+-- TOC entry 4876 (class 2606 OID 17486)
+-- Name: telefone telefone_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.telefone
+    ADD CONSTRAINT telefone_pk PRIMARY KEY (tel_id);
+
+
+--
+-- TOC entry 4878 (class 2606 OID 17491)
+-- Name: usuario usuario_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pk PRIMARY KEY (usr_id);
+
+
+--
+-- TOC entry 4879 (class 2606 OID 17492)
+-- Name: aluno aluno_pessoa_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.aluno
+    ADD CONSTRAINT aluno_pessoa_fk FOREIGN KEY (pes_id) REFERENCES public.pessoa(pes_id);
+
+
+--
+-- TOC entry 4880 (class 2606 OID 17497)
+-- Name: cidade cidade_estado_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidade
+    ADD CONSTRAINT cidade_estado_fk FOREIGN KEY (est_id) REFERENCES public.estado(est_id);
+
+
+--
+-- TOC entry 4881 (class 2606 OID 17502)
+-- Name: dias_marcados_oficinas dias_marc_ofc_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dias_marcados_oficinas
+    ADD CONSTRAINT dias_marc_ofc_fk FOREIGN KEY (ofc_id) REFERENCES public.ofertar_oficina(ofc_id);
+
+
+--
+-- TOC entry 4888 (class 2606 OID 17507)
+-- Name: presenca_oficina dmf_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_oficina
+    ADD CONSTRAINT dmf_id FOREIGN KEY (dmf_id) REFERENCES public.dias_marcados_oficinas(dmf_id);
+
+
+--
+-- TOC entry 4882 (class 2606 OID 17512)
+-- Name: endereco endereco_cidade_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.endereco
+    ADD CONSTRAINT endereco_cidade_fk FOREIGN KEY (cid_id) REFERENCES public.cidade(cid_id);
+
+
+--
+-- TOC entry 4883 (class 2606 OID 17517)
+-- Name: especialidades especiali_prof_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.especialidades
+    ADD CONSTRAINT especiali_prof_fk FOREIGN KEY (professor_prof_id) REFERENCES public.professor(prof_id);
+
+
+--
+-- TOC entry 4884 (class 2606 OID 17522)
+-- Name: ofertar_oficina ofc_pk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ofertar_oficina
+    ADD CONSTRAINT ofc_pk FOREIGN KEY (ofc_pk) REFERENCES public.oficina(ofc_id);
+
+
+--
+-- TOC entry 4885 (class 2606 OID 17527)
+-- Name: ofertar_oficina oficina_professor_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ofertar_oficina
+    ADD CONSTRAINT oficina_professor_fk FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
+
+
+--
+-- TOC entry 4886 (class 2606 OID 17532)
+-- Name: passeio passeio_passeio_descricao_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.passeio
+    ADD CONSTRAINT passeio_passeio_descricao_fk FOREIGN KEY (pde_id) REFERENCES public.passeio_descricao(pde_id);
+
+
+--
+-- TOC entry 4887 (class 2606 OID 17537)
+-- Name: pessoa pessoa_endereco_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pessoa
+    ADD CONSTRAINT pessoa_endereco_fk FOREIGN KEY (end_id) REFERENCES public.endereco(end_id);
+
+
+--
+-- TOC entry 4889 (class 2606 OID 17542)
+-- Name: presenca_oficina presenca_oficina_aluno_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_oficina
+    ADD CONSTRAINT presenca_oficina_aluno_fk FOREIGN KEY (alu_id) REFERENCES public.aluno(alu_id);
+
+
+--
+-- TOC entry 4890 (class 2606 OID 17547)
+-- Name: presenca_oficina presenca_oficina_oficina_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_oficina
+    ADD CONSTRAINT presenca_oficina_oficina_fk FOREIGN KEY (ofc_id) REFERENCES public.ofertar_oficina(ofc_id);
+
+
+--
+-- TOC entry 4891 (class 2606 OID 17552)
+-- Name: presenca_passeio presenca_pas_aluno_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_passeio
+    ADD CONSTRAINT presenca_pas_aluno_fk FOREIGN KEY (aluno_alu_id) REFERENCES public.aluno(alu_id);
+
+
+--
+-- TOC entry 4892 (class 2606 OID 17557)
+-- Name: presenca_passeio presenca_pas_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.presenca_passeio
+    ADD CONSTRAINT presenca_pas_fk FOREIGN KEY (passeio_pas_id) REFERENCES public.passeio(pas_id);
+
+
+--
+-- TOC entry 4893 (class 2606 OID 17562)
+-- Name: professor professor_pessoa_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT professor_pessoa_fk FOREIGN KEY (pes_id) REFERENCES public.pessoa(pes_id);
+
+
+--
+-- TOC entry 4894 (class 2606 OID 17567)
+-- Name: r_aluno_oficina r_aluno_oficina_aluno_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_aluno_oficina
+    ADD CONSTRAINT r_aluno_oficina_aluno_fk FOREIGN KEY (alu_id) REFERENCES public.aluno(alu_id);
+
+
+--
+-- TOC entry 4895 (class 2606 OID 17572)
+-- Name: r_aluno_oficina r_aluno_oficina_oficina_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+-- 1. Remove a constraint incorreta (se existir)
+ALTER TABLE public.r_aluno_oficina
+    DROP CONSTRAINT IF EXISTS r_aluno_oficina_oficina_fk;
+
+-- 2. Adiciona a constraint correta apontando para a tabela oficina
+ALTER TABLE public.r_aluno_oficina
+    ADD CONSTRAINT r_aluno_oficina_oficina_fk
+    FOREIGN KEY (ofc_id) REFERENCES public.oficina(ofc_id);
+
+
+--
+-- TOC entry 4896 (class 2606 OID 17577)
+-- Name: r_aluno_passeio r_aluno_passeio_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_aluno_passeio
+    ADD CONSTRAINT r_aluno_passeio_fk FOREIGN KEY (pas_id) REFERENCES public.passeio(pas_id);
+
+
+--
+-- TOC entry 4897 (class 2606 OID 17582)
+-- Name: r_aluno_passeio r_aluno_passeio_fkv1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_aluno_passeio
+    ADD CONSTRAINT r_aluno_passeio_fkv1 FOREIGN KEY (alu_id) REFERENCES public.aluno(alu_id);
+
+
+--
+-- TOC entry 4898 (class 2606 OID 17587)
+-- Name: r_dias_oficina r_dias_oficina_dias_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_dias_oficina
+    ADD CONSTRAINT r_dias_oficina_dias_fk FOREIGN KEY (dia_id) REFERENCES public.dias(dia_id);
+
+
+--
+-- TOC entry 4899 (class 2606 OID 17592)
+-- Name: r_dias_oficina r_dias_oficina_oficina_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_dias_oficina
+    ADD CONSTRAINT r_dias_oficina_oficina_fk FOREIGN KEY (ofc_id) REFERENCES public.ofertar_oficina(ofc_id);
+
+
+--
+-- TOC entry 4900 (class 2606 OID 17597)
+-- Name: r_professor_passeio r_professor_passeio_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_professor_passeio
+    ADD CONSTRAINT r_professor_passeio_fk FOREIGN KEY (pas_id) REFERENCES public.passeio(pas_id);
+
+
+--
+-- TOC entry 4901 (class 2606 OID 17602)
+-- Name: r_professor_passeio r_professor_passeio_fkv1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.r_professor_passeio
+    ADD CONSTRAINT r_professor_passeio_fkv1 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
+
+
+--
+-- TOC entry 4902 (class 2606 OID 17607)
+-- Name: telefone telefone_pessoa_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.telefone
+    ADD CONSTRAINT telefone_pessoa_fk FOREIGN KEY (pes_id) REFERENCES public.pessoa(pes_id);
+
+
+--
+-- TOC entry 4903 (class 2606 OID 17612)
+-- Name: usuario usuario_categoria_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_categoria_fk FOREIGN KEY (ctsr_id) REFERENCES public.categoria_usuario(ctsr_id);
+
+
+CREATE TABLE IF NOT EXISTS public.fotos_oficina
+(
+    alu_id integer NOT NULL,
+    ofc_id integer NOT NULL,
+    pso_id integer NOT NULL,
+    dmf_id integer NOT NULL,
+    fto_numero integer NOT NULL,
+    fto_foto bytea,
+    fto_nome_arquivo character varying(100) COLLATE pg_catalog."default",
+    fto_data_upload timestamp without time zone DEFAULT now(),
+    fto_descricao character varying(200) COLLATE pg_catalog."default",
+    CONSTRAINT fotos_oficina_pk PRIMARY KEY (alu_id, ofc_id, pso_id, dmf_id, fto_numero),
+    CONSTRAINT fotos_oficina_presenca_oficina_fk FOREIGN KEY (alu_id, ofc_id, pso_id, dmf_id)
+        REFERENCES public.presenca_oficina (alu_id, ofc_id, pso_id, dmf_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.fotos_oficina
+    OWNER to postgres;
+
+-- Completed on 2025-11-09 22:57:58
+
+--
+-- PostgreSQL database dump complete
+--
