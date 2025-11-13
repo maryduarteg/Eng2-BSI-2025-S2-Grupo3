@@ -116,7 +116,8 @@ ALTER TABLE OFERTAR_OFICINA
 CREATE TABLE OFICINA
 (
     ofc_id        INTEGER  NOT NULL ,
-    ofc_descricao VARCHAR (70)
+    ofc_descricao VARCHAR (70),
+    ofc_ativo     CHAR (1)
 )
 ;
 
@@ -649,5 +650,5 @@ SELECT reset_identity_sequence('telefone', 'tel_id');
 SELECT reset_identity_sequence('usuario', 'usr_id');
 SELECT reset_identity_sequence('ofertar_oficina', 'ofc_id');
 
--- DROP FUNCTION reset_identity_sequence(text, text); -- Opcional: remover a função após o uso
+-- DROP FUNCTION reset_identity_sequence(text, text); -- Opcional:: remover a função após o uso
 

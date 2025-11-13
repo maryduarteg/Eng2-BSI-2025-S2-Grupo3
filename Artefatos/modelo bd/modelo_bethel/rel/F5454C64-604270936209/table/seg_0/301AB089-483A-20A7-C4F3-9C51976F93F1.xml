@@ -30,6 +30,18 @@
 <ownDataTypeParameters>70,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ofc_ativo" id="52E11051-7020-E4D1-7C53-15914395105A">
+<createdBy>Mary</createdBy>
+<createdTime>2025-11-06 03:03:19 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="24303C5B-2FE9-047B-7D61-91270F89E032" name="OFICINA_PK">

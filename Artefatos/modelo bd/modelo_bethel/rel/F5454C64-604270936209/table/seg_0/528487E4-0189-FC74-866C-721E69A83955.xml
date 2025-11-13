@@ -18,34 +18,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="alu_id" id="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8">
-<createdBy>Mary</createdBy>
-<createdTime>2025-08-23 04:11:54 UTC</createdTime>
-<ownerDesignName>modelo_bethel</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="60EDCA88-2839-65C8-D496-3C782066DB70" referredColumn="6B8980F0-D0D0-BC4D-74A0-0D5467B0D414"/>
-</associations>
-</Column>
-<Column name="ofc_id" id="4A97C061-1D99-F7D5-2FE3-563B6E7BB723">
-<createdBy>Mary</createdBy>
-<createdTime>2025-08-23 12:33:11 UTC</createdTime>
-<ownerDesignName>modelo_bethel</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="2F0AF0F6-D813-EE96-5C5A-4BD86F9BC5E7" referredColumn="38057105-EEE3-4B05-0E22-AFEC6B62A9AC"/>
-</associations>
-</Column>
 <Column name="dmf_id" id="91CEC1AA-DF93-3B61-0CC3-E7B6F5515BDF">
 <createdBy>Mary</createdBy>
 <createdTime>2025-11-05 03:47:54 UTC</createdTime>
@@ -60,6 +32,34 @@
 <colAssociation fkAssociation="EBC251D8-37DB-6865-A6E7-D2945A194DDB" referredColumn="5F197FA4-1859-5B2F-52B7-6FD375DE983A"/>
 </associations>
 </Column>
+<Column name="R_ALUNO_OFICINA_alu_id" id="41A95ABD-960E-0166-A544-1315F8A66269">
+<createdBy>Mary</createdBy>
+<createdTime>2025-11-06 22:47:23 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="49D3B276-7901-BD83-6314-A82A902DF84E" referredColumn="A54258FC-EF15-4F78-0B66-AFFE4D41217E"/>
+</associations>
+</Column>
+<Column name="R_ALUNO_OFICINA_ofc_id" id="70B3952C-4CE5-6B50-2905-3EA2AADA9EB5">
+<createdBy>Mary</createdBy>
+<createdTime>2025-11-06 22:47:23 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="49D3B276-7901-BD83-6314-A82A902DF84E" referredColumn="E599B8D8-3FA9-BA2D-824A-527A2A973DDE"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="775BB650-489F-737B-716C-5DDD44452A98" name="PRESENCA_OFICINA_PK">
@@ -70,31 +70,8 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8"/>
-<colUsage columnID="4A97C061-1D99-F7D5-2FE3-563B6E7BB723"/>
 <colUsage columnID="3B00ADE9-0CB9-1D14-5F4B-728622D6107F"/>
 <colUsage columnID="91CEC1AA-DF93-3B61-0CC3-E7B6F5515BDF"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="2A46A7DA-108F-2956-CBEE-A17CD93A5750" name="PRESENCA_OFICINA_OFICINA_FK">
-<createdBy>Mary</createdBy>
-<createdTime>2025-08-23 04:03:21 UTC</createdTime>
-<ownerDesignName>modelo_bethel</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="4A97C061-1D99-F7D5-2FE3-563B6E7BB723"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="B28A25A8-7BA2-EA7D-4BCE-B7EE38428178" name="PRESENCA_OFICINA_ALUNO_FK">
-<createdBy>Mary</createdBy>
-<createdTime>2025-08-23 04:11:54 UTC</createdTime>
-<generatorID>2AE52A0F-9211-9FEF-82DC-A302C8585D2D</generatorID>
-<ownerDesignName>modelo_bethel</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="D9582752-1AF8-BFF2-FE9C-B03CC0E388E8"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="09AE0BDC-F766-864D-6066-45311469AEFE" name="dmf_id">
@@ -105,6 +82,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="91CEC1AA-DF93-3B61-0CC3-E7B6F5515BDF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="10294C13-0816-CB72-7E56-271DA82859BA" name="alunos_ofc">
+<createdBy>Mary</createdBy>
+<createdTime>2025-11-06 22:47:23 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="41A95ABD-960E-0166-A544-1315F8A66269"/>
+<colUsage columnID="70B3952C-4CE5-6B50-2905-3EA2AADA9EB5"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
