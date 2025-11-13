@@ -53,3 +53,10 @@
     justify-content: center;
     margin: 20px 0 20px 0;
 }
+
+.dadosOficina
+{
+    width: 100%;
+    text-align: left;
+    padding-left: 2rem;
+}

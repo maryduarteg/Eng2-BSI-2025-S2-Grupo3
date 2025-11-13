@@ -337,14 +337,12 @@
             <div id="tabela-container" class="d-none text-center">
                 <h2></h2>
                 <div class="row mb-4 justify-content-center">
-                    <!-- Filtro por status -->
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Status da Oficina:</label>
-                        <select id="filtro-status" class="form-control">
-                            <option value="">Todas</option>
-                            <option value="S">Ativas</option>
-                            <option value="I">Inativas</option>
-                        </select>
+                    <!-- Filtro por professor -->
+                    <div class="col-md-4 " >
+                        <label class="form-label fw-bold">Buscar por Professor:</label>
+                        <div class="filtro-professor">
+                            <input type="text" id="filtro-professor" class="form-control" placeholder="Digite o nome do professor...">
+                        </div>
                     </div>
 
                     <!-- Filtro por nome -->
@@ -385,14 +383,15 @@
             <div id="tabela-dias-container" class="d-none text-center">
                 <div class="row">
                     <div class="dadosOficina">
+                        <b>Dados da oficina selecionada:</b>
                         <div class="">
-                            Oficina: <span id="nomeOficina"></span>
+                            <b>Oficina:</b> <span id="nomeOficina"></span>
                         </div>
                         <div class="">
-                            ID: <span id="idOficina"></span>
+                            <b>ID:</b> <span id="idOficina"></span>
                         </div>
                         <div class="">
-                            Horário: <span id="horainicio"></span> às <span id="horafinal"></span>
+                            <b>Horário:</b> <span id="horainicio"></span> às <span id="horafinal"></span>
                         </div>
                     </div>
                     <div class="col-12 mx-auto">
@@ -408,8 +407,9 @@
                             </tbody>
                         </table>
                         <p id="mensagem-tabela-dias" class="text-center text-muted">Carregando dias...</p>
+                        <button type="button" class="btn btn-primary" id="btn-salvar-excluir">Salvar</button>
                     </div>
-                    <button type="button" class="btn btn-primary" id="btn-salvar-excluir">Salvar</button>
+
 
                 </div>
             </div>
