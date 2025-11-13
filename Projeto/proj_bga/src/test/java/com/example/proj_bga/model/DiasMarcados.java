@@ -2,12 +2,13 @@ package com.example.proj_bga.model;
 
 import com.example.proj_bga.dao.DiasMarcadosDAO;
 import com.example.proj_bga.util.Conexao;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@Repository
 public class DiasMarcados {
-    private DiasMarcadosDAO dao;
+    private DiasMarcadosDAO dao = new DiasMarcadosDAO();
     private int id;
     private LocalDate data;
     private int idOFc;

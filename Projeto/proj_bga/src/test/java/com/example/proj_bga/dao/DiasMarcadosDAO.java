@@ -94,12 +94,15 @@ public class DiasMarcadosDAO implements IDAO<DiasMarcados>{
 
         try {
             ResultSet rs = conexao.consultar(sql);
-            DiasMarcados dia = new DiasMarcados();
-            dia.setId(rs.getInt("dmf_id"));
-            dia.setData(rs.getDate("dmf_dia").toLocalDate());
-            dia.setIdOFc(rs.getInt("ofc_id"));
-
-            return dia;
+            if (rs.next()) { // move o cursor pra primeira linha
+                DiasMarcados dia = new DiasMarcados();
+                dia.setId(rs.getInt("dmf_id"));
+                dia.setData(rs.getDate("dmf_dia").toLocalDate());
+                dia.setIdOFc(rs.getInt("ofc_id"));
+                return dia;
+            } else {
+                return null; // não achou nenhum registro
+            }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar dias marcados: " + e.getMessage());
         }

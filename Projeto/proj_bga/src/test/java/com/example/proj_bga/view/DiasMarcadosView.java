@@ -12,6 +12,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("apis/dias")
+
+
 public class DiasMarcadosView {
     @Autowired
     private DiasMarcadosController diaController;
@@ -28,9 +30,9 @@ public class DiasMarcadosView {
         }
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAluno(@PathVariable("id") int id)
-    {
+    public ResponseEntity<Object> deleteData(@PathVariable("id") int id) {
         Map<String, Object> json = diaController.deletarDia(id);
         if(json.get("erro") == null){
             return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));

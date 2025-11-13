@@ -510,18 +510,10 @@ function salvarEdicao() {
 
     if (!valido) return;
 
-    //Verificação de conflito antes de atualizar (mesmo do cadastrar)
-    fetch(`http://localhost:8080/apis/ofertaOficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
-        .then(resp => resp.json())
-        .then(conflito => {
-            if (conflito.existe) {
-                erro(professor, "O professor já possui oficina nesse horário!");
-                mostrarMensagem("Conflito detectado: professor já está ocupado.", false);
-                return;
-            }
 
-            // Se não há conflito → atualizar
-            const params = new URLSearchParams({
+
+     // Se não há conflito →
+     const params = new URLSearchParams({
                 id: id,
                 Hora_Inicio: horaInicio,
                 Hora_Fim: horaFim,
@@ -540,7 +532,6 @@ function salvarEdicao() {
                     carregarTodasOficinas();
                 })
                 .catch(() => mostrarMensagem("Erro ao atualizar oficina!", false));
-        });
 }
 
 // Funções auxiliares

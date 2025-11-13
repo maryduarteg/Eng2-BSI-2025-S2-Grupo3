@@ -22,7 +22,6 @@ public class DiasMarcadosController {
 
     public List<Map<String, Object>> getDias(String filtro) {
         Conexao conexao = SingletonDB.conectar();
-        DiasMarcados pessoa = null;
         List<DiasMarcados> lista = diasModel.consultar(filtro, conexao);
         if (lista == null) {
             return null;
@@ -37,6 +36,7 @@ public class DiasMarcadosController {
 
             resultado.add(json);
         }
+
         return resultado;
     }
 

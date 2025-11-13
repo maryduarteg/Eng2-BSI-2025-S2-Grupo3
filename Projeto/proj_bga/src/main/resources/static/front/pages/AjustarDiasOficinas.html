@@ -2,7 +2,6 @@
 <html lang="pt-br">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +14,6 @@
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-
     <!-- Custom styles for this template teste para commit-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style_diasoficina.css">
@@ -338,9 +336,9 @@
             <!-- Tabela de Oficinas -->
             <div id="tabela-container" class="d-none text-center">
                 <h2></h2>
-                <div class="row mb-3 justify-content-center">
+                <div class="row mb-4 justify-content-center">
                     <!-- Filtro por status -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="form-label fw-bold">Status da Oficina:</label>
                         <select id="filtro-status" class="form-control">
                             <option value="">Todas</option>
@@ -354,7 +352,6 @@
                         <label class="form-label fw-bold">Buscar por Nome:</label>
                         <div class="filtro-nome">
                             <input type="text" id="filtro-nome" class="form-control" placeholder="Digite o nome da oficina...">
-                            <button type="button" class="btn btn-primary" id="btn-buscar-nome">Buscar</button>
                         </div>
                     </div>
 
@@ -372,7 +369,6 @@
                                 <th>Horário de Inicio</th>
                                 <th>Horário do Fim</th>
                                 <th>Professor</th>
-                                <th>Status</th>
                                 <th>Editar</th>
                             </tr>
                             </thead>
@@ -393,6 +389,9 @@
                             Oficina: <span id="nomeOficina"></span>
                         </div>
                         <div class="">
+                            ID: <span id="idOficina"></span>
+                        </div>
+                        <div class="">
                             Horário: <span id="horainicio"></span> às <span id="horafinal"></span>
                         </div>
                     </div>
@@ -401,7 +400,7 @@
                             <thead>
                             <tr>
                                 <th>Data</th>
-                                <th>Manter</th>
+                                <th>Excluir</th>
                             </tr>
                             </thead>
                             <tbody id="tabela-dias-container-body">
@@ -410,6 +409,8 @@
                         </table>
                         <p id="mensagem-tabela-dias" class="text-center text-muted">Carregando dias...</p>
                     </div>
+                    <button type="button" class="btn btn-primary" id="btn-salvar-excluir">Salvar</button>
+
                 </div>
             </div>
             <!-- e termina aqui -->
