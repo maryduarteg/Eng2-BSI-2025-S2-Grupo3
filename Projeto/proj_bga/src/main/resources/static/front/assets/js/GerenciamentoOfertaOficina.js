@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Botão de salvar edição
     const btnSalvar = document.getElementById("btn-salvar-edicao");
-    if (btnSalvar) btnSalvar.addEventListener("click", salvarEdicao);
+    if (btnSalvar) btnSalvar.addEventListener("click", salvarEdicao(btnSalvar.dataset.idProf));
 });
 
 // Função para carregar todas as oficinas
@@ -427,6 +427,7 @@ function ativarBotoesEditar() {
                     document.getElementById("editar-ativo").value = oficina.ativo;
 
                     document.getElementById("formulario-editar-oficina").classList.remove("d-none");
+                    document.getElementById("btn-salvar-edicao").dataset.idProf = oficina.pde_id;
 
                     //Máscaras aplicadas ao abrir o formulário de edição
                     document.getElementById("editar-data-inicio").addEventListener("keyup", e => aplicarMascaraData(e.target));
@@ -440,7 +441,7 @@ function ativarBotoesEditar() {
 
 
 // Salvar edição
-function salvarEdicao() {
+function salvarEdicao(idProf) {
     const form = document.getElementById("form-editar-oficina");
     let valido = true;
 
@@ -485,7 +486,8 @@ function salvarEdicao() {
 
     // Validação de datas
     if (dataInicio && dataFim) {
-        const hoje = new Date(); hoje.setHours(0,0,0,0);
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
         const [di, mi, ai] = dataInicio.split("/").map(Number);
         const [df, mf, af] = dataFim.split("/").map(Number);
         const inicio = new Date(ai, mi - 1, di);
@@ -510,29 +512,42 @@ function salvarEdicao() {
 
     if (!valido) return;
 
+    // Verificação de conflito antes de atualizar (mesmo do cadastrar)
+    if (idProf != professorId) {
+        fetch(`http://localhost:8080/apis/ofertaOficina/verificar-conflito?professorId=${professorId}&dataInicio=${converterDataBrasilParaISO(dataInicio)}&dataFim=${converterDataBrasilParaISO(dataFim)}&horaInicio=${horaInicio}&horaFim=${horaFim}&ignorarId=${id}`)
+            .then(resp => resp.json())
+            .then(conflito => {
+                if (conflito.existe) {
+                    erro(professor, "O professor já possui oficina nesse horário!");
+                    mostrarMensagem("Conflito detectado: professor já está ocupado.", false);
+                    return;
+                }
 
+                // Se não há conflito → atualizar
+                const params = new URLSearchParams({
+                    id: id,
+                    Hora_Inicio: horaInicio,
+                    Hora_Fim: horaFim,
+                    Data_Inicio: converterDataBrasilParaISO(dataInicio),
+                    Data_Fim: converterDataBrasilParaISO(dataFim),
+                    Professor: professorId,
+                    Ativo: ativo,
+                    ofc_pk: parseInt(nome)
+                });
 
-     // Se não há conflito →
-     const params = new URLSearchParams({
-                id: id,
-                Hora_Inicio: horaInicio,
-                Hora_Fim: horaFim,
-                Data_Inicio: converterDataBrasilParaISO(dataInicio),
-                Data_Fim: converterDataBrasilParaISO(dataFim),
-                Professor: professorId,
-                Ativo: ativo,
-                ofc_pk: parseInt(nome)
-            });
-
-            fetch(`http://localhost:8080/apis/ofertaOficina?${params.toString()}`, { method: "PUT" })
-                .then(resp => {
-                    if (!resp.ok) throw new Error();
-                    mostrarMensagem("Alteração realizada com sucesso!", true);
-                    document.getElementById("formulario-editar-oficina").classList.add("d-none");
-                    carregarTodasOficinas();
-                })
-                .catch(() => mostrarMensagem("Erro ao atualizar oficina!", false));
+                fetch(`http://localhost:8080/apis/ofertaOficina?${params.toString()}`, { method: "PUT" })
+                    .then(resp => {
+                        if (!resp.ok) throw new Error();
+                        mostrarMensagem("Alteração realizada com sucesso!", true);
+                        document.getElementById("formulario-editar-oficina").classList.add("d-none");
+                        carregarTodasOficinas();
+                    })
+                    .catch(() => mostrarMensagem("Erro ao atualizar oficina!", false));
+            })
+            .catch(() => mostrarMensagem("Erro ao verificar conflito!", false));
+    }
 }
+
 
 // Funções auxiliares
 function mostrarMensagem(texto, sucesso) {
