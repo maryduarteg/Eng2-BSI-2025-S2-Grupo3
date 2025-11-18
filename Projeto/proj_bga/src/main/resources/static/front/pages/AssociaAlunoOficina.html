@@ -79,10 +79,26 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Ferramentas:</h6>
                     <a class="collapse-item" href="AssociaAlunoOficina.html">Associar Alunos à Oficinas</a>
-                    <a class="collapse-item" href="AjustarDiasOficinas.html">Gerenciar Dias das Oficinas</a>
-                    <a class="collapse-item" href="GerenciamentoOfertaOficinas.html">Ofertra Oficinas</a>
+                    <a class="collapse-item" href="AjustarDiasOficinas.html">Ajustar dias das Oficinas</a>
+                    <a class="collapse-item" href="GerenciamentoOfertaOficinas.html.html">Ofertar Oficinas</a>
                     <a class="collapse-item" href="GerenciamentoPresencaOficina.html">Registrar Presença</a>
+                </div>
+            </div>
+        </li>
 
+        <!-- Nav Item - Fotos -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFotos"
+               aria-expanded="true" aria-controls="collapseFotos">
+                <i class="fas fa-fw fa-image"></i>
+                <span>Fotos</span>
+            </a>
+            <div id="collapseFotos" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Fotos:</h6>
+                    <a class="collapse-item" href="GerenciamentoFotosOficinas.html">Fotos das Oficinas</a>
+                    <a class="collapse-item" href="#">Fotos dos Passeios</a>
                 </div>
             </div>
         </li>
@@ -90,27 +106,20 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-image"></i>
-                <span>Fotos</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGerenciaUsu"
+               aria-expanded="true" aria-controls="collapseGerenciaUsu">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Gerenciar Usuários</span>
             </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="collapseGerenciaUsu" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Fotos:</h6>
-                    <a class="collapse-item" href="FotosOficina.html">Fotos Oficinas</a>
-                    <a class="collapse-item" href="#">Fotos Passeios</a>
+                    <h6 class="collapse-header">Gerenciar Usuários:</h6>
+                    <a class="collapse-item" href="#">Gerenciar Usuários</a>
                 </div>
             </div>
         </li>
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -177,80 +186,42 @@
             </nav>
             <!-- End of Topbar -->
 
-            <!-- Começa aqui -->
-            <!-- Começa aqui -->
-            <div class="container">
+            <!-- gerenciamento dos passeios começa aqui ---- pra cima é elemento do template -->
 
-                <h3 class="mb-3 text-primary">Registrar Presença em Oficina</h3>
+            <div class="container-fluid">
+                <br>
+                <h2 class="text-center">Associar Alunos à Oficinas</h2><br><br>
 
-                <label for="select-oficina-data"><strong>Selecione a Oficina e Data da Chamada:</strong></label>
-                <select id="select-oficina-data" class="form-control mb-4">
-                    <option value="">Carregando...</option>
-                </select>
+                <!-- Botão para listar oficinas -->
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-success mx-4" onclick="listarOficinas()">
+                        <i class="fas fa-list"></i> Listar Oficinas
+                    </button>
+                </div>
 
-                <div id="mensagem-chamada" style="color: red; margin-top: 10px;"></div>
+                <br><br>
 
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-secondary">Lista de Alunos Matriculados</h6>
-                    </div>
-                    <div class="card-body">
-                        <table id="tabela-alunos" class="table table-bordered">
-                            <thead class="thead-light">
+                <!-- Tabela de oficinas (inicialmente oculta) -->
+                <div id="oficinasContainer" style="display: none;">
+                    <h4 class="text-center">Oficinas Disponíveis</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="table-dark">
                             <tr>
-                                <th>Aluno</th>
-                                <th style="width: 120px;">Faltou?</th>
+                                <th>ID</th>
+                                <th>Descrição</th>
+                                <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <!-- preenchido via JS -->
+                            <tbody id="tabelaOficinas">
+                            <!-- Oficinas serão carregadas aqui via JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <button id="btn-salvar-faltas" class="btn btn-primary btn-lg btn-block">Salvar Faltas</button>
-
-                <!-- ADICIONAR APÓS O BOTÃO "Salvar Faltas" -->
-                <div id="secao-fotos" class="card mt-4" style="display: none;">
-                    <div class="card-header bg-info text-white">
-                        <i class="fas fa-camera"></i> Anexar Fotos da Oficina (Opcional)
-                    </div>
-                    <div class="card-body">
-                        <p class="text-muted">Você pode anexar até 2 fotos da oficina realizada hoje.</p>
-
-                        <div class="mb-3">
-                            <label for="foto-input" class="form-label">Selecione as fotos (máximo 2):</label>
-                            <input type="file"
-                                   class="form-control"
-                                   id="foto-input"
-                                   accept="image/*"
-                                   multiple>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="foto-descricao" class="form-label">Descrição:</label>
-                            <textarea class="form-control"
-                                      id="foto-descricao"
-                                      rows="3"
-                                      placeholder="Ex: Alunos realizando atividade de pintura..."></textarea>
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-primary" id="btn-enviar-fotos">
-                                <i class="fas fa-upload"></i> Enviar Fotos
-                            </button>
-                            <button type="button" class="btn btn-secondary" id="btn-pular-fotos">
-                                <i class="fas fa-times"></i> Pular e Finalizar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Manter o script existente e adicionar: -->
-                <script src="GerenciamentoPresencaOficina.js"></script>
-
-
+                <!-- Container para alunos (será inserido dinamicamente abaixo de cada oficina) -->
             </div>
 
             <!-- e termina aqui -------- pra baixo é conteudo do template -->
@@ -315,7 +286,7 @@
 <!-- Page level custom scripts -->
 <script src="../assets/js/demo/chart-area-demo.js"></script>
 <script src="../assets/js/demo/chart-pie-demo.js"></script>
-<script src="../assets/js/GerenciamentoPresencaOficina.js"></script>
+<script src="../assets/js/AssociaAlunoOficina.js"></script>
 
 </body>
 

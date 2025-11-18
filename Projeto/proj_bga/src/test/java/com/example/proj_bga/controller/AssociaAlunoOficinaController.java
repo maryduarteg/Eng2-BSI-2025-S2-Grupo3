@@ -1,17 +1,17 @@
 package com.example.proj_bga.controller;
 
-import com.example.proj_bga.model.Aluno;
-import com.example.proj_bga.model.AssociaAlunoOficina;
+import com.example.proj_bga.dao.OficinaDAO;
+import com.example.proj_bga.model.*;
 import com.example.proj_bga.util.Conexao;
-import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.NativeWebRequest;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Service
 public class AssociaAlunoOficinaController {
 
@@ -20,31 +20,36 @@ public class AssociaAlunoOficinaController {
 
     @Autowired
     private AssociaAlunoOficina associaAlunoOficinaModel;
-    @Autowired
-    private NativeWebRequest nativeWebRequest;
 
-    //vincular aluno à ofcina
+    @Autowired
+    private Oficina oficinaModel;
+
+    @Autowired
+    private OfertaOficina ofertaOficinaModel;
+
     public Map<String, Object> addAlunoOficina(int alu_id, int ofc_id) {
         Conexao conexao = new Conexao();
 
-        if(alu_id == 0 || ofc_id == 0)
+        if(alu_id == 0 || ofc_id == 0) {
             return Map.of("erro", "Dados inválidos para cadastro!!");
+        }
 
         AssociaAlunoOficina associaAlunoOficina = new AssociaAlunoOficina(alu_id, ofc_id);
         AssociaAlunoOficina associacaoGravada = associaAlunoOficinaModel.gravaAlunoOficina(associaAlunoOficina, conexao);
 
         if(associacaoGravada != null){
             Map<String, Object> json = new HashMap<>();
-            json.put("aluId",  associacaoGravada.getAlu_id());
+            json.put("aluId", associacaoGravada.getAlu_id());
             json.put("ofcId", associacaoGravada.getOfc_id());
             return json;
         }
+
         return Map.of("erro", "Houve um erro!!");
     }
 
-    //remover vinculo do aluno com a oficina
-    public Map<String, Object> deletarAlunoOficina(int alu_id, int  ofc_id) {
+    public Map<String, Object> deletarAlunoOficina(int alu_id, int ofc_id) {
         Conexao conexao = new Conexao();
+
         boolean alunoExisteEAtivo = alunoModel.consultarAtivo(alu_id, conexao);
 
         if(!alunoExisteEAtivo){
@@ -55,33 +60,31 @@ public class AssociaAlunoOficinaController {
             return Map.of("erro", "Aluno não encontrado ou inativo!");
         }
 
-        AssociaAlunoOficina assAluOfc = new  AssociaAlunoOficina(alu_id, ofc_id);
+        AssociaAlunoOficina assAluOfc = new AssociaAlunoOficina(alu_id, ofc_id);
         boolean excluida = associaAlunoOficinaModel.excluiAlunoOficina(assAluOfc, conexao);
 
         if(excluida){
             return Map.of("mensagem", "Vinculo excluido com sucesso");
-        }
-        else{
+        } else {
             String erro = conexao.getMensagemErro();
             if (erro == null || erro.isEmpty()) {
                 erro = "Não foi possível excluir o vínculo.";
             }
-            System.out.println("Erro:" + erro);
             return Map.of("erro", erro);
         }
     }
 
-    //listar alunos e seus vinculos
     public List<Map<String, Object>> getAlunoOficina() {
         Conexao conexao = new Conexao();
         List<AssociaAlunoOficina> associaAlunoOficinaList = associaAlunoOficinaModel.consultarAlunosOficinas("", conexao);
+
         if(associaAlunoOficinaList == null){
-            System.out.println("Erro!");
-            return null;
+            return new ArrayList<>();
         }
 
         List<Map<String, Object>> resultado = new ArrayList<>();
-        for (AssociaAlunoOficina a :  associaAlunoOficinaList) {
+
+        for (AssociaAlunoOficina a : associaAlunoOficinaList) {
             Map<String, Object> json = new HashMap<>();
             json.put("aluId", a.getAlu_id());
             json.put("ofcId", a.getOfc_id());
@@ -89,5 +92,76 @@ public class AssociaAlunoOficinaController {
         }
 
         return resultado;
+    }
+
+    public List<Map<String, Object>> getOficinas() {
+        Conexao conexao = new Conexao();
+        List<Oficina> oficinas = oficinaModel.consultarOficinas("", conexao);
+        List<Map<String, Object>> lista = new ArrayList<>();
+
+        for (Oficina oficina : oficinas) {
+            List<OfertaOficina> ofertas = ofertaOficinaModel.consultarOficinas("", conexao);
+
+            for (OfertaOficina oferta : ofertas) {
+                if (oferta.getOfc_fk() == oficina.getId() && oferta.getAtivo() == 'S') {
+                    Map<String, Object> json = new HashMap<>();
+
+                    json.put("id", oferta.getId());
+                    json.put("idOferta", oferta.getId());
+                    json.put("idOficina", oficina.getId());
+                    json.put("descricao", oficina.getDescricao());
+                    json.put("horaInicio", oferta.getHoraInicio());
+                    json.put("horaFim", oferta.getHoraTermino());
+                    json.put("dataInicio", oferta.getDataInicio());
+                    json.put("dataFim", oferta.getDataFim());
+                    json.put("ativo", String.valueOf(oferta.getAtivo()));
+                    json.put("professor", oferta.getProfessor());
+
+                    lista.add(json);
+                }
+            }
+        }
+        return lista;
+    }
+
+
+    public Map<String, Object> getOficinaComOferta(int oficinaId) {
+        Conexao conexao = new Conexao();
+        OficinaDAO oficinaDAO = new OficinaDAO();
+        Oficina oficina = oficinaDAO.get(oficinaId, conexao);
+
+        if (oficina == null) {
+            return Map.of("erro", "Oficina não encontrada");
+        }
+
+        List<OfertaOficina> ofertas = ofertaOficinaModel.consultarOficinas("", conexao);
+        OfertaOficina ofertaAtiva = null;
+
+        if (ofertas != null) {
+            for (OfertaOficina oferta : ofertas) {
+                if (oferta.getOfc_fk() == oficinaId && oferta.getAtivo() == 'S') {
+                    ofertaAtiva = oferta;
+                    break;
+                }
+            }
+        }
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("idOficina", oficina.getId());
+        json.put("descricao", oficina.getDescricao());
+        json.put("ativo", String.valueOf(oficina.getAtivo()));
+
+        if (ofertaAtiva != null) {
+            json.put("horaInicio", ofertaAtiva.getHoraInicio() != null ? ofertaAtiva.getHoraInicio().toString() : null);
+            json.put("horaFim", ofertaAtiva.getHoraTermino() != null ? ofertaAtiva.getHoraTermino().toString() : null);
+            json.put("dataInicio", ofertaAtiva.getDataInicio() != null ? ofertaAtiva.getDataInicio().toString() : null);
+            json.put("dataFim", ofertaAtiva.getDataFim() != null ? ofertaAtiva.getDataFim().toString() : null);
+            json.put("professor", ofertaAtiva.getProfessor());
+        }
+        else {
+            json.put("semOferta", true);
+        }
+
+        return json;
     }
 }
