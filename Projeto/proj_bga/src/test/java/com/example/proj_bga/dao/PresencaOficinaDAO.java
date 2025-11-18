@@ -207,4 +207,22 @@ public class PresencaOficinaDAO implements IDAO<PresencaOficina> {
     }
 
 
+    public boolean excluirFalta(int alu_id, int dmf_id, Conexao c) {
+        Integer idOficina = buscarOficinaPorDia(dmf_id, c);
+        if (idOficina == null) return false;
+
+        String sql = """
+        DELETE FROM presenca_oficina
+        WHERE alu_id = %d AND ofc_id = %d AND dmf_id = %d
+    """.formatted(alu_id, idOficina, dmf_id);
+
+        try {
+            return c.manipular(sql);
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir falta: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 }

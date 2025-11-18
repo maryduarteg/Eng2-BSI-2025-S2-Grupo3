@@ -1,177 +1,219 @@
+
 document.addEventListener("DOMContentLoaded", () => {
+
     const API = "http://localhost:8080/apis/presenca/oficina";
+
     const selectOficinaData = document.getElementById("select-oficina-data");
+    const campoPesquisaOficina = document.getElementById("pesquisar-oficina");
     const tabelaAlunos = document.querySelector("#tabela-alunos tbody");
     const btnSalvar = document.getElementById("btn-salvar-faltas");
     const mensagem = document.getElementById("mensagem-chamada");
 
-    // Elementos de foto
-    const secaoFotos = document.getElementById("secao-fotos");
-    const fotoInput = document.getElementById("foto-input");
-    const fotoDescricao = document.getElementById("foto-descricao");
-    const btnEnviarFotos = document.getElementById("btn-enviar-fotos");
-    const btnPularFotos = document.getElementById("btn-pular-fotos");
+    // 🔹 Novo botão de alterar
+    const btnAlterar = document.createElement("button");
+    btnAlterar.textContent = "✏️ Alterar chamada";
+    btnAlterar.id = "btn-alterar";
+    btnAlterar.className = "btn btn-warning btn-lg w-100 mt-3"; // grande e estiloso
+    btnAlterar.style.display = "none"; // começa oculto
 
-    let dmfIdAtual = null;
+    // Insere o botão logo abaixo do select e acima da tabela
+    selectOficinaData.parentElement.insertAdjacentElement("afterend", btnAlterar);
 
-    function carregarDatasOficinas() {
-        fetch(`${API}/datas`)
-            .then(r => r.json())
-            .then(lista => {
-                selectOficinaData.innerHTML = `<option value="">Selecione...</option>`;
-                lista.forEach(item => {
-                    let opt = document.createElement("option");
-                    opt.value = item.dmf_id;
-                    opt.textContent = item.descricao;
-                    selectOficinaData.appendChild(opt);
+    // Lista local para pesquisa
+    let listaOficinas = [];
+
+    // 🔹 Carrega oficinas e marca as concluídas
+    async function carregarDatasOficinas() {
+        try {
+            const lista = await fetch(`${API}/datas`).then(r => r.json());
+            listaOficinas = [];
+
+            for (const item of lista) {
+                const res = await fetch(`${API}/chamada-feita/${item.dmf_id}`).then(r => r.json());
+                listaOficinas.push({
+                    ...item,
+                    concluida: res.chamadaFeita
                 });
-            })
-            .catch(() => {
-                mensagem.textContent = "Erro ao carregar datas das oficinas.";
-                mensagem.className = "alert alert-danger";
-            });
+            }
+
+            renderizarOficinas(listaOficinas);
+        } catch (e) {
+            mensagem.textContent = "Erro ao carregar datas das oficinas.";
+        }
     }
 
+    // 🔹 Renderiza o select com base na lista filtrada
+    function renderizarOficinas(lista) {
+        selectOficinaData.innerHTML = `<option value="">Selecione uma oficina e data</option>`;
+        lista.forEach(item => {
+            const opt = document.createElement("option");
+            opt.value = item.dmf_id;
+            opt.textContent = item.concluida
+                ? `${item.descricao} (Concluída)`
+                : item.descricao;
+            opt.dataset.concluida = item.concluida;
+            selectOficinaData.appendChild(opt);
+        });
+    }
+
+    // 🔍 Filtro em tempo real
+    campoPesquisaOficina.addEventListener("input", () => {
+        const termo = campoPesquisaOficina.value.toLowerCase();
+        const filtradas = listaOficinas.filter(item =>
+            item.descricao.toLowerCase().includes(termo)
+        );
+        renderizarOficinas(filtradas);
+    });
+
+    // 🔹 Evento de troca de oficina/data
     selectOficinaData.addEventListener("change", function () {
         const dmf_id = parseInt(this.value);
-        dmfIdAtual = dmf_id;
+        const concluida = this.selectedOptions[0]?.dataset.concluida === "true";
 
         mensagem.textContent = "";
-        mensagem.className = "";
         tabelaAlunos.innerHTML = "";
-        secaoFotos.style.display = "none";
+        btnSalvar.style.display = "none";
+        btnAlterar.style.display = "none";
 
         if (!dmf_id) return;
 
-        fetch(`${API}/chamada-feita/${dmf_id}`)
+        fetch(`${API}/alunos/${dmf_id}`)
             .then(r => r.json())
-            .then(res => {
-                if (res.chamadaFeita === true) {
-                    mensagem.textContent = "A chamada já foi realizada para essa data!";
-                    mensagem.className = "alert alert-warning";
-                    btnSalvar.disabled = true;
-                    return;
-                }
-
-                fetch(`${API}/alunos/${dmf_id}`)
-                    .then(r => r.json())
-                    .then(lista => {
-                        tabelaAlunos.innerHTML = "";
-                        btnSalvar.disabled = false;
-
-                        lista.forEach(a => {
-                            tabelaAlunos.innerHTML += `
-                                <tr>
-                                    <td>${a.nome}</td>
-                                    <td class="text-center">
-                                        <input type="checkbox" 
-                                               class="form-check-input" 
-                                               data-aluno-id="${a.alu_id}"
-                                               ${a.faltou ? 'checked' : ''}>
-                                    </td>
-                                </tr>
-                            `;
-                        });
+            .then(lista => {
+                tabelaAlunos.innerHTML = "";
+                if (concluida) {
+                    // 🔸 Oficina concluída — mostra status com emojis
+                    lista.forEach(a => {
+                        tabelaAlunos.innerHTML += `
+                            <tr>
+                                <td>${a.nome}</td>
+                                <td class="status" data-alu="${a.alu_id}" data-faltou="${a.faltou}">
+                                    ${a.faltou ? "❌ Faltou" : "✅ Presente"}
+                                </td>
+                            </tr>
+                        `;
                     });
-            });
-    });
-
-    btnSalvar.addEventListener("click", () => {
-        const checkboxes = document.querySelectorAll("#tabela-alunos input[type='checkbox']:checked");
-        const faltas = Array.from(checkboxes).map(cb => parseInt(cb.dataset.alunoId));
-
-        if (!dmfIdAtual) {
-            alert("Selecione uma data primeiro!");
-            return;
-        }
-
-        // Registrar faltas
-        let promises = [];
-        faltas.forEach(aluId => {
-            promises.push(
-                fetch(`${API}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ idAluno: aluId, idDia: dmfIdAtual })
-                })
-            );
-        });
-
-        Promise.all(promises)
-            .then(() => {
-                mensagem.textContent = `${faltas.length} falta(s) registrada(s) com sucesso!`;
-                mensagem.className = "alert alert-success";
-
-                // Mostrar seção de fotos opcionais
-                secaoFotos.style.display = "block";
-                btnSalvar.disabled = true;
+                    btnAlterar.style.display = "inline-block";
+                } else {
+                    // 🔸 Oficina ainda não concluída — checkboxes normais
+                    lista.forEach(a => {
+                        tabelaAlunos.innerHTML += `
+                            <tr>
+                                <td>${a.nome}</td>
+                                <td><input type="checkbox" class="chk-falta" data-alu="${a.alu_id}"></td>
+                            </tr>
+                        `;
+                    });
+                    btnSalvar.style.display = "inline-block";
+                }
             })
             .catch(() => {
-                mensagem.textContent = "Erro ao salvar faltas.";
-                mensagem.className = "alert alert-danger";
+                mensagem.textContent = "Erro ao carregar alunos.";
             });
     });
 
-    // Validar número de fotos (máximo 2)
-    fotoInput.addEventListener("change", function(e) {
-        if (e.target.files.length > 2) {
-            alert("Máximo de 2 fotos permitidas!");
-            e.target.value = "";
-        }
-    });
+    // 🔹 Função para registrar faltas (modo normal)
+    btnSalvar.addEventListener("click", () => {
+        const dmf_id = parseInt(selectOficinaData.value);
+        mensagem.textContent = "";
 
-    // Enviar fotos
-    btnEnviarFotos.addEventListener("click", () => {
-        const files = fotoInput.files;
-        const descricao = fotoDescricao.value.trim();
-
-        if (files.length === 0) {
-            alert("Selecione pelo menos uma foto!");
+        if (!dmf_id) {
+            mensagem.textContent = "Selecione uma oficina e data primeiro.";
             return;
         }
 
-        if (!descricao) {
-            alert("Digite uma descrição para as fotos!");
+        const faltas = document.querySelectorAll(".chk-falta:checked");
+        if (faltas.length === 0) {
+            mensagem.textContent = "Nenhuma falta marcada.";
             return;
         }
 
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append("files", files[i]);
-        }
-        formData.append("dmf_id", dmfIdAtual);
-        formData.append("fto_descricao", descricao);
-
-        fetch(`${API}/fotos`, {
-            method: "POST",
-            body: formData
-        })
-            .then(r => r.json())
-            .then(res => {
-                if (res.mensagem) {
-                    alert(res.mensagem);
-                    limparSecaoFotos();
-                } else if (res.erro) {
-                    alert("Erro: " + res.erro);
-                }
+        Promise.all(Array.from(faltas).map(chk => {
+            const dto = {
+                idAluno: parseInt(chk.dataset.alu),
+                idDia: dmf_id
+            };
+            return fetch(`${API}`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(dto)
+            });
+        }))
+            .then(() => {
+                mensagem.style.color = "green";
+                mensagem.textContent = "Faltas registradas com sucesso ✅";
+                selectOficinaData.value = "";
+                tabelaAlunos.innerHTML = "";
+                btnSalvar.style.display = "none";
             })
-            .catch(err => {
-                alert("Erro ao enviar fotos: " + err.message);
+            .catch(() => {
+                mensagem.style.color = "red";
+                mensagem.textContent = "Erro ao registrar faltas.";
             });
     });
 
-    // Pular fotos
-    btnPularFotos.addEventListener("click", () => {
-        alert("Chamada finalizada sem fotos.");
-        limparSecaoFotos();
+    // 🔹 Modo de edição das chamadas concluídas
+    btnAlterar.addEventListener("click", () => {
+        const dmf_id = parseInt(selectOficinaData.value);
+        const statusCells = document.querySelectorAll(".status");
+
+        if (btnAlterar.textContent.includes("✏️")) {
+            // Entrar no modo edição
+            btnAlterar.textContent = "Salvar alterações";
+            btnAlterar.classList.replace("btn-warning", "btn-success");
+
+            statusCells.forEach(td => {
+                const faltou = td.dataset.faltou === "true";
+                td.innerHTML = `
+                <select class="edit-status" 
+                        data-alu="${td.dataset.alu}" 
+                        data-original="${faltou}">
+                    <option value="false" ${!faltou ? "selected" : ""}>✅ Presente</option>
+                    <option value="true" ${faltou ? "selected" : ""}>❌ Faltou</option>
+                </select>
+            `;
+            });
+        } else {
+            // Salvar alterações
+            const selects = document.querySelectorAll(".edit-status");
+            const promises = [];
+
+            selects.forEach(sel => {
+                const alu_id = parseInt(sel.dataset.alu);
+                const novoFaltou = sel.value === "true";
+                const originalFaltou = sel.dataset.original === "true";
+
+                // Só faz algo se mudou!
+                if (novoFaltou !== originalFaltou) {
+                    if (novoFaltou) {
+                        // Registrar nova falta
+                        promises.push(fetch(`${API}`, {
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify({ idAluno: alu_id, idDia: dmf_id })
+                        }));
+                    } else {
+                        // Remover falta
+                        promises.push(fetch(`${API}/${alu_id}/${dmf_id}`, { method: "DELETE" }));
+                    }
+                }
+            });
+
+            // Executa apenas as mudanças
+            Promise.all(promises)
+                .then(() => {
+                    mensagem.style.color = "green";
+                    mensagem.textContent = "Alterações salvas com sucesso ✅";
+                    btnAlterar.textContent = "✏️ Alterar chamada";
+                    btnAlterar.classList.replace("btn-success", "btn-warning");
+                    selectOficinaData.dispatchEvent(new Event("change")); // recarrega
+                })
+                .catch(() => {
+                    mensagem.style.color = "red";
+                    mensagem.textContent = "Erro ao salvar alterações.";
+                });
+        }
     });
 
-    function limparSecaoFotos() {
-        secaoFotos.style.display = "none";
-        fotoInput.value = "";
-        fotoDescricao.value = "";
-    }
-
-    // Inicializar
     carregarDatasOficinas();
 });

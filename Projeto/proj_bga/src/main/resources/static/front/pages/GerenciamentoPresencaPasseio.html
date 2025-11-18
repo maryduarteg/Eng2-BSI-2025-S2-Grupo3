@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BGA - Presença Passeio</title>
+
+    <!-- Custom fonts and styles -->
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style_passeio.css">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <img src="../assets/img/logo.png" alt="Logo" width="50" height="50">
+            </div>
+            <div class="sidebar-brand-text mx-3">BGA</div>
+        </a>
+
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html"><i class="fas fa-fw fa-home"></i><span>Home</span></a>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo">
+                <i class="fas fa-fw fa-cog"></i><span>Gerenciamento</span>
+            </a>
+            <div id="collapseTwo" class="collapse">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="GerenciamentoAluno.html">Alunos</a>
+                    <a class="collapse-item" href="GerenciamentoOficina.html">Oficinas</a>
+                    <a class="collapse-item" href="GerenciamentoPasseios.html">Passeios</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i><span>Fundamentais</span>
+            </a>
+            <div id="collapseUtilities" class="collapse">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Fundamentais:</h6>
+                    <a class="collapse-item" href="GerenciamentoPresencaOficina.html">Presença Oficina</a>
+                    <a class="collapse-item" href="GerenciamentoPresencaPasseio.html">Presença Passeio</a>
+                </div>
+            </div>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <footer class="sticky-footer bg-white mt-auto">
+            <div class="container my-auto">
+                <div class="text-center my-auto">
+                    <span>© Bethel Gestão de Alunos - 2025</span>
+                </div>
+            </div>
+        </footer>
+    </ul>
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </nav>
+
+            <!-- Conteúdo principal -->
+            <div class="container">
+                <h3 class="mb-3 text-primary">Registrar Presença em Passeio</h3>
+
+                <!-- 🔍 Pesquisa -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input type="text" id="pesquisar-passeio" class="form-control"
+                           placeholder="Pesquisar passeio ou data...">
+                </div>
+
+                <!-- ✅ Select -->
+                <label for="select-passeio-data"><strong>Selecione o Passeio e Data da Chamada:</strong></label>
+                <select id="select-passeio-data" class="form-control mb-4">
+                    <option value="">Carregando...</option>
+                </select>
+
+                <div id="mensagem-chamada" style="color: red; margin-top: 10px;"></div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">Lista de Alunos Participantes</h6>
+                    </div>
+                    <div class="card-body">
+                        <table id="tabela-alunos" class="table table-bordered">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Aluno</th>
+                                <th style="width: 120px;">Faltou?</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button id="btn-salvar-faltas" class="btn btn-primary btn-lg btn-block">Salvar Faltas</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts padrão -->
+<script src="../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../assets/js/sb-admin-2.min.js"></script>
+
+<!-- JS da página -->
+<script src="../assets/js/GerenciamentoPresencaPasseio.js"></script>
+</body>
+</html>
