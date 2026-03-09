@@ -1,6 +1,8 @@
 package com.example.proj_bga.view;
 
 import com.example.proj_bga.controller.DiasMarcadosController;
+import com.example.proj_bga.model.Aluno;
+import com.example.proj_bga.model.DiasMarcados;
 import com.example.proj_bga.util.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,16 @@ public class DiasMarcadosView {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<Object> inserirData(@RequestBody DiasMarcados dia) {
+        Map<String, Object> json = diaController.inserirDia(dia);
+        if(json.get("erro") == null){
+            return ResponseEntity.ok(new Mensagem(json.get("mensagem").toString()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new Mensagem(json.get("erro").toString()));
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteData(@PathVariable("id") int id) {

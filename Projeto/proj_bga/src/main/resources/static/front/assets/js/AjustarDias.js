@@ -1,5 +1,7 @@
 let diasExcluidos = [];
 
+
+
 const btnExcluir = document.getElementById("btn-salvar-excluir");
 btnExcluir.addEventListener("click",()=>{excluirDias()});
 document.addEventListener("DOMContentLoaded", async () => {

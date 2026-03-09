@@ -617,3 +617,5 @@ btnAtualizar.addEventListener("click",function()
         .then(text => console.log("Resposta:", text))
         .catch(err => {alert("Aluno atualizado com sucesso"); alert("Erro ao atualizar aluno");});
 });
+
+

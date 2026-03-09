@@ -1,5 +1,24 @@
 let todasOficinas = []; // armazenará a lista completa
-let debounceTimer = null;
+const diasSelecionados = [];
+
+document.querySelectorAll(".form-check-input").forEach((check) => {
+    check.addEventListener("click", () => {
+        const valor = check.value;
+
+        if (check.checked) {
+            if (!diasSelecionados.includes(valor)) {
+                diasSelecionados.push(valor);
+            }
+        } else {
+            const idx = diasSelecionados.indexOf(valor);
+            if (idx !== -1) {
+                diasSelecionados.splice(idx, 1);
+            }
+        }
+
+        console.log(diasSelecionados);
+    });
+});
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const btnMostrar = document.getElementById('btn-mostrar-form');
@@ -261,7 +280,7 @@ function cadastrarOficina(event) {
                         if (!resp.ok) throw new Error("Erro ao cadastrar");
                         return resp.json();
                     })
-                    .then(() => {
+                    .then(respOficina => {
                         mostrarMensagem("Sucesso! Oficina cadastrada.", true);
                         form.reset();
                     })
@@ -695,3 +714,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (filtroStatus) filtroStatus.addEventListener("change", aplicarFiltros);
     if (filtroNome) filtroNome.addEventListener("keyup", aplicarFiltros);
 });
+
+function gerarDatasPorSemana(dataInicioISO, dataFimISO, diasSelecionados) {
+    const datas = [];
+    const inicio = new Date(dataInicioISO);
+    const fim = new Date(dataFimISO);
+    let dias = diasSelecionadosStr.map(Number);
+
+
+    let d = new Date(inicio);
+
+    while (d <= fim) {
+        const diaSemanaJS = d.getDay(); // 1=seg ... 5=sex
+
+        // Teus dias já batem direto com o getDay()
+        if (dias.includes(diaSemanaJS)) {
+            const iso = d.toISOString().split("T")[0];
+            datas.push(iso);
+        }
+
+        d.setDate(d.getDate() + 1);
+    }
+
+    return datas;
+}

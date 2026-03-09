@@ -55,5 +55,8 @@ public class DiasMarcados {
         return dao.excluir(dias, conexao);
     }
 
+    public DiasMarcados inserir(DiasMarcados dias, Conexao conexao) {
+        return (DiasMarcados) this.dao.gravar(dias, conexao);
+    }
 
 }

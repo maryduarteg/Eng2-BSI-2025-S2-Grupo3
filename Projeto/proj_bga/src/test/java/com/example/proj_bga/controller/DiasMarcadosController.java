@@ -56,4 +56,16 @@ public class DiasMarcadosController {
             return Map.of("erro", erroReal);
         }
     }
+
+    public Map<String, Object> inserirDia( DiasMarcados dia) {
+        Conexao conexao = SingletonDB.conectar();
+        dia = diasModel.inserir(dia, conexao);
+        if (dia != null) {
+            return Map.of("mensagem", "Data cadastrada com sucesso!");
+        } else {
+            String erroReal = SingletonDB.conectar().getMensagemErro();
+            System.err.println("Falha ao inserir. Erro: " + erroReal);
+            return Map.of("erro", erroReal);
+        }
+    }
 }
