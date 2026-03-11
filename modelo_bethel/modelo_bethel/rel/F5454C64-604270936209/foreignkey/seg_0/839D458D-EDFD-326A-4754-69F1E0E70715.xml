@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="839D458D-EDFD-326A-4754-69F1E0E70715" containerWithKeyObject="6C9BF64B-CB37-7537-D1D2-5311C0583F2E" localFKIndex="4FE5B043-B74C-4CC1-85D1-6F02AB48C529" name="pes_id">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:18:24 UTC</createdTime>
+<generatorID>C3F7769E-FDAD-90FE-3772-6F7A018D60DF</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>PESSOA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>791E58CD-5876-1444-7DFE-30BA43916E56</referredTableID>
+<keyObject>1F220AD3-3F62-AB85-504C-7ACA63567E60</keyObject>
+<referredKeyID>1F220AD3-3F62-AB85-504C-7ACA63567E60</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>pes_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.proj_mvc.model.design.relational.Table" directorySegmentName="seg_0" id="17680C69-246B-A49D-B4B7-7C12A1CFDAD8" name="ALUNO">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="17680C69-246B-A49D-B4B7-7C12A1CFDAD8" name="ALUNO">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
 <generatorID>B4C40089-12B1-F006-6254-CB1AA89FE0A4</generatorID>
@@ -7,7 +7,7 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
-<columns itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Column">
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
 <Column name="alu_id" id="6B8980F0-D0D0-BC4D-74A0-0D5467B0D414">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
@@ -70,19 +70,6 @@
 <ownDataTypeParameters>75,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="alu_responsavel_pais" id="D25F031E-4B38-7FBE-9E57-FE5F19638AC7">
-<createdBy>Mary</createdBy>
-<createdTime>2025-08-22 22:21:45 UTC</createdTime>
-<generatorID>2A1951B9-D93A-F7D0-E0C8-0CE4C28B9DAE</generatorID>
-<ownerDesignName>modelo_bethel</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT034</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="alu_conhecimento" id="8F719FB9-B03B-9DD0-A21D-754D2AA48AAB">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
@@ -137,8 +124,22 @@
 <colAssociation fkAssociation="68C7ADF5-95A8-8BB7-84EE-DE5DE05F540E" referredColumn="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5"/>
 </associations>
 </Column>
+<Column name="res_id" id="D7C92AE6-AD9E-329B-C6F2-E3545CC5DEA3">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:33:07 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="16CE484A-F514-2E68-D272-D3920B6DB233" referredColumn="D00CFD79-181D-C84E-CA95-291EACA2E8F9"/>
+</associations>
+</Column>
 </columns>
-<indexes itemClass="oracle.dbtools.crest.proj_mvc.model.design.relational.Index">
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="B6487234-1985-149C-B9E2-1D79B19C956B" name="ALUNO_PK">
 <createdBy>Mary</createdBy>
 <createdTime>2025-08-22 22:21:45 UTC</createdTime>
@@ -160,6 +161,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="2E208060-7E34-D8FD-2FE1-2E9006C10A80"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9B427534-796F-4F84-4F41-9C68E9D749E2" name="res_id">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:33:07 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D7C92AE6-AD9E-329B-C6F2-E3545CC5DEA3"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

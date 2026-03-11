@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="16CE484A-F514-2E68-D272-D3920B6DB233" containerWithKeyObject="17680C69-246B-A49D-B4B7-7C12A1CFDAD8" localFKIndex="9B427534-796F-4F84-4F41-9C68E9D749E2" name="res_id">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:33:07 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<referredTableLongName>RESPONSAVEL</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6C9BF64B-CB37-7537-D1D2-5311C0583F2E</referredTableID>
+<keyObject>F42E6A35-36ED-4075-3BE1-8196B07D8516</keyObject>
+<referredKeyID>F42E6A35-36ED-4075-3BE1-8196B07D8516</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>res_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

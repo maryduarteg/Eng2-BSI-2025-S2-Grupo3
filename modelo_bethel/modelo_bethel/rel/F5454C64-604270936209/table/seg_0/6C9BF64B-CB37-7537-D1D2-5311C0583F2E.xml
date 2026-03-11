@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6C9BF64B-CB37-7537-D1D2-5311C0583F2E" name="RESPONSAVEL">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:16:52 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<ordsAlias>table_22</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="res_id" id="D00CFD79-181D-C84E-CA95-291EACA2E8F9">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:19:09 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pes_id" id="0FBCBA7C-1624-BBAC-2E00-A07EE78EE59C">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:18:24 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="839D458D-EDFD-326A-4754-69F1E0E70715" referredColumn="A0F8F01C-F55A-EC45-18E5-68AFEB55F9C5"/>
+</associations>
+</Column>
+<Column name="res_email" id="EDE6283B-2E37-A91E-B18B-5766639D716F">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:26:20 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="res_profissao" id="4D7CCCA3-0B27-7CB3-6B5F-3FE50852879E">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:26:49 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="res_tel_emergencia" id="082F8380-BB61-11CD-B689-2995117D5073">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:31:27 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="res_responsavel_financeiro" id="D6E4D872-B570-6E65-1E97-B5F5361040FB">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:32:20 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F42E6A35-36ED-4075-3BE1-8196B07D8516" name="RESPONSAVEL_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:19:09 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D00CFD79-181D-C84E-CA95-291EACA2E8F9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4FE5B043-B74C-4CC1-85D1-6F02AB48C529" name="pes_id">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-11 23:18:24 UTC</createdTime>
+<generatorID>C3F7769E-FDAD-90FE-3772-6F7A018D60DF</generatorID>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0FBCBA7C-1624-BBAC-2E00-A07EE78EE59C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
