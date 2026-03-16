@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F0F65466-6BA3-280C-5076-B1D92CCBE64B" name="OFICINA">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-16 21:27:11 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<ordsAlias>table_24</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ofc_id" id="AF06FF9D-C04F-41EA-5D28-1AF7F9AABA8B">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-16 21:28:05 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ofc_descricao" id="1352779A-48D6-11FF-0A4B-351DF29A537C">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-16 21:28:37 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>70</dataTypeSize>
+<ownDataTypeParameters>70,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ofc_ativo" id="626722F0-BE65-FB27-6FCC-9A34A804478A">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-16 21:29:02 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="05D44E42-7DA7-7681-D0E2-3BD8766B64B3" name="OFICINA_PK">
+<createdBy>Mary</createdBy>
+<createdTime>2026-03-16 21:29:27 UTC</createdTime>
+<ownerDesignName>modelo_bethel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AF06FF9D-C04F-41EA-5D28-1AF7F9AABA8B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
