@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 ///teste
 @Component
-public class Pessoa implements IOfertaOficinaObserver { //implements observer método que recebe a notificação ... manda um sms um zap
+public class Pessoa implements IObserver { //implements observer método que recebe a notificação ... manda um sms um zap
     @Autowired
     private PessoaDAO dao;
     private int id;

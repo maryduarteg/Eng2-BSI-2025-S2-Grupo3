@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class OfertaOficina implements IOfertaOficinaPublicadora { // implements sujeito ... métdo add, remove, notificar
+public class OfertaOficina implements ISubject { // implements sujeito ... métdo add, remove, notificar
     @Autowired
     private OfertaOficinaDAO dao;
     // lista de observers
-    private List<IOfertaOficinaObserver> observadores = new ArrayList<>();
+    private List<IObserver> observadores = new ArrayList<>();
 
     private int id;
     private LocalTime horaInicio;
@@ -164,18 +164,18 @@ public class OfertaOficina implements IOfertaOficinaPublicadora { // implements 
     // implementação da interface IOfertaOficinaPublicadora
 
     @Override
-    public void adicionarObservador(IOfertaOficinaObserver observador) {
+    public void adicionarObservador(IObserver observador) {
         observadores.add(observador);
     }
 
     @Override
-    public void removerObservador(IOfertaOficinaObserver observador) {
+    public void removerObservador(IObserver observador) {
         observadores.remove(observador);
     }
 
     @Override
     public void notificarObservadores(OfertaOficina oferta, Oficina oficina) {
-        for (IOfertaOficinaObserver obs : observadores) {
+        for (IObserver obs : observadores) {
             obs.notificar(oferta, oficina);
         }
     }
