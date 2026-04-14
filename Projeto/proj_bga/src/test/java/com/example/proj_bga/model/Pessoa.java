@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 ///teste
 @Component
-public class Pessoa {
+public class Pessoa implements IOfertaOficinaObserver { //implements observer método que recebe a notificação ... manda um sms um zap
     @Autowired
     private PessoaDAO dao;
     private int id;
@@ -169,5 +169,16 @@ public class Pessoa {
                 "AND PES_ID NOT IN (SELECT PES_ID FROM ALUNO) " +
                 "ORDER BY PES_NOME",conexao);
         return lista;
+    }
+
+    @Override
+    public void notificar(OfertaOficina oferta, Oficina oficina) {
+        System.out.println("==================================================");
+        System.out.println("[NOTIFICAÇÃO AOS PAIS]");
+        System.out.println("Nova oficina disponível para matrícula!");
+        System.out.println("Oficina : " + (oficina != null ? oficina.getDescricao() : "N/A"));
+        System.out.println("Período : " + oferta.getDataInicio() + " até " + oferta.getDataFim());
+        System.out.println("Horário : " + oferta.getHoraInicio() + " às " + oferta.getHoraTermino());
+        System.out.println("==================================================");
     }
 }

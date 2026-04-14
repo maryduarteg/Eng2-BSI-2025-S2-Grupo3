@@ -1,12 +1,10 @@
 package com.example.proj_bga.controller;
-import com.example.proj_bga.model.OfertaOficina;
 import com.example.proj_bga.model.Oficina;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -22,8 +20,8 @@ public class OficinaController {
         }
 
         Oficina novo =  new Oficina(0,descricao, 'S');
-
         Oficina gravada = OficinaModel.gravarOficina(novo, conexao);
+
         if(gravada != null){
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", novo.getId());
@@ -31,14 +29,14 @@ public class OficinaController {
             json.put("ativo", novo.getAtivo());
             return json;
         }
+
         String erroReal = "Erro desconhecido ao cadastrar oficina.";
         try {
             erroReal = conexao.getMensagemErro();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.println("Falha ao obter mensagem de erro do DB: " + e.getMessage());
-
         }
+
         return Map.of("erro", erroReal);
     }
 

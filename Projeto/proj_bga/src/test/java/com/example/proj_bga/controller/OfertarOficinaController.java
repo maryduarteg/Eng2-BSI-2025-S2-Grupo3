@@ -3,6 +3,7 @@ package com.example.proj_bga.controller;
 import com.example.proj_bga.dao.OficinaDAO;
 import com.example.proj_bga.model.OfertaOficina;
 import com.example.proj_bga.model.Oficina;
+import com.example.proj_bga.model.Pessoa;
 import com.example.proj_bga.util.Conexao;
 import com.example.proj_bga.util.SingletonDB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,17 @@ import java.util.*;
 public class OfertarOficinaController {
 
     @Autowired
+    private Oficina oficinaModel;
+
+    @Autowired
     private OfertaOficina ofertaOficinaModel;
+
+    public OfertarOficinaController() { }
+
+    @Autowired
+    public void configurarObservadores(Pessoa pessoa) {
+        ofertaOficinaModel.adicionarObservador(pessoa);
+    }
 
     //adicionar Oficina
     public Map<String, Object> addOficina( LocalTime horaInicio, LocalTime horaFim, Date dataInicio, Date dataFim, int professor, char ativo, int ofc_fk)
@@ -29,6 +40,9 @@ public class OfertarOficinaController {
 
         OfertaOficina gravada = ofertaOficinaModel.gravarOficina(novo, conexao);
         if(gravada != null){
+            Oficina oficina = oficinaModel.consultarOficinasID(novo.getOfc_fk(), conexao);
+            ofertaOficinaModel.notificarObservadores(novo, oficina);
+
             Map<String, Object> json = new HashMap<>();
             json.put("idOficina", novo.getId());
             json.put("hora_inicio", novo.getHoraInicio());
@@ -40,13 +54,12 @@ public class OfertarOficinaController {
             json.put("ofc_fk", novo.getOfc_fk());
             return json;
         }
+
         String erroReal = "Erro desconhecido ao cadastrar oferta de oficina.";
         try {
             erroReal = conexao.getMensagemErro();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.println("Falha ao obter mensagem de erro do DB: " + e.getMessage());
-
         }
         return Map.of("erro", erroReal);
     }

@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class OfertaOficina {
+public class OfertaOficina implements IOfertaOficinaPublicadora { // implements sujeito ... métdo add, remove, notificar
     @Autowired
     private OfertaOficinaDAO dao;
+    // lista de observers
+    private List<IOfertaOficinaObserver> observadores = new ArrayList<>();
 
     private int id;
     private LocalTime horaInicio;
@@ -67,8 +70,6 @@ public class OfertaOficina {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public LocalTime getHoraInicio() {
         return horaInicio;
@@ -158,5 +159,24 @@ public class OfertaOficina {
                 ", ativo=" + ativo +
                 ", ofc_fk=" + ofc_fk +
                 '}';
+    }
+
+    // implementação da interface IOfertaOficinaPublicadora
+
+    @Override
+    public void adicionarObservador(IOfertaOficinaObserver observador) {
+        observadores.add(observador);
+    }
+
+    @Override
+    public void removerObservador(IOfertaOficinaObserver observador) {
+        observadores.remove(observador);
+    }
+
+    @Override
+    public void notificarObservadores(OfertaOficina oferta, Oficina oficina) {
+        for (IOfertaOficinaObserver obs : observadores) {
+            obs.notificar(oferta, oficina);
+        }
     }
 }
